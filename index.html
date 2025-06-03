@@ -1,278 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sauravkumar Chaudhary - Portfolio</title>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-
+    <title>My Professional Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <style>
+        /* Base styles */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb; /* lighter, clean white-gray */
-            color: #374151; /* Tailwind slate-700 for better readability */
+            background-color: #f5f7fa;
+            color: #1f2937;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
+
+        /* Section Title */
         .section-title {
-            font-weight: 700;
-            color: #2563eb; /* Tailwind blue-600 */
+            font-weight: 800;
+            color: #2563eb;
             padding-bottom: 0.75rem;
             margin-bottom: 1.75rem;
             position: relative;
+            font-size: 2.5rem;
         }
+
         .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 60px;
-            height: 4px;
+            width: 70px;
+            height: 5px;
             background: linear-gradient(90deg, #3b82f6, #2563eb);
-            border-radius: 3px;
+            border-radius: 4px;
         }
-        .icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-            color: #2563eb;
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: #eff6ff;
+            padding: 4.5rem 2rem;
+            border-radius: 1.25rem;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 20px 50px rgba(30, 64, 175, 0.45);
+            text-align: center;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .contact-link {
-            transition: color 0.3s ease;
-            color: #2563eb;
+
+        .hero-section img {
+            border: 5px solid #eff6ff;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 10rem;
+            height: 10rem;
+            border-radius: 9999px;
+            object-fit: cover;
+            margin-bottom: 1.25rem;
         }
-        .contact-link:hover {
-            color: #1e40af; /* darker blue-800 */
+
+        .hero-section img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
+
+        /* Profession hover effect */
+        .profession {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #93c5fd;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+            cursor: default;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .profession:hover {
+            color: #bfdbfe;
+            text-shadow: 0 0 8px #2563eb;
+        }
+
+        /* Cards */
         .card {
             background-color: #ffffff;
             border-radius: 1rem;
-            padding: 1.75rem 2rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            max-width: 650px;
+            margin: 1.5rem auto;
         }
+
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
         }
-        .skill-badge {
-            background-color: #e0e7ff; /* Tailwind indigo-100 */
-            color: #4338ca; /* Tailwind indigo-700 */
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-size: 0.9rem;
+
+        /* Icons */
+        .icon {
+            width: 1.3rem;
+            height: 1.3rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            color: #2563eb;
+            transition: color 0.3s ease;
+        }
+
+        /* Contact links */
+        .contact-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+            color: #1d4ed8;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: #1e40af;
+            transform: translateY(-2px);
+            text-decoration: underline;
+        }
+
+        /* Skill badge */
+        .skill-badge {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: default;
             user-select: none;
             transition: background-color 0.3s ease, color 0.3s ease;
+            display: inline-block;
+            margin: 0.25rem 0.5rem 0.25rem 0;
         }
+
         .skill-badge:hover {
-            background-color: #4338ca;
+            background-color: #3730a3;
             color: #ffffff;
         }
-        .hero-section {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            color: white;
-            padding: 4rem 2rem;
-            border-radius: 1rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 15px 40px rgba(30, 64, 175, 0.4);
-        }
-        .hero-section img {
-            border: 5px solid white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
+
+        /* Footer */
         footer {
-            color: #6b7280; /* Tailwind gray-500 */
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 1rem 2rem;
         }
     </style>
 </head>
-<body class="antialiased">
 
-    <div class="container mx-auto p-6 max-w-6xl">
-        <header class="hero-section text-center">
-            <div class="mb-8">
-                <img
-                    src="myphoto.jpg"
-                    alt="Sauravkumar Chaudhary"
-                    class="w-40 h-40 rounded-full mx-auto shadow-lg"
-                />
+<body>
 
-            </div>
-            <h1 class="text-6xl font-extrabold leading-tight">Sauravkumar V. Chaudhary</h1>
-            <p class="text-2xl mt-3 text-indigo-300 font-medium tracking-wide">Passionate Software Developer</p>
+    <!-- Hero Section -->
+    <section class="hero-section" aria-label="Introduction">
+        <img src="myphoto.jpg" alt="Profile Picture" />
+        <h1 class="section-title">Sauravkumar Vishnubhai Chaudhary</h1>
+        <p class="profession">Passionate Software Developer</p>
+    </section>
 
-            <div
-                class="mt-8 text-indigo-200 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-lg font-semibold"
-            >
-                <a href="tel:+917779095746" class="contact-link hover:text-white flex items-center">
-                    <i class="fas fa-phone icon"></i> +91 77790 95746
-                </a>
-                <a href="mailto:sohravchaudhary@gmail.com" class="contact-link hover:text-white flex items-center">
-                    <i class="fas fa-envelope icon"></i> sohravchaudhary@gmail.com
-                </a>
-                <span class="flex items-center">
-                    <i class="fas fa-map-marker-alt icon"></i> Mehsana, Gujarat
-                </span>
-            </div>
+    <!-- About Section -->
+    <section class="card" aria-labelledby="about-title">
+        <h2 id="about-title" class="section-title">About Me</h2>
+        <p>
+            MCA (Master of Computer Applications) from Ganpat University with CGPA 8.22, BCA from HNGU with CGPA 8.78.
+            Experienced in Java, Python, Spring Boot, PHP Laravel, and Web Development. Completed internships at Cognifyz
+            Technologies and Premier Infotech.
+        </p>
+    </section>
 
-            <div
-                class="mt-6 text-indigo-200 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-lg font-semibold"
-            >
-                <a
-                    href="https://linkedin.com/in/sohrav"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="contact-link hover:text-white flex items-center"
-                >
-                    <i class="fab fa-linkedin icon"></i> LinkedIn
-                </a>
-                <a
-                    href="https://github.com/sohravchaudhary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="contact-link hover:text-white flex items-center"
-                >
-                    <i class="fab fa-github icon"></i> GitHub
-                </a>
-            </div>
-        </header>
-
-        <div class="bg-white shadow-xl rounded-2xl p-8 md:p-12">
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">ABOUT ME</h2>
-                <p class="text-gray-700 leading-relaxed text-lg max-w-4xl mx-auto">
-                    I am a dedicated Software Developer with strong expertise in Java, Spring Boot, Python, and PHP Laravel. I specialize in designing scalable backend systems, seamless API integration, and robust database architectures. A quick learner and problem-solver, I thrive in dynamic team environments and always aim to deliver impactful, quality software solutions.
-                </p>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">EXPERIENCE</h2>
-                <div class="space-y-10 max-w-4xl mx-auto">
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700 mb-1">Java Development Intern</h3>
-                        <p class="text-gray-600 font-medium text-lg">Cognifyz Technologies</p>
-                        <p class="text-sm text-gray-500 mb-4">May 2024 - December 2024</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 text-lg">
-                            <li>Engineered backend modules using Java for critical internal projects.</li>
-                            <li>Performed debugging, unit testing, and third-party API integrations.</li>
-                            <li>Managed database interactions using JDBC and MySQL efficiently.</li>
-                            <li>Collaborated in cross-functional teams to resolve issues and improve features.</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700 mb-1">Software Developer Intern</h3>
-                        <p class="text-gray-600 font-medium text-lg">Premier Infotech</p>
-                        <p class="text-sm text-gray-500 mb-4">Jan 2025 - May 2025</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 text-lg">
-                            <li>Developed and deployed RESTful APIs using Spring Boot for an e-commerce platform.</li>
-                            <li>Implemented secure authentication and robust CRUD operations.</li>
-                            <li>Handled database connectivity and optimized data workflows.</li>
-                            <li>Utilized GitHub for version control and collaborative project management.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">PROJECT SHOWCASE</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700 mb-1">Online Shopping Site</h3>
-                        <p class="text-gray-500 text-sm mb-1 font-medium">BCA Final Project | Team of 3 | 3 Months</p>
-                        <p class="text-sm font-semibold text-indigo-600 mb-4">Tech Stack: Python, Django, MySQL</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 text-lg">
-                            <li>Built a comprehensive e-commerce platform with secure payment integration.</li>
-                            <li>Implemented product management, user authentication, and order tracking.</li>
-                            <li>Optimized UI/UX for a seamless shopping experience.</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700 mb-1">Spring Boot E-commerce REST API</h3>
-                        <p class="text-gray-500 text-sm mb-1 font-medium">MCA Project | Solo | 6 Months</p>
-                        <p class="text-sm font-semibold text-indigo-600 mb-4">Tech Stack: Java, Spring Boot, MySQL</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 text-lg">
-                            <li>Designed and developed scalable REST APIs for product, order, and user management.</li>
-                            <li>Integrated JWT-based authentication and role-based access control.</li>
-                            <li>Implemented email notifications and order status tracking.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">EDUCATION</h2>
-                <div class="space-y-10 max-w-3xl mx-auto">
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700">Master of Computer Applications (MCA)</h3>
-                        <p class="text-gray-600 font-medium text-lg">Ganpat University, Gujarat</p>
-                        <p class="text-sm text-gray-500 mb-2">2023 - 2025 | CGPA: 8.22</p>
-                        <p class="text-gray-700 leading-relaxed text-lg">
-                            Specialized in software development with focus on Java, Spring Boot, and Python.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700">Bachelor of Computer Applications (BCA)</h3>
-                        <p class="text-gray-600 font-medium text-lg">Hemchandracharya North Gujarat University</p>
-                        <p class="text-sm text-gray-500 mb-2">2019 - 2022 | CGPA: 8.78</p>
-                        <p class="text-gray-700 leading-relaxed text-lg">
-                            Covered core computer science subjects and completed final year project on e-commerce platform.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-3xl font-semibold text-indigo-700">Higher Secondary (12th)</h3>
-                        <p class="text-gray-600 font-medium text-lg">Gujarat Secondary and Higher Secondary Education Board</p>
-                        <p class="text-sm text-gray-500">2018 | Percentage: 65.33%</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">CERTIFICATIONS & ACHIEVEMENTS</h2>
-                <div class="space-y-6 max-w-3xl mx-auto">
-                    <ul class="list-disc list-inside text-gray-700 space-y-3 text-lg">
-                        <li>Java Development Certification – Cognifyz Technologies</li>
-                        <li>Spring Boot and REST API Development – Premier Infotech Internship</li>
-                        <li>Completed "Python for Everybody" by University of Michigan (Coursera)</li>
-                        <li>Top Performer in Final Year BCA Project Presentation</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">LANGUAGES</h2>
-                <div class="flex flex-wrap gap-4 justify-center max-w-xl mx-auto">
-                    <span class="skill-badge">English</span>
-                    <span class="skill-badge">Hindi</span>
-                    <span class="skill-badge">Gujarati</span>
-                </div>
-            </section>
-
-            <section class="mb-14">
-                <h2 class="text-4xl section-title">HOBBIES</h2>
-                <div class="flex flex-wrap gap-4 justify-center max-w-xl mx-auto">
-                    <span class="skill-badge">Tech Blogging</span>
-                    <span class="skill-badge">Open Source Contribution</span>
-                    <span class="skill-badge">Problem Solving</span>
-                    <span class="skill-badge">Reading Books</span>
-                </div>
-            </section>
+    <!-- Skills Section -->
+    <section class="card" aria-labelledby="skills-title">
+        <h2 id="skills-title" class="section-title">Skills</h2>
+        <div>
+            <span class="skill-badge">Java</span>
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Spring Boot</span>
+            <span class="skill-badge">PHP Laravel</span>
+            <span class="skill-badge">Web Development</span>
         </div>
+    </section>
 
-        <footer class="text-center mt-16 mb-6 text-sm font-medium">
-            &copy; 2025 Sauravkumar Chaudhary. All rights reserved.
-        </footer>
-    </div>
+    <!-- Contact Section -->
+    <section class="card" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="section-title">Contact</h2>
+        <p>
+            <a href="tel:+917779095746" class="contact-link" aria-label="Phone Number">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 5a2 2 0 012-2h3.6a2 2 0 011.988 1.736l.4 3a2 2 0 01-1.055 2.117l-2.25 1.125a11.042 11.042 0 005.516 5.516l1.125-2.25a2 2 0 012.117-1.055l3 .4A2 2 0 0121 15.4V19a2 2 0 01-2 2h-1c-9.94 0-18-8.06-18-18v-1z" />
+                </svg>
+                +91 77790 95746
+            </a>
+        </p>
+        <p>
+            <a href="mailto:sohravchaudhary@gmail.com" class="contact-link" aria-label="Email Address">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16 12h.01M8 12h.01M12 16h.01M12 12v4m0-8v4m-6 4v-8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2z" />
+                </svg>
+                sohravchaudhary@gmail.com
+            </a>
+        </p>
+    </section>
+
+    <footer>
+        &copy; 2025 Sauravkumar Vishnubhai Chaudhary. All rights reserved.
+    </footer>
 
 </body>
+
 </html>
