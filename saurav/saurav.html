@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sauravkumar Chaudhary - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Lighter gray background */
+        }
+        .section-title {
+            font-weight: 700; /* Bolder */
+            color: #1E40AF; /* Darker Blue - Tailwind blue-800 */
+            padding-bottom: 0.75rem; /* Increased padding */
+            margin-bottom: 1.5rem; /* Increased margin */
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px; /* Shorter underline */
+            height: 3px; /* Thicker underline */
+            background-color: #3B82F6; /* Tailwind blue-500 */
+            border-radius: 2px;
+        }
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            color: #3B82F6; /* Blue icon color */
+        }
+        .contact-link {
+            transition: color 0.3s ease;
+        }
+        .contact-link:hover {
+            color: #1D4ED8; /* Darker blue on hover */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* More rounded */
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Softer shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .skill-badge {
+            background-color: #DBEAFE; /* Tailwind blue-100 */
+            color: #1E40AF; /* Tailwind blue-800 */
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* pill shape */
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .skill-badge:hover {
+            background-color: #3B82F6; /* Tailwind blue-500 */
+            color: #ffffff;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%); /* Gradient background */
+            color: white;
+            padding: 3rem 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+
+        <header class="hero-section text-center">
+            <div class="mb-6">
+                <img src="https://placehold.co/150x150/DBEAFE/1E40AF?text=SC" alt="Sauravkumar Chaudhary" class="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-lg">
+                </div>
+            <h1 class="text-5xl font-extrabold">Sauravkumar V. Chaudhary</h1>
+            <p class="text-xl mt-2 text-blue-200">Passionate Software Developer</p>
+            <div class="mt-6 text-blue-100 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+                <a href="tel:+917779095746" class="contact-link hover:text-white flex items-center">
+                    <i class="fas fa-phone icon"></i> +91 77790 95746
+                </a>
+                <a href="mailto:sohravchaudhary@gmail.com" class="contact-link hover:text-white flex items-center">
+                    <i class="fas fa-envelope icon"></i> sohravchaudhary@gmail.com
+                </a>
+                <span class="flex items-center">
+                     <i class="fas fa-map-marker-alt icon"></i> Mehsana, Gujarat
+                </span>
+            </div>
+            <div class="mt-4 text-blue-100 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+                <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="contact-link hover:text-white flex items-center">
+                    <i class="fab fa-linkedin icon"></i> LinkedIn
+                </a>
+                <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="contact-link hover:text-white flex items-center">
+                    <i class="fab fa-github icon"></i> GitHub
+                </a>
+            </div>
+        </header>
+
+        <div class="bg-white shadow-xl rounded-lg p-6 md:p-10">
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">ABOUT ME</h2>
+                <p class="text-gray-700 leading-relaxed text-lg">
+                    A dedicated Software Developer with robust experience in Java, Spring Boot, Python, and PHP Laravel. I thrive on building efficient backend systems, integrating APIs seamlessly, and designing effective databases. I'm a quick learner with a knack for problem-solving, always excited to contribute to impactful projects within a dynamic team.
+                </p>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">EXPERIENCE</h2>
+                <div class="space-y-8">
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold text-blue-700">Java Development Intern</h3>
+                        <p class="text-gray-600 font-medium text-lg">Cognifyz Technologies</p>
+                        <p class="text-sm text-gray-500 mb-2">May 2024 - December 2024</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
+                            <li>Engineered and maintained backend modules using Java for key internal projects.</li>
+                            <li>Actively participated in debugging, crafting unit tests, and integrating third-party APIs.</li>
+                            <li>Managed database operations effectively using JDBC and MySQL.</li>
+                            <li>Collaborated with a team of developers to resolve bugs and enhance existing application features.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold text-blue-700">Software Developer Intern</h3>
+                        <p class="text-gray-600 font-medium text-lg">Premier Infotech</p>
+                        <p class="text-sm text-gray-500 mb-2">Jan 2025 - May 2025</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
+                            <li>Developed and deployed RESTful APIs with Spring Boot for a scalable e-commerce platform.</li>
+                            <li>Implemented robust authentication mechanisms and core CRUD functionalities.</li>
+                            <li>Ensured seamless database connectivity and data management.</li>
+                            <li>Utilized GitHub for version control, collaborative development, and efficient task tracking.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">PROJECT SHOWCASE</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold text-blue-700">Online Shopping Site</h3>
+                        <p class="text-gray-500 text-sm mb-1">BCA Final Project | Team of 3 | 3 Months</p>
+                        <p class="text-sm font-medium text-blue-600 mb-2">Tech Stack: Python, Django, MySQL</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
+                            <li>Developed a feature-rich e-commerce platform with secure payment gateway integration.</li>
+                            <li>Architected the backend using Django, focusing on scalability and maintainability.</li>
+                            <li>Implemented modules for user authentication, product catalog, and order processing.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold text-blue-700">Food Finder</h3>
+                        <p class="text-gray-500 text-sm mb-1">MCA Sem-3 Project | Team of 2 | 4 Months</p>
+                        <p class="text-sm font-medium text-blue-600 mb-2">Tech Stack: PHP, Laravel, MySQL, Google Maps API</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
+                            <li>Created an intuitive restaurant discovery web application integrated with Google Maps.</li>
+                            <li>Designed a comprehensive CRUD-based admin panel for managing restaurant data and user reviews.</li>
+                            <li>Optimized MySQL database schema for enhanced performance and data integrity.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">TECHNICAL ARSENAL</h2>
+                <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Programming Languages:</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Java</span><span class="skill-badge">Python</span><span class="skill-badge">PHP</span><span class="skill-badge">C</span><span class="skill-badge">C#</span><span class="skill-badge">HTML5</span><span class="skill-badge">CSS3</span><span class="skill-badge">JavaScript</span>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Frameworks & Technologies:</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Spring Boot</span><span class="skill-badge">Laravel</span><span class="skill-badge">Django</span><span class="skill-badge">ASP.NET</span>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Databases:</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">MySQL</span><span class="skill-badge">Oracle SQL</span><span class="skill-badge">MS SQL Server</span>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Tools:</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">Git</span><span class="skill-badge">IntelliJ IDEA</span><span class="skill-badge">VS Code</span><span class="skill-badge">PyCharm</span><span class="skill-badge">MS Office</span>
+                    </div>
+                </div>
+                 <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Key Competencies:</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-badge">OOP</span><span class="skill-badge">MVC</span><span class="skill-badge">REST APIs</span><span class="skill-badge">Software Testing</span><span class="skill-badge">Automation Testing</span><span class="skill-badge">Data Analysis</span><span class="skill-badge">Teamwork</span><span class="skill-badge">Leadership</span><span class="skill-badge">Project Management</span><span class="skill-badge">Communication</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">EDUCATION</h2>
+                <div class="space-y-6">
+                    <div class="card">
+                        <h3 class="text-xl font-semibold text-gray-700">Master of Computer Applications (MCA)</h3>
+                        <p class="text-gray-600">Ganpat University</p>
+                        <p class="text-sm text-gray-500">2023-2025 | CGPA: 8.22/10</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold text-gray-700">Bachelor of Computer Applications (BCA)</h3>
+                        <p class="text-gray-600">Hemchandracharya North Gujarat University</p>
+                        <p class="text-sm text-gray-500">2020-2023 | CGPA: 8.78/10</p>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-700">Higher Secondary (12th)</h3>
+                        <p class="text-gray-600">Gujarat Secondary and Higher Secondary Education Board</p>
+                        <p class="text-sm text-gray-500">2020 | Percentage: 54.66%</p>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-700">Secondary (10th)</h3>
+                        <p class="text-gray-600">Gujarat Secondary and Higher Secondary Education Board</p>
+                        <p class="text-sm text-gray-500">2018 | Percentage: 62.66%</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-3xl section-title">CERTIFICATIONS & ACTIVITIES</h2>
+                <div class="card">
+                    <ul class="list-none space-y-3">
+                        <li class="flex items-start"><i class="fas fa-award icon text-yellow-500 mt-1"></i><span>Certified in Java, Python, C, C#, SQL, and Software Testing</span></li>
+                        <li class="flex items-start"><i class="fas fa-users icon text-green-500 mt-1"></i><span>Participated in Python Workshop - Ganpat University</span></li>
+                        <li class="flex items-start"><i class="fas fa-chalkboard-teacher icon text-purple-500 mt-1"></i><span>Attended Software Testing Webinar - TOPS Technologies, Ahmedabad</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="text-center text-sm text-gray-500 mt-16 py-8 border-t border-gray-200">
+                <p>&copy; <span id="currentYear"></span> Sauravkumar Vishnubhai Chaudhary. All Rights Reserved.</p>
+                <p class="mt-1">Inspired to create and innovate.</p>
+                <p class="mt-4"><em>I hereby declare that all the information provided is true to the best of my knowledge.</em></p>
+                <p class="mt-1">Place: Mehsana | Date: <span id="currentDate"></span></p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Script to set current year and date
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>
+<!-- This is a simple HTML template for a personal portfolio page. It includes sections for the hero banner, about me, experience, projects, skills, education, certifications, and a footer with contact information. The design uses Tailwind CSS for styling and Font Awesome for icons. -->
