@@ -8,10 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Poppins', sans-serif; 
             background-color: #0A0F1E; 
@@ -19,205 +18,115 @@
             position: relative; 
             overflow-x: hidden; 
         }
-        #tsparticles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1; 
+        #tsparticles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        .typed-text::after { content: '|'; display: inline; animation: blink-caret .75s step-end infinite; }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #A6B0C3; } }
+        .section-title { font-weight: 700; color: #00CFE8; padding-bottom: 0.75rem; margin-bottom: 1.5rem; position: relative; text-align: center; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background-color: #00CFE8; border-radius: 2px; }
+        .section-title span { color: #F0F4F8; }
+        .content-card, .resume-builder-card { background-color: #1F2942; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #2D3A57; }
+        .content-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.25); }
+        .content-card h3 { color: #82EEFD; }
+        .content-card p, .content-card ul li { color: #C5D0E0; }
+        .content-card .text-sm { color: #A6B0C3; }
+        .content-card .tech-stack-text { color: #82EEFD; font-weight: 500; }
+        .skill-badge { background-color: #2D3A57; color: #A6B0C3; padding: 0.6rem 1.2rem; border-radius: 9999px; font-size: 0.9rem; font-weight: 500; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; border: 1px solid #4A5568; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .skill-badge i { font-size: 1.1em; }
+        .skill-badge:hover { background-color: #00CFE8; color: #0A0F1E; border-color: #00CFE8; }
+        .skill-badge:hover i { color: #0A0F1E; }
+        .certification-button { background-color: #2D3A57; color: #A6B0C3; transition: background-color 0.3s ease; }
+        .certification-button:hover { background-color: #3E4C6D; }
+        .certification-button i.fa-chevron-down { transition: transform 0.3s ease; }
+        .certification-button i.fa-chevron-down.rotate-180 { transform: rotate(180deg); }
+        .certification-button i { color: #FACC15; }
+        .certification-content { background-color: #1F2942; border-width: 0; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; padding: 0; }
+        .certification-content.open { max-height: 500px; padding: 0.5rem; }
+        .certification-pdf-iframe { border-width: 0; width: 100%; height: 450px; border-radius: 0.25rem; }
+        .form-input, .resume-input { background-color: #1F2942; border-color: #2D3A57; color: #F0F4F8; }
+        .form-input::placeholder, .resume-input::placeholder { color: #7B89A1; }
+        .form-input:focus, .resume-input:focus { border-color: #00CFE8; ring: 2px; ring-color: #00CFE8; }
+        .contact-icon { color: #82EEFD; }
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: #161D33; padding: 2rem; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.6); width: 90%; max-width: 500px; color: #C5D0E0; position: relative; }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #A6B0C3; font-size: 1.5rem; cursor: pointer; }
+        .modal-close-btn:hover { color: #F0F4F8; }
+        header, section, footer { position: relative; z-index: 1; }
+        .primary-button { background-color: #00A9C0; color: white; }
+        .primary-button:hover { background-color: #00CFE8; }
+        .secondary-button { background-color: #2D3A57; color: white; }
+        .secondary-button:hover { background-color: #3E4C6D; }
+
+        /* Chatbot Styles */
+        #chatToggleBtn { position: fixed; bottom: 2rem; right: 2rem; background-color: #00CFE8; color: #0A0F1E; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; box-shadow: 0 4px 12px rgba(0, 207, 232, 0.4); cursor: pointer; z-index: 1001; transition: transform 0.3s ease; }
+        #chatToggleBtn:hover { transform: scale(1.1); }
+        #chatToggleBtn .fa-hand-sparkles { animation: wave-animation 2.5s infinite; }
+        @keyframes wave-animation { 0% { transform: rotate(0deg); } 15% { transform: rotate(14deg); } 30% { transform: rotate(-8deg); } 40% { transform: rotate(14deg); } 50% { transform: rotate(-4deg); } 60% { transform: rotate(10deg); } 70% { transform: rotate(0deg); } 100% { transform: rotate(0deg); } }
+        #chatWindow { position: fixed; bottom: 6.5rem; right: 2rem; width: 90%; max-width: 380px; height: 70vh; max-height: 500px; background-color: #161D33; border-radius: 0.75rem; box-shadow: 0 8px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; }
+        #chatWindow.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        #chatHeader { background-color: #1F2942; color: #F0F4F8; padding: 0.75rem 1rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2D3A57; }
+        #closeChatBtn { background: none; border: none; color: #A6B0C3; font-size: 1.2rem; cursor: pointer; }
+        #closeChatBtn:hover { color: #F0F4F8; }
+        #chatMessages { flex-grow: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .chat-message { padding: 0.6rem 0.9rem; border-radius: 0.5rem; max-width: 80%; word-wrap: break-word; line-height: 1.5; }
+        .user-message { background-color: #00CFE8; color: #0A0F1E; align-self: flex-end; margin-left: 20%; }
+        .ai-message { background-color: #2D3A57; color: #C5D0E0; align-self: flex-start; margin-right: 20%; }
+        #chatInputContainer { display: flex; padding: 0.75rem; border-top: 1px solid #2D3A57; background-color: #1F2942; }
+        #chatInput { flex-grow: 1; padding: 0.6rem 0.9rem; border: 1px solid #3E4C6D; background-color: #161D33; color: #F0F4F8; border-radius: 0.375rem; margin-right: 0.5rem; outline: none; }
+        #chatInput:focus { border-color: #00CFE8; box-shadow: 0 0 0 2px rgba(0, 207, 232, 0.3); }
+        #chatSendBtn { background-color: #00CFE8; color: #0A0F1E; border: none; padding: 0.6rem 1rem; border-radius: 0.375rem; cursor: pointer; font-weight: 600; }
+        #chatSendBtn:hover { background-color: #00A9C0; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #A6B0C3; animation: typing-blink 1.4s infinite both; margin: 0 1px; }
+        .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+        @keyframes typing-blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
+
+        /* Resume Builder Styles */
+        .resume-section { margin-bottom: 1.5rem; }
+        .resume-section h4 { color: #82EEFD; font-size: 1.25rem; margin-bottom: 0.75rem; border-bottom: 1px solid #2D3A57; padding-bottom: 0.5rem; }
+        .resume-input-group { margin-bottom: 1rem; }
+        .resume-input-group label { display: block; color: #A6B0C3; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem; }
+        .resume-input, .resume-textarea { width: 100%; padding: 0.75rem; border-radius: 0.375rem; }
+        .resume-textarea { min-height: 100px; }
+        #resumePreviewContainer { margin-top: 2rem; padding: 1.5rem; background-color: #0F172A; border: 1px solid #2D3A57; border-radius: 0.5rem; color: #C5D0E0; }
+        #resumePreviewContainer h2 { color: #00CFE8; font-size: 1.5rem; text-align: center; margin-bottom: 1rem; }
+        #resumePreviewContainer h3 { color: #82EEFD; font-size: 1.2rem; margin-top: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid #4A5568; padding-bottom: 0.25rem;}
+        #resumePreviewContainer p { margin-bottom: 0.5rem; line-height: 1.6; }
+        #resumePreviewContainer ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.5rem; }
+        .dynamic-field-group { border: 1px dashed #2D3A57; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; }
+        .add-more-btn { background-color: #3E4C6D; color: #F0F4F8; }
+        .add-more-btn:hover { background-color: #52658C; }
+        
+        /* Styles for PDF generation */
+        .resume-preview-for-pdf {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            padding: 20px !important; 
+            font-family: 'Poppins', sans-serif !important; /* Ensure font consistency in PDF */
         }
-        .typed-text::after {
-            content: '|';
-            display: inline;
-            animation: blink-caret .75s step-end infinite;
+        .resume-preview-for-pdf *,
+        .resume-preview-for-pdf h2,
+        .resume-preview-for-pdf h3,
+        .resume-preview-for-pdf p,
+        .resume-preview-for-pdf li,
+        .resume-preview-for-pdf div, 
+        .resume-preview-for-pdf span, 
+        .resume-preview-for-pdf a {
+            color: #000000 !important;
+            background-color: transparent !important; /* Ensure no dark backgrounds carry over */
         }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #A6B0C3; } 
+        .resume-preview-for-pdf a {
+            text-decoration: underline !important; 
+            color: #0000EE !important; /* Standard link blue for PDFs */
         }
-        .section-title {
-            font-weight: 700; 
-            color: #00CFE8; 
-            padding-bottom: 0.75rem; 
-            margin-bottom: 1.5rem; 
-            position: relative;
-            text-align: center; 
+        .resume-preview-for-pdf .text-sm, 
+        .resume-preview-for-pdf .text-\[\#A6B0C3\] { 
+             color: #333333 !important; 
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px; 
-            height: 3px; 
-            background-color: #00CFE8; 
-            border-radius: 2px;
-        }
-        .section-title span { 
-            color: #F0F4F8; 
-        }
-        .content-card {
-            background-color: #1F2942; 
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #2D3A57; 
-        }
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.25);
-        }
-        .content-card h3 {
-            color: #82EEFD; 
-        }
-        .content-card p, .content-card ul li {
-            color: #C5D0E0; 
-        }
-        .content-card .text-sm {
-             color: #A6B0C3; 
-        }
-         .content-card .tech-stack-text {
-            color: #82EEFD; 
-            font-weight: 500;
-        }
-        .skill-badge {
-            background-color: #2D3A57; 
-            color: #A6B0C3; 
-            padding: 0.6rem 1.2rem; /* Slightly increased padding for icons */
-            border-radius: 9999px; 
-            font-size: 0.9rem; /* Slightly increased font size */
-            font-weight: 500;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-            border: 1px solid #4A5568; 
-            cursor: pointer; 
-            display: inline-flex; /* For icon and text alignment */
-            align-items: center;
-            gap: 0.5rem; /* Space between icon and text */
-        }
-        .skill-badge i { /* Icon specific styling within badge */
-            font-size: 1.1em; /* Make icon slightly larger than text */
-        }
-        .skill-badge:hover {
-            background-color: #00CFE8; 
-            color: #0A0F1E; 
-            border-color: #00CFE8;
-        }
-        .skill-badge:hover i { /* Icon color on hover */
-            color: #0A0F1E;
-        }
-        .certification-button {
-            background-color: #2D3A57; 
-            color: #A6B0C3; 
-            transition: background-color 0.3s ease;
-        }
-        .certification-button:hover {
-            background-color: #3E4C6D; 
-        }
-        .certification-button i.fa-chevron-down { 
-             transition: transform 0.3s ease;
-        }
-        .certification-button i.fa-chevron-down.rotate-180 {
-            transform: rotate(180deg);
-        }
-        .certification-button i { 
-            color: #FACC15; 
-        }
-        .certification-content {
-            background-color: #1F2942; 
-            border-width: 0; 
-            max-height: 0; 
-            overflow: hidden;
-            transition: max-height 0.5s ease-out; 
-            padding: 0; 
-        }
-        .certification-content.open {
-            max-height: 500px; 
-            padding: 0.5rem; 
-        }
-        .certification-pdf-iframe {
-            border-width: 0; 
-            width: 100%;
-            height: 450px; 
-            border-radius: 0.25rem; 
-        }
-        .form-input {
-            background-color: #1F2942; 
-            border-color: #2D3A57; 
-            color: #F0F4F8; 
-        }
-        .form-input::placeholder {
-            color: #7B89A1; 
-        }
-        .form-input:focus {
-            border-color: #00CFE8; 
-            ring-color: #00CFE8; 
-        }
-        .contact-icon {
-            color: #82EEFD; 
-        }
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8); 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-backdrop.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background-color: #161D33; 
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            width: 90%;
-            max-width: 500px;
-            color: #C5D0E0;
-            position: relative;
-        }
-        .modal-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: #A6B0C3; 
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        .modal-close-btn:hover {
-            color: #F0F4F8; 
-        }
-        header, section, footer {
-            position: relative;
-            z-index: 1;
-        }
-        .primary-button {
-            background-color: #00A9C0; 
-            color: white;
-        }
-        .primary-button:hover {
-            background-color: #00CFE8; 
-        }
-        .secondary-button {
-            background-color: #2D3A57;
-            color: white;
-        }
-        .secondary-button:hover {
-            background-color: #3E4C6D;
-        }
+         .resume-preview-for-pdf h2 { color: #000000 !important; font-size: 1.4rem !important; } /* Adjusted font size for PDF */
+         .resume-preview-for-pdf h3 { color: #111111 !important; font-size: 1.1rem !important; } /* Adjusted font size for PDF */
+         .resume-preview-for-pdf p, .resume-preview-for-pdf li { font-size: 0.9rem !important; line-height: 1.4 !important; }
+
     </style>
 </head>
 <body class="antialiased">
@@ -244,6 +153,7 @@
                 <li><a href="#skills" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
                 <li><a href="#projects" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
                 <li><a href="#certifications" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
+                <li><a href="#resumeBuilder" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Resume Builder</a></li>
                 <li><a href="#contact" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
             </ul>
         </nav>
@@ -256,6 +166,7 @@
                 <li><a href="#skills" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Skills</a></li>
                 <li><a href="#projects" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Projects</a></li>
                 <li><a href="#certifications" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#resumeBuilder" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Resume Builder</a></li>
                 <li><a href="#contact" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Contact</a></li>
             </ul>
         </div>
@@ -410,7 +321,7 @@
                 <div class="flex flex-wrap justify-center gap-4">
                     <span class="skill-badge" data-skill="Spring Boot"><i class="fas fa-leaf text-green-500"></i> Spring Boot</span>
                     <span class="skill-badge" data-skill="Laravel Framework"><i class="fab fa-laravel text-[#FF2D20]"></i> Laravel</span>
-                    <span class="skill-badge" data-skill="Django Framework"><i class="fab fa-python text-[#092E20]"></i> Django</span> <!-- Django uses Python icon -->
+                    <span class="skill-badge" data-skill="Django Framework"><i class="fab fa-python text-[#092E20]"></i> Django</span>
                     <span class="skill-badge" data-skill="ASP.NET"><i class="fas fa-code text-sky-500"></i> ASP.NET</span>
                 </div>
             </div>
@@ -533,11 +444,115 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-20 px-4 bg-[#161D33]"> 
+    <!-- AI Resume Builder Section -->
+    <section id="resumeBuilder" class="py-16 sm:py-20 px-4 bg-[#161D33]">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>AI RESUME </span><span class="text-[#00CFE8]">BUILDER</span></h2>
+            <div class="resume-builder-card p-6 sm:p-8">
+                <p class="text-lg text-[#C5D0E0] text-center mb-6">
+                    Build your professional resume here. Fill in the details and see a live preview. Download as PDF when ready!
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Input Form Column -->
+                    <div>
+                        <div class="resume-section">
+                            <h4><i class="fas fa-user-circle mr-2"></i>Personal Details</h4>
+                            <div class="resume-input-group">
+                                <label for="resumeName">Full Name</label>
+                                <input type="text" id="resumeName" class="resume-input" placeholder="e.g., John Doe">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="resume-input-group">
+                                    <label for="resumeEmail">Email</label>
+                                    <input type="email" id="resumeEmail" class="resume-input" placeholder="e.g., john.doe@example.com">
+                                </div>
+                                <div class="resume-input-group">
+                                    <label for="resumePhone">Phone</label>
+                                    <input type="tel" id="resumePhone" class="resume-input" placeholder="e.g., +1 123 456 7890">
+                                </div>
+                            </div>
+                            <div class="resume-input-group">
+                                <label for="resumeAddress">Address / Location</label>
+                                <input type="text" id="resumeAddress" class="resume-input" placeholder="e.g., City, Country">
+                            </div>
+                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="resume-input-group">
+                                    <label for="resumeLinkedin">LinkedIn Profile URL</label>
+                                    <input type="url" id="resumeLinkedin" class="resume-input" placeholder="e.g., linkedin.com/in/yourprofile">
+                                </div>
+                                <div class="resume-input-group">
+                                    <label for="resumeGithub">GitHub Profile URL</label>
+                                    <input type="url" id="resumeGithub" class="resume-input" placeholder="e.g., github.com/yourusername">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4><i class="fas fa-bullseye mr-2"></i>Summary / Objective</h4>
+                            <div class="resume-input-group">
+                                <textarea id="resumeSummary" class="resume-textarea resume-input" placeholder="Write a brief summary or career objective..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4><i class="fas fa-graduation-cap mr-2"></i>Education</h4>
+                            <div id="educationFieldsContainer">
+                                <!-- Education fields will be added here by JS -->
+                            </div>
+                            <button type="button" id="addEducationBtn" class="add-more-btn text-sm py-2 px-4 rounded-md mt-2"><i class="fas fa-plus mr-1"></i> Add Education</button>
+                        </div>
+                        
+                        <div class="resume-section">
+                            <h4><i class="fas fa-briefcase mr-2"></i>Experience</h4>
+                            <div id="experienceFieldsContainer">
+                                <!-- Experience fields will be added here by JS -->
+                            </div>
+                            <button type="button" id="addExperienceBtn" class="add-more-btn text-sm py-2 px-4 rounded-md mt-2"><i class="fas fa-plus mr-1"></i> Add Experience</button>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4><i class="fas fa-cogs mr-2"></i>Skills</h4>
+                            <div class="resume-input-group">
+                                <label for="resumeSkills">Enter skills (comma-separated)</label>
+                                <input type="text" id="resumeSkills" class="resume-input" placeholder="e.g., Java, Python, Project Management">
+                            </div>
+                        </div>
+                        
+                        <div class="resume-section">
+                            <h4><i class="fas fa-project-diagram mr-2"></i>Projects</h4>
+                             <div id="projectFieldsContainer">
+                                <!-- Project fields will be added here by JS -->
+                            </div>
+                            <button type="button" id="addProjectBtn" class="add-more-btn text-sm py-2 px-4 rounded-md mt-2"><i class="fas fa-plus mr-1"></i> Add Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview Column -->
+                    <div>
+                        <h4 class="text-xl font-semibold text-[#82EEFD] mb-3 text-center">Live Resume Preview</h4>
+                        <div id="resumePreviewContainer">
+                            <div id="resumePreviewContent">
+                                <!-- Preview will be rendered here by JS -->
+                                <div class="text-center p-10 text-gray-500">Fill the form to see your resume preview.</div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-6">
+                            <button type="button" id="downloadResumePdfBtn" class="primary-button font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                                <i class="fas fa-file-pdf mr-2"></i> Download Resume as PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="py-16 sm:py-20 px-4 bg-[#10182B]"> 
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>GET IN </span><span class="text-[#00CFE8]">TOUCH</span></h2>
             
-            <div class="bg-[#10182B] p-6 sm:p-8 rounded-lg shadow-xl mb-10"> 
+            <div class="bg-[#1F2942] p-6 sm:p-8 rounded-lg shadow-xl mb-10"> 
                  <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-center mb-8">
                     <a href="tel:+917779095746" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 flex items-center text-lg">
                         <i class="fas fa-phone contact-icon mr-2"></i> +91 77790 95746
@@ -607,7 +622,6 @@
     </div>
 </footer>
 
-<!-- Skill Explanation Modal -->
 <div id="skillModal" class="modal-backdrop">
     <div class="modal-content">
         <button id="closeSkillModalBtn" class="modal-close-btn">×</button>
@@ -618,7 +632,28 @@
     </div>
 </div>
 
+<button id="chatToggleBtn" title="Chat with AI Assistant">
+    <i class="fas fa-hand-sparkles"></i> <!-- Updated Chatbot Icon -->
+</button>
+<div id="chatWindow" class="">
+    <div id="chatHeader">
+        <span>AI Portfolio Assistant</span>
+        <button id="closeChatBtn" title="Close Chat">×</button>
+    </div>
+    <div id="chatMessages">
+        </div>
+    <div id="chatInputContainer">
+        <input type="text" id="chatInput" placeholder="Ask about skills, projects...">
+        <button id="chatSendBtn">Send</button>
+    </div>
+</div>
+
+
     <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
         // Mobile menu toggle functionality
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -770,7 +805,8 @@
 
         skillBadges.forEach(badge => {
             badge.addEventListener('click', async () => {
-                const skillName = badge.dataset.skill || badge.textContent.replace(/<i.*<\/i>/g, '').trim(); 
+                const skillName = badge.dataset.skill || badge.querySelector('span:last-child')?.textContent.trim() || badge.textContent.replace(/<i.*<\/i>/g, '').trim();
+                
                 skillModalTitle.textContent = `About: ${skillName}`;
                 skillModalExplanation.textContent = '';
                 skillModalLoader.classList.remove('hidden');
@@ -819,88 +855,331 @@
             });
         }
         
+        // Chatbot Functionality
+        const chatToggleBtn = document.getElementById('chatToggleBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatMessagesDiv = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        let chatbotConversationHistory = []; 
+
+        const chatbotPortfolioContext = `Sauravkumar Chaudhary is a passionate Software Developer with hands-on experience in Java, Spring Boot, Python, and PHP Laravel. He is adept at backend development, API integration, and database design. Education: MCA from Ganpat University (2023-2025, CGPA: 8.22/10), BCA from Hemchandracharya North Gujarat University (2020-2023, CGPA: 8.78/10). Experience: Java Development Intern at Cognifyz Technologies (May 2024 - Dec 2024) working on backend modules, debugging, API integration, JDBC, MySQL. Software Developer Intern at Premier Infotech (Jan 2025 - May 2025) building RESTful APIs with Spring Boot, authentication, CRUD. Key Skills: Java, Python, PHP, C, C#, HTML, CSS, JavaScript, Spring Boot, Laravel, Django, ASP.NET, MySQL, Oracle SQL, MS SQL Server, OOP, MVC, REST APIs, Software Testing. Projects: Online Shopping Site (Python, Django, MySQL), Food Finder (PHP, Laravel, MySQL, Google Maps API).
+        You are Saurav's portfolio AI assistant. Your role is to answer questions based ONLY on the provided profile information about Saurav. If a question is outside this scope, politely state that you can only provide information related to Saurav's professional profile. Keep your answers concise, friendly, and professional.`;
+
+        function addMessageToChat(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.innerHTML = text.replace(/\n/g, '<br>'); 
+            chatMessagesDiv.appendChild(messageDiv);
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; 
+        }
+
+        function showTypingIndicator(show) {
+            let typingIndicator = document.getElementById('typingIndicator');
+            if (show) {
+                if (!typingIndicator) {
+                    typingIndicator = document.createElement('div');
+                    typingIndicator.id = 'typingIndicator';
+                    typingIndicator.classList.add('chat-message', 'ai-message', 'typing-indicator');
+                    typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                    chatMessagesDiv.appendChild(typingIndicator);
+                    chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+                }
+            } else {
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+        }
+        
+        async function handleChatSend() {
+            const userInput = chatInput.value.trim();
+            if (!userInput) return;
+
+            addMessageToChat(userInput, 'user');
+            chatbotConversationHistory.push({ role: "user", parts: [{ text: userInput }] });
+            chatInput.value = '';
+            showTypingIndicator(true);
+            
+            const apiPayloadContents = [
+                { role: "user", parts: [{ text: chatbotPortfolioContext }] }, 
+                ...chatbotConversationHistory 
+            ];
+
+            try {
+                const payload = { contents: apiPayloadContents };
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                showTypingIndicator(false);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    addMessageToChat(`Sorry, I encountered an error: ${errorData?.error?.message || response.statusText}`, 'ai');
+                    chatbotConversationHistory.pop(); 
+                    return;
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                    const aiResponse = result.candidates[0].content.parts[0].text.trim();
+                    addMessageToChat(aiResponse, 'ai');
+                    chatbotConversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
+                } else {
+                    addMessageToChat("Sorry, I couldn't get a proper response. Please try again.", 'ai');
+                    chatbotConversationHistory.pop(); 
+                }
+            } catch (error) {
+                showTypingIndicator(false);
+                console.error('Chatbot API Error:', error);
+                addMessageToChat(`Sorry, an error occurred: ${error.message}`, 'ai');
+                chatbotConversationHistory.pop(); 
+            }
+        }
+
+        if (chatToggleBtn) {
+            chatToggleBtn.addEventListener('click', () => {
+                chatWindow.classList.toggle('active');
+                if (chatWindow.classList.contains('active') && chatMessagesDiv.children.length === 0) {
+                    chatbotConversationHistory = []; 
+                    setTimeout(() => { 
+                         addMessageToChat("Hello! I'm Saurav's AI assistant. Ask me anything about his skills, projects, or experience!", 'ai');
+                         chatbotConversationHistory.push({ role: "model", parts: [{ text: "Hello! I'm Saurav's AI assistant. Ask me anything about his skills, projects, or experience!" }] });
+                    }, 300);
+                }
+            });
+        }
+        if (closeChatBtn) {
+            closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+        }
+        if (chatSendBtn) {
+            chatSendBtn.addEventListener('click', handleChatSend);
+        }
+        if (chatInput) {
+            chatInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    handleChatSend();
+                }
+            });
+        }
+
+        // Resume Builder Functionality
+        const resumeFormInputs = {
+            name: document.getElementById('resumeName'),
+            email: document.getElementById('resumeEmail'),
+            phone: document.getElementById('resumePhone'),
+            address: document.getElementById('resumeAddress'),
+            linkedin: document.getElementById('resumeLinkedin'),
+            github: document.getElementById('resumeGithub'),
+            summary: document.getElementById('resumeSummary'),
+            skills: document.getElementById('resumeSkills')
+        };
+        const educationFieldsContainer = document.getElementById('educationFieldsContainer');
+        const experienceFieldsContainer = document.getElementById('experienceFieldsContainer');
+        const projectFieldsContainer = document.getElementById('projectFieldsContainer');
+        const addEducationBtn = document.getElementById('addEducationBtn');
+        const addExperienceBtn = document.getElementById('addExperienceBtn');
+        const addProjectBtn = document.getElementById('addProjectBtn');
+        const resumePreviewContent = document.getElementById('resumePreviewContent');
+        const downloadResumePdfBtn = document.getElementById('downloadResumePdfBtn');
+
+        function addDynamicFields(type, container) {
+            const group = document.createElement('div');
+            group.classList.add('dynamic-field-group', 'space-y-2');
+            let fieldsHtml = '';
+            if (type === 'education') {
+                fieldsHtml = `
+                    <input type="text" class="resume-input w-full" placeholder="Degree/Certificate" data-key="degree">
+                    <input type="text" class="resume-input w-full" placeholder="Institution/University" data-key="institution">
+                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., 2020-2023)" data-key="dates">
+                    <input type="text" class="resume-input w-full" placeholder="CGPA/Percentage" data-key="grade">
+                `;
+            } else if (type === 'experience') {
+                fieldsHtml = `
+                    <input type="text" class="resume-input w-full" placeholder="Job Title" data-key="title">
+                    <input type="text" class="resume-input w-full" placeholder="Company Name" data-key="company">
+                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., May 2024 - Dec 2024)" data-key="dates">
+                    <textarea class="resume-textarea resume-input w-full" placeholder="Responsibilities (one per line)" data-key="responsibilities"></textarea>
+                `;
+            } else if (type === 'project') {
+                 fieldsHtml = `
+                    <input type="text" class="resume-input w-full" placeholder="Project Title" data-key="title">
+                    <textarea class="resume-textarea resume-input w-full" placeholder="Description" data-key="description"></textarea>
+                    <input type="text" class="resume-input w-full" placeholder="Tech Stack (comma-separated)" data-key="tech">
+                `;
+            }
+            group.innerHTML = fieldsHtml;
+            container.appendChild(group);
+            group.querySelectorAll('.resume-input, .resume-textarea').forEach(input => {
+                input.addEventListener('input', updateResumePreview);
+            });
+        }
+
+        if(addEducationBtn) addEducationBtn.addEventListener('click', () => addDynamicFields('education', educationFieldsContainer));
+        if(addExperienceBtn) addExperienceBtn.addEventListener('click', () => addDynamicFields('experience', experienceFieldsContainer));
+        if(addProjectBtn) addProjectBtn.addEventListener('click', () => addDynamicFields('project', projectFieldsContainer));
+
+        if(educationFieldsContainer) addDynamicFields('education', educationFieldsContainer);
+        if(experienceFieldsContainer) addDynamicFields('experience', experienceFieldsContainer);
+        if(projectFieldsContainer) addDynamicFields('project', projectFieldsContainer);
+
+
+        function getDynamicSectionData(containerSelector, keys) {
+            const items = [];
+            document.querySelectorAll(`${containerSelector} .dynamic-field-group`).forEach(group => {
+                const item = {};
+                keys.forEach(key => {
+                    const inputElement = group.querySelector(`[data-key="${key}"]`);
+                    if (inputElement) {
+                         item[key] = inputElement.value;
+                    }
+                });
+                if (Object.values(item).some(val => val && val.trim() !== '')) { 
+                    items.push(item);
+                }
+            });
+            return items;
+        }
+
+
+        function updateResumePreview() {
+            let previewHTML = `<h2 class="text-center text-2xl font-bold mb-4">${resumeFormInputs.name.value || 'Your Name'}</h2>`;
+            previewHTML += `<div class="text-center mb-4">`;
+            if(resumeFormInputs.email.value) previewHTML += `<p><i class="fas fa-envelope mr-2"></i>${resumeFormInputs.email.value}</p>`;
+            if(resumeFormInputs.phone.value) previewHTML += `<p><i class="fas fa-phone mr-2"></i>${resumeFormInputs.phone.value}</p>`;
+            if(resumeFormInputs.address.value) previewHTML += `<p><i class="fas fa-map-marker-alt mr-2"></i>${resumeFormInputs.address.value}</p>`;
+            if(resumeFormInputs.linkedin.value) previewHTML += `<p><i class="fab fa-linkedin mr-2"></i><a href="${resumeFormInputs.linkedin.value}" target="_blank" class="text-[#82EEFD] hover:underline">${resumeFormInputs.linkedin.value}</a></p>`;
+            if(resumeFormInputs.github.value) previewHTML += `<p><i class="fab fa-github mr-2"></i><a href="${resumeFormInputs.github.value}" target="_blank" class="text-[#82EEFD] hover:underline">${resumeFormInputs.github.value}</a></p>`;
+            previewHTML += `</div>`;
+
+            if(resumeFormInputs.summary.value) {
+                previewHTML += `<h3><i class="fas fa-user-tie mr-2"></i>Summary</h3><p>${resumeFormInputs.summary.value.replace(/\n/g, '<br>')}</p>`;
+            }
+
+            const educationData = getDynamicSectionData('#educationFieldsContainer', ['degree', 'institution', 'dates', 'grade']);
+            if(educationData.length > 0) {
+                previewHTML += `<h3><i class="fas fa-graduation-cap mr-2"></i>Education</h3>`;
+                educationData.forEach(edu => {
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${edu.degree || ''}</p><p>${edu.institution || ''}</p><p class="text-sm text-[#A6B0C3]">${edu.dates || ''} ${edu.grade ? '| ' + edu.grade : ''}</p></div>`;
+                });
+            }
+            
+            const experienceData = getDynamicSectionData('#experienceFieldsContainer', ['title', 'company', 'dates', 'responsibilities']);
+            if(experienceData.length > 0) {
+                previewHTML += `<h3><i class="fas fa-briefcase mr-2"></i>Experience</h3>`;
+                experienceData.forEach(exp => {
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${exp.title || ''} at ${exp.company || ''}</p><p class="text-sm text-[#A6B0C3]">${exp.dates || ''}</p>`;
+                    if (exp.responsibilities) {
+                        previewHTML += `<ul>${exp.responsibilities.split('\n').map(r => r.trim() ? `<li>${r}</li>` : '').join('')}</ul>`;
+                    }
+                    previewHTML += `</div>`;
+                });
+            }
+
+            if(resumeFormInputs.skills.value) {
+                previewHTML += `<h3><i class="fas fa-cogs mr-2"></i>Skills</h3><p>${resumeFormInputs.skills.value.split(',').map(s => s.trim()).join(', ')}</p>`;
+            }
+
+            const projectData = getDynamicSectionData('#projectFieldsContainer', ['title', 'description', 'tech']);
+             if(projectData.length > 0) {
+                previewHTML += `<h3><i class="fas fa-project-diagram mr-2"></i>Projects</h3>`;
+                projectData.forEach(proj => {
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${proj.title || ''}</p>`;
+                    if(proj.description) previewHTML += `<p>${proj.description.replace(/\n/g, '<br>')}</p>`;
+                    if(proj.tech) previewHTML += `<p class="text-sm text-[#A6B0C3]"><em>Tech: ${proj.tech}</em></p>`;
+                    previewHTML += `</div>`;
+                });
+            }
+
+            resumePreviewContent.innerHTML = previewHTML;
+             if (previewHTML.length < 200 && !document.querySelector('#resumePreviewContent .text-gray-500')) { 
+                resumePreviewContent.innerHTML = `<div class="text-center p-10 text-gray-500">Fill the form to see your resume preview.</div>` + previewHTML; 
+            }
+        }
+
+        Object.values(resumeFormInputs).forEach(input => {
+            if(input) input.addEventListener('input', updateResumePreview);
+        });
+        
+        if(downloadResumePdfBtn) {
+            downloadResumePdfBtn.addEventListener('click', () => {
+                const elementToPrint = document.getElementById('resumePreviewContent');
+                
+                // Temporarily remove placeholder if it exists
+                const placeholder = elementToPrint.querySelector('.text-gray-500');
+                if(placeholder) placeholder.style.display = 'none';
+
+                elementToPrint.classList.add('resume-preview-for-pdf');
+
+                const opt = {
+                  margin:       [0.5, 0.5, 0.5, 0.5], 
+                  filename:     `${(resumeFormInputs.name.value || 'resume').replace(/\s+/g, '_')}.pdf`,
+                  image:        { type: 'jpeg', quality: 0.98 },
+                  html2canvas:  { 
+                      scale: 2, 
+                      useCORS: true, 
+                      logging: true, // Keep logging true for debugging PDF issues
+                      backgroundColor: '#ffffff' // Ensure canvas background is white
+                  },
+                  jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().from(elementToPrint).set(opt).save().then(() => {
+                    elementToPrint.classList.remove('resume-preview-for-pdf');
+                    if(placeholder) placeholder.style.display = 'block'; // Restore placeholder
+                }).catch(err => {
+                    console.error("Error generating PDF:", err);
+                    elementToPrint.classList.remove('resume-preview-for-pdf');
+                    if(placeholder) placeholder.style.display = 'block'; // Restore placeholder
+                });
+            });
+        }
+        
         async function loadParticles(options) {
             await tsParticles.load("tsparticles", options);
         }
-
-        const particlesOptions = {
-            background: {
-                color: { value: 'transparent' }
-            },
+        const particlesOptions = { 
+            background: { color: { value: 'transparent' } },
             fpsLimit: 60,
             interactivity: {
                 events: {
-                    onHover: {
-                        enable: true,
-                        mode: "bubble" 
-                    },
-                    onClick: {
-                        enable: true,
-                        mode: "push" 
-                    },
+                    onHover: { enable: true, mode: "bubble" },
+                    onClick: { enable: true, mode: "push" },
                     resize: true
                 },
                 modes: {
-                    bubble: { 
-                        distance: 150, 
-                        size: 10, 
-                        opacity: 1,
-                        duration: 0.3
-                    },
-                    push: {
-                        quantity: 3 
-                    }
+                    bubble: { distance: 150, size: 10, opacity: 1, duration: 0.3 },
+                    push: { quantity: 3 }
                 }
             },
             particles: {
-                color: {
-                    value: ["#3A5078", "#52658C", "#00CFE8"] 
-                },
-                links: {
-                    color: "#52658C", 
-                    distance: 130,    
-                    enable: true,     
-                    opacity: 0.1,    
-                    width: 1
-                },
-                collisions: {
-                    enable: false 
-                },
+                color: { value: ["#3A5078", "#52658C", "#00CFE8"] },
+                links: { color: "#52658C", distance: 130, enable: true, opacity: 0.1, width: 1 },
+                collisions: { enable: false },
                 move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: { default: "bounce" },
-                    random: true,
-                    speed: 0.8, 
-                    straight: false,
-                    parallax: { 
-                        enable: true,
-                        force: 45, 
-                        smooth: 15
-                    }
+                    direction: "none", enable: true, outModes: { default: "bounce" },
+                    random: true, speed: 0.8, straight: false,
+                    parallax: { enable: true, force: 45, smooth: 15 }
                 },
-                number: {
-                    density: {
-                        enable: true,
-                        area: 800 
-                    },
-                    value: 130 
-                },
-                opacity: {
-                    value: {min: 0.15, max: 0.5} 
-                },
-                shape: {
-                    type: ["circle", "square"] 
-                },
-                size: {
-                    value: { min: 2, max: 6 } 
-                }
+                number: { density: { enable: true, area: 800 }, value: 130 },
+                opacity: { value: {min: 0.15, max: 0.5} },
+                shape: { type: ["circle", "square"] },
+                size: { value: { min: 2, max: 6 } }
             },
             detectRetina: true
         };
 
 
         window.onload = function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+
             if (typedOutput) { 
                  typeWriter();
             }
@@ -922,14 +1201,17 @@
                 });
 
                 if (window.location.hash === '' && window.scrollY !== 0) { 
-                    window.scrollTo(0, 0);
+                   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                   document.body.focus(); // Attempt to shift focus to body
                 }
                 
                 setTimeout(function() {
                     htmlElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
                 }, 50);
 
-            }, 150); 
+            }, 250); // Increased main delay for initialization and scroll reset
+            
+            updateResumePreview(); // Initialize resume preview on load
         };
     </script>
 </body>
