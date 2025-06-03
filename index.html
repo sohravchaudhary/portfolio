@@ -229,15 +229,69 @@
             </section>
 
             <section class="mb-10">
-                <h2 class="text-3xl section-title">CERTIFICATIONS & ACTIVITIES</h2>
-                <div class="card">
-                    <ul class="list-none space-y-3">
-                        <li class="flex items-start"><i class="fas fa-award icon text-yellow-500 mt-1"></i><span>Certified in Java, Python, C, C#, SQL, and Software Testing</span></li>
-                        <li class="flex items-start"><i class="fas fa-users icon text-green-500 mt-1"></i><span>Participated in Python Workshop - Ganpat University</span></li>
-                        <li class="flex items-start"><i class="fas fa-chalkboard-teacher icon text-purple-500 mt-1"></i><span>Attended Software Testing Webinar - TOPS Technologies, Ahmedabad</span></li>
-                    </ul>
-                </div>
-            </section>
+  <h2 class="text-3xl section-title">CERTIFICATIONS & ACTIVITIES</h2>
+  <div class="card space-y-4">
+
+    <!-- Certificate 1 -->
+    <div>
+      <button 
+        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
+        onclick="togglePDF('cert1')">
+        <i class="fas fa-award text-yellow-500 mr-2"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
+      </button>
+      <div id="cert1" class="hidden mt-2">
+        <iframe src="DBMS.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <!-- Certificate 2 -->
+    <div>
+      <button 
+        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
+        onclick="togglePDF('cert2')">
+        <i class="fas fa-users text-green-500 mr-2"></i>Python Workshop - Ganpat University
+      </button>
+      <div id="cert2" class="hidden mt-2">
+        <iframe src="python_workshop.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <!-- Certificate 3 -->
+    <div>
+      <button 
+        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
+        onclick="togglePDF('cert3')">
+        <i class="fas fa-chalkboard-teacher text-purple-500 mr-2"></i>Software Testing Webinar - TOPS Technologies
+      </button>
+      <div id="cert3" class="hidden mt-2">
+        <iframe src="software_testing_webinar.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+      </div>
+    </div>
+    <!-- Certificate 4 -->
+    <div>
+      <button 
+        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
+        onclick="togglePDF('cert4')">
+        <i class="fas fa-certificate text-yellow-500 mr-2"></i>PHP Essential Training - LinkedIn Learning
+      </button>
+      <div id="cert4" class="hidden mt-2">
+        <iframe src="PHP-Linkedin.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function togglePDF(id) {
+    const element = document.getElementById(id);
+    element.classList.toggle('hidden');
+  }
+</script>
+
+
+            
+            
 
             <footer class="text-center text-sm text-gray-500 mt-16 py-8 border-t border-gray-200">
                 <p>&copy; <span id="currentYear"></span> Sauravkumar Vishnubhai Chaudhary. All Rights Reserved.</p>
