@@ -14,7 +14,7 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #142755; /* Dark background from new template */
+            background-color: #142755; /* User's specified background */
             color: #E2E8F0; /* Light text from new template */
         }
         /* Custom styles for the typing effect cursor */
@@ -25,13 +25,13 @@
         }
         @keyframes blink-caret {
             from, to { border-color: transparent }
-            50% { border-color: #a7a7b0; } /* Main color for cursor from new template */
+            50% { border-color: #a7a7b0; } /* User's specified cursor color */
         }
 
         /* Section Title Styling - adapted for the dark theme */
         .section-title {
             font-weight: 700; /* Bolder */
-            color: #38b5d8; /* Indigo-400 for dark theme */
+            color: #38b5d8; /* User's specified title color */
             padding-bottom: 0.75rem; /* Increased padding */
             margin-bottom: 1.5rem; /* Increased margin */
             position: relative;
@@ -102,6 +102,7 @@
             background-color: #334155; /* slate-700 */
             color: #E2E8F0; /* Light text */
             transition: background-color 0.3s ease;
+            /* border-width: 0; */ /* Removed as Tailwind classes handle this if needed */
         }
         .certification-button:hover {
             background-color: #475569; /* slate-600 */
@@ -117,16 +118,18 @@
         }
         .certification-content {
             background-color: #1E293B; /* slate-800 */
-            border: 1px solid #334155; /* slate-700 */
+            border-width: 0; /* Border removed from content container */
             max-height: 0; /* Start with content hidden */
             overflow: hidden;
             transition: max-height 0.5s ease-out; /* Smooth transition for accordion */
+            padding: 0; /* Remove padding if border is gone, iframe will have its own */
         }
         .certification-content.open {
-            max-height: 500px; /* Adjust as needed for PDF height, or use JS to set height */
+            max-height: 500px; /* Adjust as needed for PDF height */
+            padding: 0.5rem; /* Add padding back when open if desired for spacing around iframe */
         }
         .certification-pdf-iframe {
-            border-color: #475569; /* slate-600 */
+            border-width: 0; /* Border removed from iframe */
             width: 100%;
             height: 450px; /* Default height for PDF iframe */
             border-radius: 0.25rem; /* rounded-sm */
@@ -222,7 +225,7 @@
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>ABOUT </span><span class="text-indigo-500">ME</span></h2>
             <div class="flex flex-col md:flex-row items-center md:space-x-10">
                 <div class="md:w-1/3 mb-8 md:mb-0">
-                    <img src="photo.png" alt="About Me Illustration" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    <img src="photo.png" alt="About Me Illustration" onerror="this.onerror=null; this.src='https://placehold.co/400x400/1E293B/E2E8F0?text=Profile+Pic';" class="rounded-lg shadow-xl w-full h-auto object-cover">
                 </div>
                 <div class="md:w-2/3 text-slate-300">
                     <p class="text-lg leading-relaxed mb-6">
@@ -239,9 +242,6 @@
         </div>
     </section>
 
-    <!-- Add this somewhere in your HTML head or body (for Heroicons to work if not using external library) -->
-<!-- You don’t need external CSS for this; SVGs are inline -->
-
 <section id="education" class="py-16 sm:py-20 px-4 bg-slate-900 text-white">
   <div class="container mx-auto max-w-4xl">
     <h2 class="text-3xl sm:text-4xl section-title mb-12 font-bold text-center">
@@ -250,16 +250,16 @@
 
     <div class="space-y-8">
       <!-- MCA -->
-      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+      <div class="content-card p-5">
         <h3 class="text-xl font-semibold mb-1">Master of Computer Applications (MCA)</h3>
         <p class="text-md flex items-center gap-2">
           <a href="https://www.ganpatuniversity.ac.in/" target="_blank"
-            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
             Ganpat University
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round"
-                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
@@ -267,16 +267,16 @@
       </div>
 
       <!-- BCA -->
-      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+      <div class="content-card p-5">
         <h3 class="text-xl font-semibold mb-1">Bachelor of Computer Applications (BCA)</h3>
         <p class="text-md flex items-center gap-2">
           <a href="https://www.ngu.ac.in/" target="_blank"
-            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
             Hemchandracharya North Gujarat University
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round"
-                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
@@ -284,16 +284,16 @@
       </div>
 
       <!-- 12th -->
-      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+      <div class="content-card p-5">
         <h3 class="text-lg font-semibold mb-1">Higher Secondary (12th Grade)</h3>
         <p class="text-md flex items-center gap-2">
           <a href="https://www.gseb.org/" target="_blank"
-            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
             Gujarat Secondary and Higher Secondary Education Board
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+             <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
@@ -301,16 +301,16 @@
       </div>
 
       <!-- 10th -->
-      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+      <div class="content-card p-5">
         <h3 class="text-lg font-semibold mb-1">Secondary (10th Grade)</h3>
         <p class="text-md flex items-center gap-2">
           <a href="https://www.gseb.org/" target="_blank"
-            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
             Gujarat Secondary and Higher Secondary Education Board
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round"
-                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
@@ -319,9 +319,6 @@
     </div>
   </div>
 </section>
-
-
-
 
     <section id="experience" class="py-16 sm:py-20 px-4 bg-slate-800">
         <div class="container mx-auto max-w-4xl">
@@ -425,7 +422,7 @@
                         <i class="fas fa-database fa-fw mr-3"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
                         <i class="fas fa-chevron-down ml-auto" id="cert1_icon"></i>
                     </button>
-                    <div id="cert1_content" class="certification-content mt-2 p-2 rounded-md">
+                    <div id="cert1_content" class="certification-content mt-1 rounded-md">
                         <iframe src="DBMS.pdf" class="certification-pdf-iframe" frameborder="0" title="DBMS Certificate"></iframe>
                     </div>
                 </div>
@@ -434,7 +431,7 @@
                         <i class="fab fa-python fa-fw mr-3 text-green-400"></i>Python Workshop - Ganpat University
                         <i class="fas fa-chevron-down ml-auto" id="cert2_icon"></i>
                     </button>
-                    <div id="cert2_content" class="certification-content mt-2 p-2 rounded-md">
+                    <div id="cert2_content" class="certification-content mt-1 rounded-md">
                         <iframe src="python_workshop.pdf" class="certification-pdf-iframe" frameborder="0" title="Python Workshop Certificate"></iframe>
                     </div>
                 </div>
@@ -443,7 +440,7 @@
                         <i class="fas fa-vial fa-fw mr-3 text-purple-400"></i>Software Testing Webinar - TOPS Technologies
                         <i class="fas fa-chevron-down ml-auto" id="cert3_icon"></i>
                     </button>
-                     <div id="cert3_content" class="certification-content mt-2 p-2 rounded-md">
+                     <div id="cert3_content" class="certification-content mt-1 rounded-md">
                         <iframe src="software_testing_webinar.pdf" class="certification-pdf-iframe" frameborder="0" title="Software Testing Webinar Certificate"></iframe>
                     </div>
                 </div>
@@ -452,7 +449,7 @@
                         <i class="fab fa-php fa-fw mr-3 text-blue-400"></i>PHP Essential Training - LinkedIn Learning
                         <i class="fas fa-chevron-down ml-auto" id="cert4_icon"></i>
                     </button>
-                     <div id="cert4_content" class="certification-content mt-2 p-2 rounded-md">
+                     <div id="cert4_content" class="certification-content mt-1 rounded-md">
                         <iframe src="PHP-Linkedin.pdf" class="certification-pdf-iframe" frameborder="0" title="PHP Essential Training Certificate"></iframe>
                     </div>
                 </div>
@@ -461,7 +458,7 @@
                         <i class="fas fa-graduation-cap fa-fw mr-3 text-teal-400"></i>Introduction to Python - Sololearn
                         <i class="fas fa-chevron-down ml-auto" id="cert5_icon"></i>
                     </button>
-                     <div id="cert5_content" class="certification-content mt-2 p-2 rounded-md">
+                     <div id="cert5_content" class="certification-content mt-1 rounded-md">
                          <iframe src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate"></iframe>
                     </div>
                 </div>
@@ -489,9 +486,10 @@
                 <p class="text-lg text-slate-300 text-center mb-8">
                     Have a project in mind, a question, or just want to say hi? Feel free to reach out!
                 </p>
-                <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST"> <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
+                <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> <!-- User's API Key -->
+                    <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
 
                     <div>
                         <label for="name" class="block text-slate-200 text-sm font-bold mb-2">Full Name</label>
@@ -516,19 +514,22 @@
     </section>
 
     <footer class="bg-slate-900 py-8 px-4 text-center text-slate-400">
-        <div class="container mx-auto">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
-                    <i class="fab fa-linkedin fa-2x"></i>
-                </a>
-                <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
-                     <i class="fab fa-github fa-2x"></i>
-                </a>
-                </div>
-            <p>&copy; <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
-            <p class="text-sm mt-1">Inspired to create and innovate.</p>
+    <div class="container mx-auto">
+        <div class="flex justify-center space-x-6 mb-4">
+            <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+                <i class="fab fa-linkedin fa-2x"></i>
+            </a>
+            <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+                 <i class="fab fa-github fa-2x"></i>
+            </a>
+            <a href="https://www.youtube.com/@sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-red-500 transition duration-300 ease-in-out"> <i class="fab fa-youtube fa-2x"></i>
+           </a>
+           <a href="https://t.me/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-sky-400 transition duration-300 ease-in-out"> <i class="fab fa-telegram-plane fa-2x"></i> </a>
         </div>
-    </footer>
+        <p>© <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
+        <p class="text-sm mt-1">Inspired to create and innovate.</p>
+    </div>
+</footer>
 
     <script>
         // Mobile menu toggle functionality
@@ -537,13 +538,11 @@
 
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('hidden');
-            // Optional: Toggle ARIA attribute for accessibility
             const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
             mobileMenuButton.setAttribute('aria-expanded', !expanded);
         }
         mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
-        // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobile-menu a, header nav ul.hidden a').forEach(link => {
             link.addEventListener('click', () => {
                 if (!mobileMenu.classList.contains('hidden')) {
@@ -552,7 +551,6 @@
             });
         });
 
-        // Typing animation for the home section
         const typedOutput = document.getElementById('typed-output');
         const phrases = ["Software Developer", "Java Developer", "Backend Engineer", "Python Enthusiast", "Problem Solver"];
         let phraseIndex = 0;
@@ -562,7 +560,6 @@
         const deletingSpeed = 60;
         const pauseEnd = 2000;
         const pauseStart = 500;
-
 
         function typeWriter() {
             const currentPhrase = phrases[phraseIndex];
@@ -589,24 +586,38 @@
             setTimeout(typeWriter, currentTypingSpeed);
         }
 
-        // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Toggle Certification Content
         function toggleCertContent(contentId, iconId) {
             const contentDiv = document.getElementById(contentId);
             const icon = document.getElementById(iconId);
 
             if (contentDiv) {
-                // contentDiv.classList.toggle('hidden'); // Old way
                 if (contentDiv.classList.contains('open')) {
                     contentDiv.classList.remove('open');
-                    contentDiv.style.maxHeight = '0px'; // Collapse
+                    contentDiv.style.maxHeight = '0px'; 
                 } else {
+                    // Close other open accordions in the same section
+                    const allCertContents = document.querySelectorAll('#certifications .certification-content');
+                    const allCertIcons = document.querySelectorAll('#certifications .certification-button i.fa-chevron-down');
+                    
+                    allCertContents.forEach(item => {
+                        if(item.id !== contentId && item.classList.contains('open')) {
+                            item.classList.remove('open');
+                            item.style.maxHeight = '0px';
+                        }
+                    });
+                    allCertIcons.forEach(item_icon => {
+                        if(item_icon.id !== iconId && item_icon.classList.contains('rotate-180')) {
+                           item_icon.classList.remove('rotate-180');
+                        }
+                    });
+                    
                     contentDiv.classList.add('open');
-                    // Set max-height to scrollHeight for smooth transition
-                    // Add a little padding for the iframe container
-                    contentDiv.style.maxHeight = (contentDiv.scrollHeight + 16) + 'px'; // +16 for p-2 on content
+                    // Add a slight delay to ensure iframe content is rendered before calculating scrollHeight
+                    setTimeout(() => {
+                        contentDiv.style.maxHeight = (contentDiv.scrollHeight + 5) + 'px'; // +5 for a little buffer
+                    }, 50);
                 }
                 if (icon) {
                     icon.classList.toggle('rotate-180');
@@ -614,12 +625,28 @@
             }
         }
 
-        // Start the typing animation when the window loads
         window.onload = function() {
             if (typedOutput) { 
                  typeWriter();
             }
+             // Ensure all certification contents are initially collapsed
+            document.querySelectorAll('#certifications .certification-content').forEach(content => {
+                content.style.maxHeight = '0px';
+                content.classList.remove('open');
+            });
+            document.querySelectorAll('#certifications .certification-button i.fa-chevron-down').forEach(icon => {
+                icon.classList.remove('rotate-180');
+            });
         };
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
