@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sauravkumar Chaudhary - Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -84,7 +85,7 @@
                 <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" class="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-lg">
                 </div>
             <h1 class="text-5xl font-extrabold">Sauravkumar V. Chaudhary</h1>
-            <p class="text-xl mt-2 text-blue-200">Passionate Software Developer</p>
+            <p class="text-xl mt-2 text-blue-200">Software Developer</p>
             <div class="mt-6 text-blue-100 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
                 <a href="tel:+917779095746" class="contact-link hover:text-white flex items-center">
                     <i class="fas fa-phone icon"></i> +91 77790 95746
@@ -113,6 +114,44 @@
                     A dedicated Software Developer with robust experience in Java, Spring Boot, Python, and PHP Laravel. I thrive on building efficient backend systems, integrating APIs seamlessly, and designing effective databases. I'm a quick learner with a knack for problem-solving, always excited to contribute to impactful projects within a dynamic team.
                 </p>
             </section>
+
+            <section class="mb-10">
+    <h2 class="text-3xl section-title">EDUCATION</h2>
+    <div class="space-y-6">
+        <div class="card">
+            <h3 class="text-xl font-semibold text-gray-700">Master of Computer Applications (MCA)</h3>
+            <p class="text-gray-600">
+                <a href="https://www.ganpatuniversity.ac.in/" class="text-blue-600 hover:underline" target="_blank">Ganpat University</a>
+            </p>
+            <p class="text-sm text-gray-500">2023-2025 | CGPA: 8.22/10</p>
+        </div>
+
+        <div class="card">
+            <h3 class="text-xl font-semibold text-gray-700">Bachelor of Computer Applications (BCA)</h3>
+            <p class="text-gray-600">
+                <a href="https://ngu.ac.in/" class="text-blue-600 hover:underline" target="_blank">Hemchandracharya North Gujarat University</a>
+            </p>
+            <p class="text-sm text-gray-500">2020-2023 | CGPA: 8.78/10</p>
+        </div>
+
+        <div class="p-4 border border-gray-200 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-700">Higher Secondary (12th)</h3>
+            <p class="text-gray-600">
+                <a href="https://www.gseb.org/" class="text-blue-600 hover:underline" target="_blank">Gujarat Secondary and Higher Secondary Education Board</a>
+            </p>
+            <p class="text-sm text-gray-500">2020 | Percentage: 54.66%</p>
+        </div>
+
+        <div class="p-4 border border-gray-200 rounded-lg">
+            <h3 class="text-lg font-semibold text-gray-700">Secondary (10th)</h3>
+            <p class="text-gray-600">
+                <a href="https://www.gseb.org/" class="text-blue-600 hover:underline" target="_blank">Gujarat Secondary and Higher Secondary Education Board</a>
+            </p>
+            <p class="text-sm text-gray-500">2018 | Percentage: 62.66%</p>
+        </div>
+    </div>
+</section>
+
 
             <section class="mb-10">
                 <h2 class="text-3xl section-title">EXPERIENCE</h2>
@@ -202,37 +241,12 @@
                 </div>
             </section>
 
-            <section class="mb-10">
-                <h2 class="text-3xl section-title">EDUCATION</h2>
-                <div class="space-y-6">
-                    <div class="card">
-                        <h3 class="text-xl font-semibold text-gray-700">Master of Computer Applications (MCA)</h3>
-                        <p class="text-gray-600">Ganpat University</p>
-                        <p class="text-sm text-gray-500">2023-2025 | CGPA: 8.22/10</p>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-xl font-semibold text-gray-700">Bachelor of Computer Applications (BCA)</h3>
-                        <p class="text-gray-600">Hemchandracharya North Gujarat University</p>
-                        <p class="text-sm text-gray-500">2020-2023 | CGPA: 8.78/10</p>
-                    </div>
-                    <div class="p-4 border border-gray-200 rounded-lg">
-                        <h3 class="text-lg font-semibold text-gray-700">Higher Secondary (12th)</h3>
-                        <p class="text-gray-600">Gujarat Secondary and Higher Secondary Education Board</p>
-                        <p class="text-sm text-gray-500">2020 | Percentage: 54.66%</p>
-                    </div>
-                    <div class="p-4 border border-gray-200 rounded-lg">
-                        <h3 class="text-lg font-semibold text-gray-700">Secondary (10th)</h3>
-                        <p class="text-gray-600">Gujarat Secondary and Higher Secondary Education Board</p>
-                        <p class="text-sm text-gray-500">2018 | Percentage: 62.66%</p>
-                    </div>
-                </div>
-            </section>
+            
 
             <section class="mb-10">
   <h2 class="text-3xl section-title">CERTIFICATIONS & ACTIVITIES</h2>
   <div class="card space-y-4">
 
-    <!-- Certificate 1 -->
     <div>
       <button 
         class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
@@ -240,11 +254,10 @@
         <i class="fas fa-award text-yellow-500 mr-2"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
       </button>
       <div id="cert1" class="hidden mt-2">
-        <iframe src="DBMS.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
-      </div>
+        <iframe src="DBMS.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
+        </div>
     </div>
 
-    <!-- Certificate 2 -->
     <div>
       <button 
         class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
@@ -252,11 +265,10 @@
         <i class="fas fa-users text-green-500 mr-2"></i>Python Workshop - Ganpat University
       </button>
       <div id="cert2" class="hidden mt-2">
-        <iframe src="python_workshop.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+        <iframe src="python_workshop.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
       </div>
     </div>
 
-    <!-- Certificate 3 -->
     <div>
       <button 
         class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
@@ -264,10 +276,9 @@
         <i class="fas fa-chalkboard-teacher text-purple-500 mr-2"></i>Software Testing Webinar - TOPS Technologies
       </button>
       <div id="cert3" class="hidden mt-2">
-        <iframe src="software_testing_webinar.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+        <iframe src="software_testing_webinar.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
       </div>
     </div>
-    <!-- Certificate 4 -->
     <div>
       <button 
         class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
@@ -275,41 +286,44 @@
         <i class="fas fa-certificate text-yellow-500 mr-2"></i>PHP Essential Training - LinkedIn Learning
       </button>
       <div id="cert4" class="hidden mt-2">
-        <iframe src="PHP-Linkedin.pdf" class="w-full h-64 rounded-md border" frameborder="0"></iframe>
+        <iframe src="PHP-Linkedin.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
+      </div>
+    </div>
+    <div>
+      <button 
+        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
+        onclick="togglePDF('cert5')">
+        <i class="fas fa-graduation-cap text-teal-500 mr-2"></i>Introduction to Python - sololearn
+      </button>
+      <div id="cert5" class="hidden mt-2">
+        <iframe src="my_python_certificate.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
       </div>
     </div>
 
   </div>
 </section>
-
-<script>
-  function togglePDF(id) {
-    const element = document.getElementById(id);
-    element.classList.toggle('hidden');
-  }
-</script>
-
-
-            
-            
-
             <footer class="text-center text-sm text-gray-500 mt-16 py-8 border-t border-gray-200">
                 <p>&copy; <span id="currentYear"></span> Sauravkumar Vishnubhai Chaudhary. All Rights Reserved.</p>
                 <p class="mt-1">Inspired to create and innovate.</p>
-                <p class="mt-4"><em>I hereby declare that all the information provided is true to the best of my knowledge.</em></p>
-                <p class="mt-1">Place: Mehsana | Date: <span id="currentDate"></span></p>
-            </footer>
+                 </footer>
         </div>
     </div>
 
     <script>
-        // Script to set current year and date
+        // Script to set current year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+        // Removed current date setting as it wasn't in the original final HTML provided by user
+        // const today = new Date();
+        // const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        // document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+
+        // Function to toggle PDF visibility
+        function togglePDF(certId) {
+            const pdfDiv = document.getElementById(certId);
+            if (pdfDiv) {
+                pdfDiv.classList.toggle('hidden');
+            }
+        }
     </script>
 </body>
 </html>
-<!-- This is a simple HTML template for a personal portfolio page. It includes sections for the hero banner, about me, experience, projects, skills, education, certifications, and a footer with contact information. The design uses Tailwind CSS for styling and Font Awesome for icons. -->
-
