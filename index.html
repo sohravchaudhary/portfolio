@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sauravkumar Chaudhary - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <style>
-        /* Custom CSS for smooth scrolling and font application */
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #142755; /* User's specified background */
-            color: #E2E8F0; /* Light text from new template */
+            font-family: 'Poppins', sans-serif; 
+            background-color: #0A0F1E; 
+            color: #C5D0E0; 
+            position: relative; 
+            overflow-x: hidden; 
         }
-        /* Custom styles for the typing effect cursor */
+        #tsparticles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; 
+        }
         .typed-text::after {
             content: '|';
             display: inline;
@@ -25,17 +34,15 @@
         }
         @keyframes blink-caret {
             from, to { border-color: transparent }
-            50% { border-color: #a7a7b0; } /* User's specified cursor color */
+            50% { border-color: #A6B0C3; } 
         }
-
-        /* Section Title Styling - adapted for the dark theme */
         .section-title {
-            font-weight: 700; /* Bolder */
-            color: #38b5d8; /* User's specified title color */
-            padding-bottom: 0.75rem; /* Increased padding */
-            margin-bottom: 1.5rem; /* Increased margin */
+            font-weight: 700; 
+            color: #00CFE8; 
+            padding-bottom: 0.75rem; 
+            margin-bottom: 1.5rem; 
             position: relative;
-            text-align: center; /* Center align section titles */
+            text-align: center; 
         }
         .section-title::after {
             content: '';
@@ -43,291 +50,324 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px; /* Underline width */
-            height: 3px; /* Thicker underline */
-            background-color: #6366F1; /* Indigo-500 for dark theme */
+            width: 60px; 
+            height: 3px; 
+            background-color: #00CFE8; 
             border-radius: 2px;
         }
-        .section-title span { /* For the non-highlighted part of the title */
-            color: #E2E8F0; /* Light text */
+        .section-title span { 
+            color: #F0F4F8; 
         }
-
-        /* Card styling for education, experience, projects */
         .content-card {
-            background-color: #1E293B; /* slate-800 */
+            background-color: #1F2942; 
             border-radius: 0.75rem;
             padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #334155; /* slate-700 */
+            border: 1px solid #2D3A57; 
         }
         .content-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.25);
         }
         .content-card h3 {
-            color: #818CF8; /* indigo-400 */
+            color: #82EEFD; 
         }
         .content-card p, .content-card ul li {
-            color: #CBD5E1; /* slate-300 */
+            color: #C5D0E0; 
         }
         .content-card .text-sm {
-             color: #94A3B8; /* slate-400 */
+             color: #A6B0C3; 
         }
          .content-card .tech-stack-text {
-            color: #A5B4FC; /* indigo-300 */
+            color: #82EEFD; 
             font-weight: 500;
         }
-
-
-        /* Skill Badge Styling for dark theme */
         .skill-badge {
-            background-color: #374151; /* gray-700 */
-            color: #E5E7EB; /* gray-200 */
-            padding: 0.5rem 1rem;
-            border-radius: 9999px; /* pill shape */
-            font-size: 0.875rem;
+            background-color: #2D3A57; 
+            color: #A6B0C3; 
+            padding: 0.6rem 1.2rem; /* Slightly increased padding for icons */
+            border-radius: 9999px; 
+            font-size: 0.9rem; /* Slightly increased font size */
             font-weight: 500;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            border: 1px solid #4B5563; /* gray-600 */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #4A5568; 
+            cursor: pointer; 
+            display: inline-flex; /* For icon and text alignment */
+            align-items: center;
+            gap: 0.5rem; /* Space between icon and text */
+        }
+        .skill-badge i { /* Icon specific styling within badge */
+            font-size: 1.1em; /* Make icon slightly larger than text */
         }
         .skill-badge:hover {
-            background-color: #4F46E5; /* indigo-600 */
-            color: #ffffff;
-            border-color: #4F46E5;
+            background-color: #00CFE8; 
+            color: #0A0F1E; 
+            border-color: #00CFE8;
         }
-
-        /* Certification button styling */
+        .skill-badge:hover i { /* Icon color on hover */
+            color: #0A0F1E;
+        }
         .certification-button {
-            background-color: #334155; /* slate-700 */
-            color: #E2E8F0; /* Light text */
+            background-color: #2D3A57; 
+            color: #A6B0C3; 
             transition: background-color 0.3s ease;
-            /* border-width: 0; */ 
         }
         .certification-button:hover {
-            background-color: #475569; /* slate-600 */
+            background-color: #3E4C6D; 
         }
-        .certification-button i.fa-chevron-down { /* Chevron icon specific styling */
+        .certification-button i.fa-chevron-down { 
              transition: transform 0.3s ease;
         }
-        .certification-button i.fa-chevron-down.rotate-180 { /* Chevron icon rotation */
+        .certification-button i.fa-chevron-down.rotate-180 {
             transform: rotate(180deg);
         }
-        .certification-button i { /* General icon styling within button */
-            color: #FACC15; /* yellow-400 for icons, can be overridden for specific icons */
+        .certification-button i { 
+            color: #FACC15; 
         }
         .certification-content {
-            background-color: #1E293B; /* slate-800 */
-            border-width: 0; /* Border removed from content container */
-            max-height: 0; /* Start with content hidden */
+            background-color: #1F2942; 
+            border-width: 0; 
+            max-height: 0; 
             overflow: hidden;
-            transition: max-height 0.5s ease-out; /* Smooth transition for accordion */
-            padding: 0; /* Remove padding if border is gone, iframe will have its own */
+            transition: max-height 0.5s ease-out; 
+            padding: 0; 
         }
         .certification-content.open {
-            max-height: 500px; /* Adjust as needed for PDF height */
-            padding: 0.5rem; /* Add padding back when open if desired for spacing around iframe */
+            max-height: 500px; 
+            padding: 0.5rem; 
         }
         .certification-pdf-iframe {
-            border-width: 0; /* Border removed from iframe */
+            border-width: 0; 
             width: 100%;
-            height: 450px; /* Default height for PDF iframe */
-            border-radius: 0.25rem; /* rounded-sm */
+            height: 450px; 
+            border-radius: 0.25rem; 
         }
-
-
-        /* Contact form input styling */
         .form-input {
-            background-color: #1E293B; /* slate-800 */
-            border-color: #334155; /* slate-700 */
-            color: #E2E8F0; /* Light text */
+            background-color: #1F2942; 
+            border-color: #2D3A57; 
+            color: #F0F4F8; 
         }
         .form-input::placeholder {
-            color: #64748B; /* slate-500 */
+            color: #7B89A1; 
         }
         .form-input:focus {
-            border-color: #6366F1; /* indigo-500 */
-            ring-color: #6366F1;
+            border-color: #00CFE8; 
+            ring-color: #00CFE8; 
         }
         .contact-icon {
-            color: #818CF8; /* indigo-400 */
+            color: #82EEFD; 
         }
-
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #161D33; 
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            width: 90%;
+            max-width: 500px;
+            color: #C5D0E0;
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #A6B0C3; 
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover {
+            color: #F0F4F8; 
+        }
+        header, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+        .primary-button {
+            background-color: #00A9C0; 
+            color: white;
+        }
+        .primary-button:hover {
+            background-color: #00CFE8; 
+        }
+        .secondary-button {
+            background-color: #2D3A57;
+            color: white;
+        }
+        .secondary-button:hover {
+            background-color: #3E4C6D;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-slate-900 shadow-lg fixed w-full z-50">
+    <div id="tsparticles"></div>
+
+    <header class="bg-[#10182B] shadow-lg fixed w-full z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-indigo-500 hover:text-indigo-400 transition duration-300 ease-in-out rounded-md p-2">
+            <a href="#home" class="text-2xl font-bold text-[#00CFE8] hover:text-[#31E0E0] transition duration-300 ease-in-out rounded-md p-2">
             Saurav.
             </a>
-
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-2">
+                <button id="mobile-menu-button" class="text-[#F0F4F8] focus:outline-none focus:ring-2 focus:ring-[#00CFE8] rounded-md p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path>
                     </svg>
                 </button>
             </div>
-
             <ul class="hidden md:flex space-x-6">
-                <li><a href="#home" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Home</a></li>
-                <li><a href="#about" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">About</a></li>
-                <li><a href="#education" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Education</a></li>
-                <li><a href="#experience" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Experience</a></li>
-                <li><a href="#skills" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
-                <li><a href="#projects" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
-                <li><a href="#certifications" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
-                <li><a href="#contact" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
+                <li><a href="#home" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Home</a></li>
+                <li><a href="#about" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">About</a></li>
+                <li><a href="#education" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Education</a></li>
+                <li><a href="#experience" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Experience</a></li>
+                <li><a href="#skills" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
+                <li><a href="#projects" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
+                <li><a href="#certifications" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
+                <li><a href="#contact" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
             </ul>
         </nav>
-
-        <div id="mobile-menu" class="md:hidden hidden bg-slate-800 pb-4">
+        <div id="mobile-menu" class="md:hidden hidden bg-[#161D33] pb-4">
             <ul class="flex flex-col items-center space-y-4">
-                <li><a href="#home" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Home</a></li>
-                <li><a href="#about" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">About</a></li>
-                <li><a href="#education" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Education</a></li>
-                <li><a href="#experience" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Experience</a></li>
-                <li><a href="#skills" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Skills</a></li>
-                <li><a href="#projects" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Projects</a></li>
-                <li><a href="#certifications" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Certifications</a></li>
-                <li><a href="#contact" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Contact</a></li>
+                <li><a href="#home" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Home</a></li>
+                <li><a href="#about" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">About</a></li>
+                <li><a href="#education" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Education</a></li>
+                <li><a href="#experience" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Experience</a></li>
+                <li><a href="#skills" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Skills</a></li>
+                <li><a href="#projects" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Projects</a></li>
+                <li><a href="#certifications" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#contact" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <section id="home" class="min-h-screen flex items-center justify-center text-center p-4 pt-24 md:pt-20">
         <div class="max-w-4xl mx-auto">
-            <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" onerror="this.onerror=null; this.src='https://placehold.co/150x150/6366F1/FFFFFF?text=SC';" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-indigo-500 shadow-lg object-cover">
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4">
-                Hi, I'm <span class="text-indigo-500">Sauravkumar Chaudhary</span>
+            <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" onerror="this.onerror=null; this.src='https://placehold.co/150x150/00CFE8/0A0F1E?text=SC';" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-[#00CFE8] shadow-lg object-cover">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#F0F4F8] leading-tight mb-4">
+                Hi, I'm <span class="text-[#00CFE8]">Sauravkumar Chaudhary</span>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-4xl font-semibold text-slate-300 mb-8">
-                And I'm a <span id="typed-output" class="typed-text text-indigo-400"></span>
+            <p class="text-xl sm:text-2xl md:text-4xl font-semibold text-[#C5D0E0] mb-8">
+                And I'm a <span id="typed-output" class="typed-text text-[#82EEFD]"></span>
             </p>
-            <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+            <p class="text-lg md:text-xl text-[#A6B0C3] mb-10 max-w-2xl mx-auto">
                 Welcome to my digital space! Here you'll find a showcase of my work, skills, and passion for creating impactful software solutions.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                <a href="#contact" class="primary-button font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                     Hire Me
                 </a>
-                <a href="#projects" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                <a href="#projects" class="secondary-button font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                     View Projects
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-16 sm:py-20 px-4 bg-slate-800">
+    <section id="about" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>ABOUT </span><span class="text-indigo-500">ME</span></h2>
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>ABOUT </span><span class="text-[#00CFE8]">ME</span></h2>
             <div class="flex flex-col md:flex-row items-center md:space-x-10">
                 <div class="md:w-1/3 mb-8 md:mb-0">
-                    <img src="photo.png" alt="About Me Illustration" onerror="this.onerror=null; this.src='https://placehold.co/400x400/1E293B/E2E8F0?text=Profile+Pic';" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    <img src="photo.png" alt="About Me Illustration" onerror="this.onerror=null; this.src='https://placehold.co/400x400/1F2942/F0F4F8?text=Profile+Pic';" class="rounded-lg shadow-xl w-full h-auto object-cover">
                 </div>
-                <div class="md:w-2/3 text-slate-300">
-                    <p class="text-lg leading-relaxed mb-6">
-                        Hello! I'm <span class="font-semibold text-white">Sauravkumar Vishnubhai Chaudhary</span>, a passionate Software Developer with hands-on experience in Java, Spring Boot, Python, and PHP Laravel. I am adept at backend development, API integration, and database design.
-                    </p>
-                    <p class="text-lg leading-relaxed mb-6">
-                        My journey in technology is driven by a curiosity for how things work and a strong desire to build efficient and scalable software. I am a fast learner with robust problem-solving skills, always eager to take on new challenges and contribute to high-impact projects within a collaborative development environment.
-                    </p>
-                    <p class="text-lg leading-relaxed">
-                        I aim to create user-friendly experiences that are not only visually appealing but also highly performant and accessible. Let's connect and build something amazing together!
-                    </p>
+                <div class="md:w-2/3 text-[#C5D0E0]">
+                    <div id="aboutMeTextContainer">
+                        <p class="text-lg leading-relaxed mb-3">Hello! I'm <span class="font-semibold text-[#F0F4F8]">Sauravkumar Vishnubhai Chaudhary</span>, a passionate Software Developer with hands-on experience in Java, Spring Boot, Python, and PHP Laravel. I am adept at backend development, API integration, and database design.</p>
+                        <p class="text-lg leading-relaxed mb-3">My journey in technology is driven by a curiosity for how things work and a strong desire to build efficient and scalable software. I am a fast learner with robust problem-solving skills, always eager to take on new challenges and contribute to high-impact projects within a collaborative development environment.</p>
+                        <p class="text-lg leading-relaxed">I aim to create user-friendly experiences that are not only visually appealing but also highly performant and accessible. Let's connect and build something amazing together!</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-<section id="education" class="py-16 sm:py-20 px-4 bg-slate-900 text-white">
+<section id="education" class="py-16 sm:py-20 px-4 bg-[#10182B] text-[#F0F4F8]">
   <div class="container mx-auto max-w-4xl">
     <h2 class="text-3xl sm:text-4xl section-title mb-12 font-bold text-center">
-      <span>MY </span><span class="text-indigo-500">EDUCATION</span>
+      <span>MY </span><span class="text-[#00CFE8]">EDUCATION</span>
     </h2>
-
     <div class="space-y-8">
-      <!-- MCA -->
       <div class="content-card p-5">
         <h3 class="text-xl font-semibold mb-1">Master of Computer Applications (MCA)</h3>
         <p class="text-md flex items-center gap-2">
-          <a href="https://www.ganpatuniversity.ac.in/" target="_blank"
-             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+          <a href="https://www.ganpatuniversity.ac.in/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
             Ganpat University
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
-        <p class="text-sm mb-2 text-slate-300">2023 - 2025 | CGPA: 8.22/10</p>
+        <p class="text-sm mb-2 text-[#A6B0C3]">2023 - 2025 | CGPA: 8.22/10</p>
       </div>
-
-      <!-- BCA -->
       <div class="content-card p-5">
         <h3 class="text-xl font-semibold mb-1">Bachelor of Computer Applications (BCA)</h3>
         <p class="text-md flex items-center gap-2">
-          <a href="https://www.ngu.ac.in/" target="_blank"
-             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+          <a href="https://www.ngu.ac.in/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
             Hemchandracharya North Gujarat University
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
-        <p class="text-sm mb-2 text-slate-300">2020 - 2023 | CGPA: 8.78/10</p>
+        <p class="text-sm mb-2 text-[#A6B0C3]">2020 - 2023 | CGPA: 8.78/10</p>
       </div>
-
-      <!-- 12th -->
       <div class="content-card p-5">
         <h3 class="text-lg font-semibold mb-1">Higher Secondary (12th Grade)</h3>
         <p class="text-md flex items-center gap-2">
-          <a href="https://www.gseb.org/" target="_blank"
-             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+          <a href="https://www.gseb.org/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
             Gujarat Secondary and Higher Secondary Education Board
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-             <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
-        <p class="text-sm mb-2 text-slate-300">2020 | Percentage: 54.66%</p>
+        <p class="text-sm mb-2 text-[#A6B0C3]">2020 | Percentage: 54.66%</p>
       </div>
-
-      <!-- 10th -->
       <div class="content-card p-5">
         <h3 class="text-lg font-semibold mb-1">Secondary (10th Grade)</h3>
         <p class="text-md flex items-center gap-2">
-          <a href="https://www.gseb.org/" target="_blank"
-             class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+          <a href="https://www.gseb.org/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
             Gujarat Secondary and Higher Secondary Education Board
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </p>
-        <p class="text-sm mb-2 text-slate-300">2018 | Percentage: 62.66%</p>
+        <p class="text-sm mb-2 text-[#A6B0C3]">2018 | Percentage: 62.66%</p>
       </div>
     </div>
   </div>
 </section>
 
-    <section id="experience" class="py-16 sm:py-20 px-4 bg-slate-800">
+    <section id="experience" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>WORK </span><span class="text-indigo-500">EXPERIENCE</span></h2>
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>WORK </span><span class="text-[#00CFE8]">EXPERIENCE</span></h2>
             <div class="space-y-8">
                 <div class="content-card">
                     <h3 class="text-xl font-semibold mb-1">Java Development Intern</h3>
-                    <p class="text-md font-medium">Cognifyz Technologies</p>
-                    <p class="text-sm mb-3">May 2024 - December 2024</p>
+                    <p class="text-md font-medium text-[#F0F4F8]">Cognifyz Technologies</p>
+                    <p class="text-sm mb-3 text-[#A6B0C3]">May 2024 - December 2024</p>
                     <ul class="list-disc list-inside space-y-1 pl-2">
                         <li>Engineered and maintained backend modules using Java for key internal projects.</li>
                         <li>Actively participated in debugging, crafting unit tests, and integrating third-party APIs.</li>
@@ -337,8 +377,8 @@
                 </div>
                 <div class="content-card">
                     <h3 class="text-xl font-semibold mb-1">Software Developer Intern</h3>
-                    <p class="text-md font-medium">Premier Infotech</p>
-                    <p class="text-sm mb-3">January 2025 - May 2025</p>
+                    <p class="text-md font-medium text-[#F0F4F8]">Premier Infotech</p>
+                    <p class="text-sm mb-3 text-[#A6B0C3]">January 2025 - May 2025</p>
                     <ul class="list-disc list-inside space-y-1 pl-2">
                         <li>Developed and deployed RESTful APIs with Spring Boot for a scalable e-commerce platform.</li>
                         <li>Implemented robust authentication mechanisms and core CRUD functionalities.</li>
@@ -350,44 +390,71 @@
         </div>
     </section>
 
-    <section id="skills" class="py-16 sm:py-20 px-4 bg-slate-900">
-        <div class="container mx-auto max-w-5xl"> <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>TECHNICAL </span><span class="text-indigo-500">ARSENAL</span></h2>
+    <section id="skills" class="py-16 sm:py-20 px-4 bg-[#10182B]">
+        <div class="container mx-auto max-w-5xl"> <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>TECHNICAL </span><span class="text-[#00CFE8]">ARSENAL</span></h2>
             <div class="mb-10">
-                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Programming Languages</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="skill-badge">Java</span><span class="skill-badge">Python</span><span class="skill-badge">PHP</span><span class="skill-badge">C</span><span class="skill-badge">C#</span><span class="skill-badge">HTML5</span><span class="skill-badge">CSS3</span><span class="skill-badge">JavaScript</span>
+                <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Programming Languages</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-badge" data-skill="Java"><i class="fab fa-java text-[#E4A20F]"></i> Java</span>
+                    <span class="skill-badge" data-skill="Python"><i class="fab fa-python text-[#FFD43B]"></i> Python</span>
+                    <span class="skill-badge" data-skill="PHP"><i class="fab fa-php text-[#777BB4]"></i> PHP</span>
+                    <span class="skill-badge" data-skill="C Language"><i class="fas fa-code text-gray-400"></i> C</span>
+                    <span class="skill-badge" data-skill="C Sharp"><i class="fas fa-code text-purple-400"></i> C#</span>
+                    <span class="skill-badge" data-skill="HTML5"><i class="fab fa-html5 text-[#E34F26]"></i> HTML5</span>
+                    <span class="skill-badge" data-skill="CSS3"><i class="fab fa-css3-alt text-[#1572B6]"></i> CSS3</span>
+                    <span class="skill-badge" data-skill="JavaScript"><i class="fab fa-js-square text-[#F7DF1E]"></i> JavaScript</span>
                 </div>
             </div>
             <div class="mb-10">
-                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Frameworks & Technologies</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="skill-badge">Spring Boot</span><span class="skill-badge">Laravel</span><span class="skill-badge">Django</span><span class="skill-badge">ASP.NET</span>
+                <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Frameworks & Technologies</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-badge" data-skill="Spring Boot"><i class="fas fa-leaf text-green-500"></i> Spring Boot</span>
+                    <span class="skill-badge" data-skill="Laravel Framework"><i class="fab fa-laravel text-[#FF2D20]"></i> Laravel</span>
+                    <span class="skill-badge" data-skill="Django Framework"><i class="fab fa-python text-[#092E20]"></i> Django</span> <!-- Django uses Python icon -->
+                    <span class="skill-badge" data-skill="ASP.NET"><i class="fas fa-code text-sky-500"></i> ASP.NET</span>
                 </div>
             </div>
             <div class="mb-10">
-                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Databases</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="skill-badge">MySQL</span><span class="skill-badge">Oracle SQL</span><span class="skill-badge">MS SQL Server</span>
+                <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Databases</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-badge" data-skill="MySQL"><i class="fas fa-database text-blue-500"></i> MySQL</span>
+                    <span class="skill-badge" data-skill="Oracle SQL"><i class="fas fa-database text-red-500"></i> Oracle SQL</span>
+                    <span class="skill-badge" data-skill="Microsoft SQL Server"><i class="fas fa-database text-orange-500"></i> MS SQL Server</span>
                 </div>
             </div>
             <div class="mb-10">
-                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Tools</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="skill-badge">Git & GitHub</span><span class="skill-badge">IntelliJ IDEA</span><span class="skill-badge">VS Code</span><span class="skill-badge">PyCharm</span><span class="skill-badge">MS Office</span>
+                <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Tools</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-badge" data-skill="Git and GitHub"><i class="fab fa-git-alt text-orange-600"></i> Git & GitHub</span>
+                    <span class="skill-badge" data-skill="IntelliJ IDEA"><i class="fas fa-laptop-code text-purple-500"></i> IntelliJ IDEA</span>
+                    <span class="skill-badge" data-skill="Visual Studio Code"><i class="fas fa-code text-blue-400"></i> VS Code</span>
+                    <span class="skill-badge" data-skill="PyCharm"><i class="fas fa-laptop-code text-green-400"></i> PyCharm</span>
+                    <span class="skill-badge" data-skill="Microsoft Office Suite"><i class="fab fa-microsoft text-sky-600"></i> MS Office</span>
                 </div>
             </div>
              <div class="mb-10">
-                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Key Competencies & Soft Skills</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="skill-badge">OOP</span><span class="skill-badge">MVC</span><span class="skill-badge">REST APIs</span><span class="skill-badge">Software Testing</span><span class="skill-badge">Automation Testing</span><span class="skill-badge">Data Analysis</span><span class="skill-badge">Teamwork</span><span class="skill-badge">Leadership</span><span class="skill-badge">Project Management</span><span class="skill-badge">Communication</span><span class="skill-badge">Problem Solving</span><span class="skill-badge">Social Media Management</span>
+                <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Key Competencies & Soft Skills</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-badge" data-skill="Object-Oriented Programming (OOP)">OOP</span>
+                    <span class="skill-badge" data-skill="Model-View-Controller (MVC) architecture">MVC</span>
+                    <span class="skill-badge" data-skill="RESTful APIs">REST APIs</span>
+                    <span class="skill-badge" data-skill="Software Testing">Software Testing</span>
+                    <span class="skill-badge" data-skill="Automation Testing">Automation Testing</span>
+                    <span class="skill-badge" data-skill="Data Analysis">Data Analysis</span>
+                    <span class="skill-badge" data-skill="Teamwork">Teamwork</span>
+                    <span class="skill-badge" data-skill="Leadership">Leadership</span>
+                    <span class="skill-badge" data-skill="Project Management">Project Management</span>
+                    <span class="skill-badge" data-skill="Communication Skills">Communication</span>
+                    <span class="skill-badge" data-skill="Problem Solving">Problem Solving</span>
+                    <span class="skill-badge" data-skill="Social Media Management">Social Media Management</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-16 sm:py-20 px-4 bg-slate-800">
+    <section id="projects" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
-             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>PROJECT </span><span class="text-indigo-500">SHOWCASE</span></h2>
+             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>PROJECT </span><span class="text-[#00CFE8]">SHOWCASE</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="content-card">
                     <h3 class="text-xl font-semibold mb-1">Online Shopping Site</h3>
@@ -413,9 +480,9 @@
         </div>
     </section>
 
-    <section id="certifications" class="py-16 sm:py-20 px-4 bg-slate-900">
+    <section id="certifications" class="py-16 sm:py-20 px-4 bg-[#10182B]">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>CERTIFICATIONS & </span><span class="text-indigo-500">ACTIVITIES</span></h2>
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>CERTIFICATIONS & </span><span class="text-[#00CFE8]">ACTIVITIES</span></h2>
             <div class="space-y-4">
                  <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert1_content', 'cert1_icon')">
@@ -466,56 +533,54 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-20 px-4 bg-slate-800">
+    <section id="contact" class="py-16 sm:py-20 px-4 bg-[#161D33]"> 
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>GET IN </span><span class="text-indigo-500">TOUCH</span></h2>
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>GET IN </span><span class="text-[#00CFE8]">TOUCH</span></h2>
             
-            <div class="bg-slate-900 p-6 sm:p-8 rounded-lg shadow-xl mb-10">
+            <div class="bg-[#10182B] p-6 sm:p-8 rounded-lg shadow-xl mb-10"> 
                  <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-center mb-8">
-                    <a href="tel:+917779095746" class="text-slate-300 hover:text-indigo-400 transition duration-300 flex items-center text-lg">
+                    <a href="tel:+917779095746" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 flex items-center text-lg">
                         <i class="fas fa-phone contact-icon mr-2"></i> +91 77790 95746
                     </a>
-                    <a href="mailto:sohravchaudhary@gmail.com" class="text-slate-300 hover:text-indigo-400 transition duration-300 flex items-center text-lg">
+                    <a href="mailto:sohravchaudhary@gmail.com" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 flex items-center text-lg">
                         <i class="fas fa-envelope contact-icon mr-2"></i> sohravchaudhary@gmail.com
                     </a>
-                    <span class="text-slate-300 flex items-center text-lg">
+                    <span class="text-[#A6B0C3] flex items-center text-lg">
                          <i class="fas fa-map-marker-alt contact-icon mr-2"></i> Mehsana, Gujarat, India
                     </span>
                 </div>
 
-                <p class="text-lg text-slate-300 text-center mb-8">
+                <p class="text-lg text-[#C5D0E0] text-center mb-8">
                     Have a project in mind, a question, or just want to say hi? Feel free to reach out!
                 </p>
                 <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> <!-- User's API Key for Web3Forms -->
+                    <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> 
                     <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                     <div>
-                        <label for="name" class="block text-slate-200 text-sm font-bold mb-2">Full Name</label>
-                        <input type="text" id="name" name="name" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="Your Name">
+                        <label for="name" class="block text-[#A6B0C3] text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-[#7B89A1]" placeholder="Your Name">
                     </div>
                     <div>
-                        <label for="email" class="block text-slate-200 text-sm font-bold mb-2">Email Address</label>
-                        <input type="email" id="email" name="email" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="your.email@example.com">
+                        <label for="email" class="block text-[#A6B0C3] text-sm font-bold mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-[#7B89A1]" placeholder="your.email@example.com">
                     </div>
                     <div>
-                        <label for="message" class="block text-slate-200 text-sm font-bold mb-2">Message</label>
-                        <textarea id="message" name="message" rows="5" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="Your message..."></textarea>
+                        <label for="message" class="block text-[#A6B0C3] text-sm font-bold mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-[#7B89A1]" placeholder="Your message..."></textarea>
                     </div>
-                    <!-- Gemini API Refine Button and Loader/Error Area -->
                     <div class="text-right mt-2 mb-4">
                         <button type="button" id="refineMessageBtn" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out text-sm">
                             ✨ Refine My Message
                         </button>
                     </div>
                     <div id="refineLoader" class="hidden text-center my-2">
-                        <p class="text-slate-400">Refining message... <i class="fas fa-spinner fa-spin"></i></p>
+                        <p class="text-[#A6B0C3]">Refining message... <i class="fas fa-spinner fa-spin"></i></p>
                     </div>
                     <div id="refineError" class="hidden text-center my-2 text-red-400"></div>
-                    <!-- End of Gemini API elements -->
                     <div class="text-center">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+                        <button type="submit" class="primary-button font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#00CFE8] focus:ring-offset-2 focus:ring-offset-[#10182B]"> 
                             Send Message
                         </button>
                     </div>
@@ -524,23 +589,34 @@
         </div>
     </section>
 
-    <footer class="bg-slate-900 py-8 px-4 text-center text-slate-400">
+    <footer class="bg-[#10182B] py-8 px-4 text-center text-[#A6B0C3]"> 
     <div class="container mx-auto">
         <div class="flex justify-center space-x-6 mb-4">
-            <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+            <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
                 <i class="fab fa-linkedin fa-2x"></i>
             </a>
-            <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+            <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
                  <i class="fab fa-github fa-2x"></i>
             </a>
-            <a href="https://www.youtube.com/@sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-red-500 transition duration-300 ease-in-out"> <i class="fab fa-youtube fa-2x"></i>
+            <a href="https://www.youtube.com/@sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-red-500 transition duration-300 ease-in-out"> <i class="fab fa-youtube fa-2x"></i>
            </a>
-           <a href="https://t.me/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-sky-400 transition duration-300 ease-in-out"> <i class="fab fa-telegram-plane fa-2x"></i> </a>
+           <a href="https://t.me/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-sky-400 transition duration-300 ease-in-out"> <i class="fab fa-telegram-plane fa-2x"></i> </a>
         </div>
         <p>© <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
         <p class="text-sm mt-1">Inspired to create and innovate.</p>
     </div>
 </footer>
+
+<!-- Skill Explanation Modal -->
+<div id="skillModal" class="modal-backdrop">
+    <div class="modal-content">
+        <button id="closeSkillModalBtn" class="modal-close-btn">×</button>
+        <h3 id="skillModalTitle" class="text-2xl font-semibold mb-4 text-[#00CFE8]"></h3>
+        <div id="skillModalLoader" class="text-center my-3 text-[#A6B0C3] hidden">Loading explanation... <i class="fas fa-spinner fa-spin"></i></div>
+        <p id="skillModalExplanation" class="text-[#C5D0E0] leading-relaxed whitespace-pre-line"></p>
+        <div id="skillModalError" class="text-red-400 mt-3 hidden"></div>
+    </div>
+</div>
 
     <script>
         // Mobile menu toggle functionality
@@ -608,7 +684,6 @@
                     contentDiv.classList.remove('open');
                     contentDiv.style.maxHeight = '0px'; 
                 } else {
-                    // Close other open accordions in the same section
                     const allCertContents = document.querySelectorAll('#certifications .certification-content');
                     const allCertIcons = document.querySelectorAll('#certifications .certification-button i.fa-chevron-down');
                     
@@ -626,8 +701,8 @@
                     
                     contentDiv.classList.add('open');
                     setTimeout(() => {
-                        contentDiv.style.maxHeight = (contentDiv.scrollHeight + 10) + 'px'; // +10 for p-2 on content (0.5rem * 2)
-                    }, 50); // Small delay for scrollHeight calculation
+                        contentDiv.style.maxHeight = (contentDiv.scrollHeight + 10) + 'px'; 
+                    }, 50); 
                 }
                 if (icon) {
                     icon.classList.toggle('rotate-180');
@@ -635,7 +710,8 @@
             }
         }
 
-        // Gemini API Integration for Message Refinement
+        const GEMINI_API_KEY = "AIzaSyBq4SooArRNYx7lgTqxGNLscTGXG6fFMeY";
+
         const refineMessageBtn = document.getElementById('refineMessageBtn');
         const messageTextarea = document.getElementById('message');
         const refineLoader = document.getElementById('refineLoader');
@@ -650,47 +726,32 @@
                     setTimeout(() => refineError.classList.add('hidden'), 3000);
                     return;
                 }
-
                 refineLoader.classList.remove('hidden');
                 refineError.classList.add('hidden');
                 refineMessageBtn.disabled = true;
-
                 try {
                     const prompt = `Please refine the following message to make it more professional, concise, and impactful for a portfolio contact form. Maintain the original intent and key information. Here is the message: \n\n"${originalMessage}"\n\nReturn only the refined message text.`;
-                    
                     let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                     const payload = { contents: chatHistory };
-                    // User's provided API key for Gemini
-                    const apiKey = "AIzaSyBq4SooArRNYx7lgTqxGNLscTGXG6fFMeY"; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-
                     if (!response.ok) {
                         const errorData = await response.json();
-                        console.error('Gemini API Error:', errorData);
-                        throw new Error(`API request failed with status ${response.status}: ${errorData?.error?.message || 'Unknown error'}`);
+                        throw new Error(`API request failed: ${errorData?.error?.message || response.statusText}`);
                     }
-
                     const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const refinedText = result.candidates[0].content.parts[0].text;
-                        messageTextarea.value = refinedText.trim(); 
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                        messageTextarea.value = result.candidates[0].content.parts[0].text.trim(); 
                     } else {
-                        console.error('Unexpected API response structure:', result);
                         throw new Error('Failed to get refined message from API.');
                     }
-
                 } catch (error) {
                     console.error('Error refining message:', error);
-                    refineError.textContent = `Error: ${error.message || 'Could not refine message.'}`;
+                    refineError.textContent = `Error: ${error.message}`;
                     refineError.classList.remove('hidden');
                 } finally {
                     refineLoader.classList.add('hidden');
@@ -699,12 +760,159 @@
             });
         }
 
+        const skillBadges = document.querySelectorAll('.skill-badge');
+        const skillModal = document.getElementById('skillModal');
+        const skillModalTitle = document.getElementById('skillModalTitle');
+        const skillModalExplanation = document.getElementById('skillModalExplanation');
+        const skillModalLoader = document.getElementById('skillModalLoader');
+        const skillModalError = document.getElementById('skillModalError');
+        const closeSkillModalBtn = document.getElementById('closeSkillModalBtn');
+
+        skillBadges.forEach(badge => {
+            badge.addEventListener('click', async () => {
+                const skillName = badge.dataset.skill || badge.textContent.replace(/<i.*<\/i>/g, '').trim(); 
+                skillModalTitle.textContent = `About: ${skillName}`;
+                skillModalExplanation.textContent = '';
+                skillModalLoader.classList.remove('hidden');
+                skillModalError.classList.add('hidden');
+                skillModal.classList.add('active');
+                try {
+                    const prompt = `Explain the technical skill "${skillName}" in 2-3 simple sentences for a portfolio. Briefly describe what it is and its common use or importance.`;
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                         const errorData = await response.json();
+                        throw new Error(`API request failed: ${errorData?.error?.message || response.statusText}`);
+                    }
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                        skillModalExplanation.innerHTML = result.candidates[0].content.parts[0].text.trim().replace(/\n/g, '<br>');
+                    } else {
+                        throw new Error('Failed to get skill explanation from API.');
+                    }
+                } catch (error) {
+                    console.error('Error explaining skill:', error);
+                    skillModalError.textContent = `Error: ${error.message}`;
+                    skillModalError.classList.remove('hidden');
+                } finally {
+                    skillModalLoader.classList.add('hidden');
+                }
+            });
+        });
+
+        if(closeSkillModalBtn) {
+            closeSkillModalBtn.addEventListener('click', () => {
+                skillModal.classList.remove('active');
+            });
+        }
+        if(skillModal){
+            skillModal.addEventListener('click', (event) => {
+                if (event.target === skillModal) {
+                    skillModal.classList.remove('active');
+                }
+            });
+        }
+        
+        async function loadParticles(options) {
+            await tsParticles.load("tsparticles", options);
+        }
+
+        const particlesOptions = {
+            background: {
+                color: { value: 'transparent' }
+            },
+            fpsLimit: 60,
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "bubble" 
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: "push" 
+                    },
+                    resize: true
+                },
+                modes: {
+                    bubble: { 
+                        distance: 150, 
+                        size: 10, 
+                        opacity: 1,
+                        duration: 0.3
+                    },
+                    push: {
+                        quantity: 3 
+                    }
+                }
+            },
+            particles: {
+                color: {
+                    value: ["#3A5078", "#52658C", "#00CFE8"] 
+                },
+                links: {
+                    color: "#52658C", 
+                    distance: 130,    
+                    enable: true,     
+                    opacity: 0.1,    
+                    width: 1
+                },
+                collisions: {
+                    enable: false 
+                },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: { default: "bounce" },
+                    random: true,
+                    speed: 0.8, 
+                    straight: false,
+                    parallax: { 
+                        enable: true,
+                        force: 45, 
+                        smooth: 15
+                    }
+                },
+                number: {
+                    density: {
+                        enable: true,
+                        area: 800 
+                    },
+                    value: 130 
+                },
+                opacity: {
+                    value: {min: 0.15, max: 0.5} 
+                },
+                shape: {
+                    type: ["circle", "square"] 
+                },
+                size: {
+                    value: { min: 2, max: 6 } 
+                }
+            },
+            detectRetina: true
+        };
+
 
         window.onload = function() {
             if (typedOutput) { 
                  typeWriter();
             }
+            
+            loadParticles(particlesOptions); 
+
+            const htmlElement = document.documentElement;
+            const originalScrollBehavior = htmlElement.style.scrollBehavior;
+            
             setTimeout(function() {
+                htmlElement.style.scrollBehavior = 'auto'; 
+
                 document.querySelectorAll('#certifications .certification-content').forEach(content => {
                     content.style.maxHeight = '0px'; 
                     content.classList.remove('open');
@@ -713,10 +921,15 @@
                     icon.classList.remove('rotate-180'); 
                 });
 
-                if (window.scrollY !== 0 && window.location.hash === '') { 
-                   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                if (window.location.hash === '' && window.scrollY !== 0) { 
+                    window.scrollTo(0, 0);
                 }
-            }, 100); 
+                
+                setTimeout(function() {
+                    htmlElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
+                }, 50);
+
+            }, 150); 
         };
     </script>
 </body>
