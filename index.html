@@ -4,326 +4,622 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sauravkumar Chaudhary - Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     <style>
+        /* Custom CSS for smooth scrolling and font application */
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Lighter gray background */
+            background-color: #142755; /* Dark background from new template */
+            color: #E2E8F0; /* Light text from new template */
         }
+        /* Custom styles for the typing effect cursor */
+        .typed-text::after {
+            content: '|';
+            display: inline;
+            animation: blink-caret .75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #a7a7b0; } /* Main color for cursor from new template */
+        }
+
+        /* Section Title Styling - adapted for the dark theme */
         .section-title {
             font-weight: 700; /* Bolder */
-            color: #0d42e1; /* Darker Blue - Tailwind blue-800 */
+            color: #38b5d8; /* Indigo-400 for dark theme */
             padding-bottom: 0.75rem; /* Increased padding */
             margin-bottom: 1.5rem; /* Increased margin */
             position: relative;
+            text-align: center; /* Center align section titles */
         }
         .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
-            width: 50px; /* Shorter underline */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px; /* Underline width */
             height: 3px; /* Thicker underline */
-            background-color: #3B82F6; /* Tailwind blue-500 */
+            background-color: #6366F1; /* Indigo-500 for dark theme */
             border-radius: 2px;
         }
-        .icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-            color: #3B82F6; /* Blue icon color */
+        .section-title span { /* For the non-highlighted part of the title */
+            color: #E2E8F0; /* Light text */
         }
-        .contact-link {
-            transition: color 0.3s ease;
-        }
-        .contact-link:hover {
-            color: #1D4ED8; /* Darker blue on hover */
-        }
-        .card {
-            background-color: #ffffff;
-            border-radius: 0.75rem; /* More rounded */
+
+        /* Card styling for education, experience, projects */
+        .content-card {
+            background-color: #1E293B; /* slate-800 */
+            border-radius: 0.75rem;
             padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Softer shadow */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #334155; /* slate-700 */
         }
-        .card:hover {
+        .content-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.1);
         }
+        .content-card h3 {
+            color: #818CF8; /* indigo-400 */
+        }
+        .content-card p, .content-card ul li {
+            color: #CBD5E1; /* slate-300 */
+        }
+        .content-card .text-sm {
+             color: #94A3B8; /* slate-400 */
+        }
+         .content-card .tech-stack-text {
+            color: #A5B4FC; /* indigo-300 */
+            font-weight: 500;
+        }
+
+
+        /* Skill Badge Styling for dark theme */
         .skill-badge {
-            background-color: #DBEAFE; /* Tailwind blue-100 */
-            color: #1E40AF; /* Tailwind blue-800 */
+            background-color: #374151; /* gray-700 */
+            color: #E5E7EB; /* gray-200 */
             padding: 0.5rem 1rem;
             border-radius: 9999px; /* pill shape */
             font-size: 0.875rem;
             font-weight: 500;
             transition: background-color 0.3s ease, color 0.3s ease;
+            border: 1px solid #4B5563; /* gray-600 */
         }
         .skill-badge:hover {
-            background-color: #3B82F6; /* Tailwind blue-500 */
+            background-color: #4F46E5; /* indigo-600 */
             color: #ffffff;
+            border-color: #4F46E5;
         }
-        .hero-section {
-            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%); /* Gradient background */
-            color: white;
-            padding: 3rem 1.5rem;
-            border-radius: 0.75rem;
-            margin-bottom: 2rem;
+
+        /* Certification button styling */
+        .certification-button {
+            background-color: #334155; /* slate-700 */
+            color: #E2E8F0; /* Light text */
+            transition: background-color 0.3s ease;
         }
+        .certification-button:hover {
+            background-color: #475569; /* slate-600 */
+        }
+        .certification-button i.fa-chevron-down { /* Chevron icon specific styling */
+             transition: transform 0.3s ease;
+        }
+        .certification-button i.fa-chevron-down.rotate-180 { /* Chevron icon rotation */
+            transform: rotate(180deg);
+        }
+        .certification-button i { /* General icon styling within button */
+            color: #FACC15; /* yellow-400 for icons, can be overridden for specific icons */
+        }
+        .certification-content {
+            background-color: #1E293B; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+            max-height: 0; /* Start with content hidden */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out; /* Smooth transition for accordion */
+        }
+        .certification-content.open {
+            max-height: 500px; /* Adjust as needed for PDF height, or use JS to set height */
+        }
+        .certification-pdf-iframe {
+            border-color: #475569; /* slate-600 */
+            width: 100%;
+            height: 450px; /* Default height for PDF iframe */
+            border-radius: 0.25rem; /* rounded-sm */
+        }
+
+
+        /* Contact form input styling */
+        .form-input {
+            background-color: #1E293B; /* slate-800 */
+            border-color: #334155; /* slate-700 */
+            color: #E2E8F0; /* Light text */
+        }
+        .form-input::placeholder {
+            color: #64748B; /* slate-500 */
+        }
+        .form-input:focus {
+            border-color: #6366F1; /* indigo-500 */
+            ring-color: #6366F1;
+        }
+        .contact-icon {
+            color: #818CF8; /* indigo-400 */
+        }
+
     </style>
 </head>
-<body class="text-gray-800 antialiased">
-    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+<body class="antialiased">
 
-        <header class="hero-section text-center">
-            <div class="mb-6">
-                <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" class="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-lg">
-                </div>
-            <h1 class="text-5xl font-extrabold">Sauravkumar V. Chaudhary</h1>
-            <p class="text-xl mt-2 text-blue-200">Software Developer</p>
-            <div class="mt-6 text-blue-100 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
-                <a href="tel:+917779095746" class="contact-link hover:text-white flex items-center">
-                    <i class="fas fa-phone icon"></i> +91 77790 95746
-                </a>
-                <a href="mailto:sohravchaudhary@gmail.com" class="contact-link hover:text-white flex items-center">
-                    <i class="fas fa-envelope icon"></i> sohravchaudhary@gmail.com
-                </a>
-                <span class="flex items-center">
-                     <i class="fas fa-map-marker-alt icon"></i> Mehsana, Gujarat
-                </span>
+    <header class="bg-slate-900 shadow-lg fixed w-full z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-indigo-500 hover:text-indigo-400 transition duration-300 ease-in-out rounded-md p-2">
+            Saurav.
+            </a>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path>
+                    </svg>
+                </button>
             </div>
-            <div class="mt-4 text-blue-100 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
-                <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="contact-link hover:text-white flex items-center">
-                    <i class="fab fa-linkedin icon"></i> LinkedIn
+
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#home" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Home</a></li>
+                <li><a href="#about" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">About</a></li>
+                <li><a href="#education" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Education</a></li>
+                <li><a href="#experience" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Experience</a></li>
+                <li><a href="#skills" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
+                <li><a href="#projects" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
+                <li><a href="#certifications" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
+                <li><a href="#contact" class="text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-800 pb-4">
+            <ul class="flex flex-col items-center space-y-4">
+                <li><a href="#home" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Home</a></li>
+                <li><a href="#about" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">About</a></li>
+                <li><a href="#education" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Education</a></li>
+                <li><a href="#experience" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Experience</a></li>
+                <li><a href="#skills" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Skills</a></li>
+                <li><a href="#projects" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Projects</a></li>
+                <li><a href="#certifications" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#contact" class="block text-white hover:text-indigo-400 transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home" class="min-h-screen flex items-center justify-center text-center p-4 pt-24 md:pt-20">
+        <div class="max-w-4xl mx-auto">
+            <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" onerror="this.onerror=null; this.src='https://placehold.co/150x150/6366F1/FFFFFF?text=SC';" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-indigo-500 shadow-lg object-cover">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4">
+                Hi, I'm <span class="text-indigo-500">Sauravkumar Chaudhary</span>
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-4xl font-semibold text-slate-300 mb-8">
+                And I'm a <span id="typed-output" class="typed-text text-indigo-400"></span>
+            </p>
+            <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                Welcome to my digital space! Here you'll find a showcase of my work, skills, and passion for creating impactful software solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Hire Me
                 </a>
-                <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="contact-link hover:text-white flex items-center">
-                    <i class="fab fa-github icon"></i> GitHub
+                <a href="#projects" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    View Projects
                 </a>
             </div>
-        </header>
-
-        <div class="bg-white shadow-xl rounded-lg p-6 md:p-10">
-            <section class="mb-10">
-                <h2 class="text-3xl section-title">ABOUT ME</h2>
-                <p class="text-gray-700 leading-relaxed text-lg">
-                    A dedicated Software Developer with robust experience in Java, Spring Boot, Python, and PHP Laravel. I thrive on building efficient backend systems, integrating APIs seamlessly, and designing effective databases. I'm a quick learner with a knack for problem-solving, always excited to contribute to impactful projects within a dynamic team.
-                </p>
-            </section>
-
-            <section class="mb-10">
-    <h2 class="text-3xl section-title">EDUCATION</h2>
-    <div class="space-y-6">
-        <div class="card">
-            <h3 class="text-xl font-semibold text-gray-700">Master of Computer Applications (MCA)</h3>
-            <p class="text-gray-600">
-                <a href="https://www.ganpatuniversity.ac.in/" class="text-blue-600 hover:underline" target="_blank">Ganpat University</a>
-            </p>
-            <p class="text-sm text-gray-500">2023-2025 | CGPA: 8.22/10</p>
         </div>
+    </section>
 
-        <div class="card">
-            <h3 class="text-xl font-semibold text-gray-700">Bachelor of Computer Applications (BCA)</h3>
-            <p class="text-gray-600">
-                <a href="https://ngu.ac.in/" class="text-blue-600 hover:underline" target="_blank">Hemchandracharya North Gujarat University</a>
-            </p>
-            <p class="text-sm text-gray-500">2020-2023 | CGPA: 8.78/10</p>
+    <section id="about" class="py-16 sm:py-20 px-4 bg-slate-800">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>ABOUT </span><span class="text-indigo-500">ME</span></h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-10">
+                <div class="md:w-1/3 mb-8 md:mb-0">
+                    <img src="photo.png" alt="About Me Illustration" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                </div>
+                <div class="md:w-2/3 text-slate-300">
+                    <p class="text-lg leading-relaxed mb-6">
+                        Hello! I'm <span class="font-semibold text-white">Sauravkumar Vishnubhai Chaudhary</span>, a passionate Software Developer with hands-on experience in Java, Spring Boot, Python, and PHP Laravel. I am adept at backend development, API integration, and database design.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-6">
+                        My journey in technology is driven by a curiosity for how things work and a strong desire to build efficient and scalable software. I am a fast learner with robust problem-solving skills, always eager to take on new challenges and contribute to high-impact projects within a collaborative development environment.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        I aim to create user-friendly experiences that are not only visually appealing but also highly performant and accessible. Let's connect and build something amazing together!
+                    </p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="p-4 border border-gray-200 rounded-lg">
-            <h3 class="text-lg font-semibold text-gray-700">Higher Secondary (12th)</h3>
-            <p class="text-gray-600">
-                <a href="https://www.gseb.org/" class="text-blue-600 hover:underline" target="_blank">Gujarat Secondary and Higher Secondary Education Board</a>
-            </p>
-            <p class="text-sm text-gray-500">2020 | Percentage: 54.66%</p>
-        </div>
+    <!-- Add this somewhere in your HTML head or body (for Heroicons to work if not using external library) -->
+<!-- You don’t need external CSS for this; SVGs are inline -->
 
-        <div class="p-4 border border-gray-200 rounded-lg">
-            <h3 class="text-lg font-semibold text-gray-700">Secondary (10th)</h3>
-            <p class="text-gray-600">
-                <a href="https://www.gseb.org/" class="text-blue-600 hover:underline" target="_blank">Gujarat Secondary and Higher Secondary Education Board</a>
-            </p>
-            <p class="text-sm text-gray-500">2018 | Percentage: 62.66%</p>
-        </div>
-    </div>
-</section>
+<section id="education" class="py-16 sm:py-20 px-4 bg-slate-900 text-white">
+  <div class="container mx-auto max-w-4xl">
+    <h2 class="text-3xl sm:text-4xl section-title mb-12 font-bold text-center">
+      <span>MY </span><span class="text-indigo-500">EDUCATION</span>
+    </h2>
 
+    <div class="space-y-8">
+      <!-- MCA -->
+      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+        <h3 class="text-xl font-semibold mb-1">Master of Computer Applications (MCA)</h3>
+        <p class="text-md flex items-center gap-2">
+          <a href="https://www.ganpatuniversity.ac.in/" target="_blank"
+            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+            Ganpat University
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+            </svg>
+          </a>
+        </p>
+        <p class="text-sm mb-2 text-slate-300">2023 - 2025 | CGPA: 8.22/10</p>
+      </div>
 
-            <section class="mb-10">
-                <h2 class="text-3xl section-title">EXPERIENCE</h2>
-                <div class="space-y-8">
-                    <div class="card">
-                        <h3 class="text-2xl font-semibold text-blue-700">Java Development Intern</h3>
-                        <p class="text-gray-600 font-medium text-lg">Cognifyz Technologies</p>
-                        <p class="text-sm text-gray-500 mb-2">May 2024 - December 2024</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
-                            <li>Engineered and maintained backend modules using Java for key internal projects.</li>
-                            <li>Actively participated in debugging, crafting unit tests, and integrating third-party APIs.</li>
-                            <li>Managed database operations effectively using JDBC and MySQL.</li>
-                            <li>Collaborated with a team of developers to resolve bugs and enhance existing application features.</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-2xl font-semibold text-blue-700">Software Developer Intern</h3>
-                        <p class="text-gray-600 font-medium text-lg">Premier Infotech</p>
-                        <p class="text-sm text-gray-500 mb-2">Jan 2025 - May 2025</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
-                            <li>Developed and deployed RESTful APIs with Spring Boot for a scalable e-commerce platform.</li>
-                            <li>Implemented robust authentication mechanisms and core CRUD functionalities.</li>
-                            <li>Ensured seamless database connectivity and data management.</li>
-                            <li>Utilized GitHub for version control, collaborative development, and efficient task tracking.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+      <!-- BCA -->
+      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+        <h3 class="text-xl font-semibold mb-1">Bachelor of Computer Applications (BCA)</h3>
+        <p class="text-md flex items-center gap-2">
+          <a href="https://www.ngu.ac.in/" target="_blank"
+            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+            Hemchandracharya North Gujarat University
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+            </svg>
+          </a>
+        </p>
+        <p class="text-sm mb-2 text-slate-300">2020 - 2023 | CGPA: 8.78/10</p>
+      </div>
 
-            <section class="mb-10">
-                <h2 class="text-3xl section-title">PROJECT SHOWCASE</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card">
-                        <h3 class="text-2xl font-semibold text-blue-700">Online Shopping Site</h3>
-                        <p class="text-gray-500 text-sm mb-1">BCA Final Project | Team of 3 | 3 Months</p>
-                        <p class="text-sm font-medium text-blue-600 mb-2">Tech Stack: Python, Django, MySQL</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
-                            <li>Developed a feature-rich e-commerce platform with secure payment gateway integration.</li>
-                            <li>Architected the backend using Django, focusing on scalability and maintainability.</li>
-                            <li>Implemented modules for user authentication, product catalog, and order processing.</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-2xl font-semibold text-blue-700">Food Finder</h3>
-                        <p class="text-gray-500 text-sm mb-1">MCA Sem-3 Project | Team of 2 | 4 Months</p>
-                        <p class="text-sm font-medium text-blue-600 mb-2">Tech Stack: PHP, Laravel, MySQL, Google Maps API</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-2">
-                            <li>Created an intuitive restaurant discovery web application integrated with Google Maps.</li>
-                            <li>Designed a comprehensive CRUD-based admin panel for managing restaurant data and user reviews.</li>
-                            <li>Optimized MySQL database schema for enhanced performance and data integrity.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+      <!-- 12th -->
+      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+        <h3 class="text-lg font-semibold mb-1">Higher Secondary (12th Grade)</h3>
+        <p class="text-md flex items-center gap-2">
+          <a href="https://www.gseb.org/" target="_blank"
+            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+            Gujarat Secondary and Higher Secondary Education Board
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+            </svg>
+          </a>
+        </p>
+        <p class="text-sm mb-2 text-slate-300">2020 | Percentage: 54.66%</p>
+      </div>
 
-            <section class="mb-10">
-                <h2 class="text-3xl section-title">TECHNICAL ARSENAL</h2>
-                <div class="mb-6">
-                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Programming Languages:</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">Java</span><span class="skill-badge">Python</span><span class="skill-badge">PHP</span><span class="skill-badge">C</span><span class="skill-badge">C#</span><span class="skill-badge">HTML5</span><span class="skill-badge">CSS3</span><span class="skill-badge">JavaScript</span>
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Frameworks & Technologies:</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">Spring Boot</span><span class="skill-badge">Laravel</span><span class="skill-badge">Django</span><span class="skill-badge">ASP.NET</span>
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Databases:</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">MySQL</span><span class="skill-badge">Oracle SQL</span><span class="skill-badge">MS SQL Server</span>
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Tools:</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">Git</span><span class="skill-badge">IntelliJ IDEA</span><span class="skill-badge">VS Code</span><span class="skill-badge">PyCharm</span><span class="skill-badge">MS Office</span>
-                    </div>
-                </div>
-                 <div class="mb-6">
-                    <h4 class="text-xl font-semibold text-gray-700 mb-3">Key Competencies:</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge">OOP</span><span class="skill-badge">MVC</span><span class="skill-badge">REST APIs</span><span class="skill-badge">Software Testing</span><span class="skill-badge">Automation Testing</span><span class="skill-badge">Data Analysis</span><span class="skill-badge">Teamwork</span><span class="skill-badge">Leadership</span><span class="skill-badge">Project Management</span><span class="skill-badge">Communication</span>
-                    </div>
-                </div>
-            </section>
-
-            
-
-            <section class="mb-10">
-  <h2 class="text-3xl section-title">CERTIFICATIONS & ACTIVITIES</h2>
-  <div class="card space-y-4">
-
-    <div>
-      <button 
-        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
-        onclick="togglePDF('cert1')">
-        <i class="fas fa-award text-yellow-500 mr-2"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
-      </button>
-      <div id="cert1" class="hidden mt-2">
-        <iframe src="DBMS.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
-        </div>
-    </div>
-
-    <div>
-      <button 
-        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
-        onclick="togglePDF('cert2')">
-        <i class="fas fa-users text-green-500 mr-2"></i>Python Workshop - Ganpat University
-      </button>
-      <div id="cert2" class="hidden mt-2">
-        <iframe src="python_workshop.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
+      <!-- 10th -->
+      <div class="content-card border border-slate-700 p-5 rounded-xl hover:shadow-xl transition duration-300 bg-slate-800">
+        <h3 class="text-lg font-semibold mb-1">Secondary (10th Grade)</h3>
+        <p class="text-md flex items-center gap-2">
+          <a href="https://www.gseb.org/" target="_blank"
+            class="text-indigo-400 font-medium inline-flex items-center group hover:text-indigo-300 transition">
+            Gujarat Secondary and Higher Secondary Education Board
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" />
+            </svg>
+          </a>
+        </p>
+        <p class="text-sm mb-2 text-slate-300">2018 | Percentage: 62.66%</p>
       </div>
     </div>
-
-    <div>
-      <button 
-        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
-        onclick="togglePDF('cert3')">
-        <i class="fas fa-chalkboard-teacher text-purple-500 mr-2"></i>Software Testing Webinar - TOPS Technologies
-      </button>
-      <div id="cert3" class="hidden mt-2">
-        <iframe src="software_testing_webinar.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
-      </div>
-    </div>
-    <div>
-      <button 
-        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
-        onclick="togglePDF('cert4')">
-        <i class="fas fa-certificate text-yellow-500 mr-2"></i>PHP Essential Training - LinkedIn Learning
-      </button>
-      <div id="cert4" class="hidden mt-2">
-        <iframe src="PHP-Linkedin.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
-      </div>
-    </div>
-    <div>
-      <button 
-        class="w-full text-left bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md font-semibold focus:outline-none"
-        onclick="togglePDF('cert5')">
-        <i class="fas fa-graduation-cap text-teal-500 mr-2"></i>Introduction to Python - sololearn
-      </button>
-      <div id="cert5" class="hidden mt-2">
-        <iframe src="my_python_certificate.pdf" class="w-full h-96 rounded-md border" frameborder="0"></iframe>
-      </div>
-    </div>
-
   </div>
 </section>
-            <footer class="text-center text-sm text-gray-500 mt-16 py-8 border-t border-gray-200">
-                <p>&copy; <span id="currentYear"></span> Sauravkumar Vishnubhai Chaudhary. All Rights Reserved.</p>
-                <p class="mt-1">Inspired to create and innovate.</p>
-                 </footer>
+
+
+
+
+    <section id="experience" class="py-16 sm:py-20 px-4 bg-slate-800">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>WORK </span><span class="text-indigo-500">EXPERIENCE</span></h2>
+            <div class="space-y-8">
+                <div class="content-card">
+                    <h3 class="text-xl font-semibold mb-1">Java Development Intern</h3>
+                    <p class="text-md font-medium">Cognifyz Technologies</p>
+                    <p class="text-sm mb-3">May 2024 - December 2024</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Engineered and maintained backend modules using Java for key internal projects.</li>
+                        <li>Actively participated in debugging, crafting unit tests, and integrating third-party APIs.</li>
+                        <li>Managed database operations effectively using JDBC and MySQL.</li>
+                        <li>Collaborated with a team of developers to resolve bugs and enhance existing application features.</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3 class="text-xl font-semibold mb-1">Software Developer Intern</h3>
+                    <p class="text-md font-medium">Premier Infotech</p>
+                    <p class="text-sm mb-3">January 2025 - May 2025</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Developed and deployed RESTful APIs with Spring Boot for a scalable e-commerce platform.</li>
+                        <li>Implemented robust authentication mechanisms and core CRUD functionalities.</li>
+                        <li>Ensured seamless database connectivity and data management.</li>
+                        <li>Utilized GitHub for version control, collaborative development, and efficient task tracking.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section id="skills" class="py-16 sm:py-20 px-4 bg-slate-900">
+        <div class="container mx-auto max-w-5xl"> <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>TECHNICAL </span><span class="text-indigo-500">ARSENAL</span></h2>
+            <div class="mb-10">
+                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Programming Languages</h4>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="skill-badge">Java</span><span class="skill-badge">Python</span><span class="skill-badge">PHP</span><span class="skill-badge">C</span><span class="skill-badge">C#</span><span class="skill-badge">HTML5</span><span class="skill-badge">CSS3</span><span class="skill-badge">JavaScript</span>
+                </div>
+            </div>
+            <div class="mb-10">
+                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Frameworks & Technologies</h4>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="skill-badge">Spring Boot</span><span class="skill-badge">Laravel</span><span class="skill-badge">Django</span><span class="skill-badge">ASP.NET</span>
+                </div>
+            </div>
+            <div class="mb-10">
+                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Databases</h4>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="skill-badge">MySQL</span><span class="skill-badge">Oracle SQL</span><span class="skill-badge">MS SQL Server</span>
+                </div>
+            </div>
+            <div class="mb-10">
+                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Tools</h4>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="skill-badge">Git & GitHub</span><span class="skill-badge">IntelliJ IDEA</span><span class="skill-badge">VS Code</span><span class="skill-badge">PyCharm</span><span class="skill-badge">MS Office</span>
+                </div>
+            </div>
+             <div class="mb-10">
+                <h4 class="text-2xl font-semibold text-indigo-300 mb-4 text-center">Key Competencies & Soft Skills</h4>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="skill-badge">OOP</span><span class="skill-badge">MVC</span><span class="skill-badge">REST APIs</span><span class="skill-badge">Software Testing</span><span class="skill-badge">Automation Testing</span><span class="skill-badge">Data Analysis</span><span class="skill-badge">Teamwork</span><span class="skill-badge">Leadership</span><span class="skill-badge">Project Management</span><span class="skill-badge">Communication</span><span class="skill-badge">Problem Solving</span><span class="skill-badge">Social Media Management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 sm:py-20 px-4 bg-slate-800">
+        <div class="container mx-auto max-w-4xl">
+             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>PROJECT </span><span class="text-indigo-500">SHOWCASE</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="content-card">
+                    <h3 class="text-xl font-semibold mb-1">Online Shopping Site</h3>
+                    <p class="text-sm mb-1">BCA Final Project | Team of 3 | 3 Months</p>
+                    <p class="text-sm tech-stack-text mb-2">Tech Stack: Python, Django, MySQL</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Developed a user-friendly e-commerce platform with secure payment integration.</li>
+                        <li>Designed backend architecture using Django and SQL database.</li>
+                        <li>Implemented modules for user login, product catalog, and order management.</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3 class="text-xl font-semibold mb-1">Food Finder</h3>
+                    <p class="text-sm mb-1">MCA Sem-3 Project | Team of 2 | 4 Months</p>
+                    <p class="text-sm tech-stack-text mb-2">Tech Stack: PHP, Laravel, MySQL, Google Maps API</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Created a restaurant discovery web app with Google Maps API integration.</li>
+                        <li>Designed a CRUD-based admin panel for restaurant entries and user reviews.</li>
+                        <li>Optimized MySQL database schema for performance and scalability.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="py-16 sm:py-20 px-4 bg-slate-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>CERTIFICATIONS & </span><span class="text-indigo-500">ACTIVITIES</span></h2>
+            <div class="space-y-4">
+                 <div>
+                    <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert1_content', 'cert1_icon')">
+                        <i class="fas fa-database fa-fw mr-3"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
+                        <i class="fas fa-chevron-down ml-auto" id="cert1_icon"></i>
+                    </button>
+                    <div id="cert1_content" class="certification-content mt-2 p-2 rounded-md">
+                        <iframe src="DBMS.pdf" class="certification-pdf-iframe" frameborder="0" title="DBMS Certificate"></iframe>
+                    </div>
+                </div>
+                <div>
+                    <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert2_content', 'cert2_icon')">
+                        <i class="fab fa-python fa-fw mr-3 text-green-400"></i>Python Workshop - Ganpat University
+                        <i class="fas fa-chevron-down ml-auto" id="cert2_icon"></i>
+                    </button>
+                    <div id="cert2_content" class="certification-content mt-2 p-2 rounded-md">
+                        <iframe src="python_workshop.pdf" class="certification-pdf-iframe" frameborder="0" title="Python Workshop Certificate"></iframe>
+                    </div>
+                </div>
+                <div>
+                    <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert3_content', 'cert3_icon')">
+                        <i class="fas fa-vial fa-fw mr-3 text-purple-400"></i>Software Testing Webinar - TOPS Technologies
+                        <i class="fas fa-chevron-down ml-auto" id="cert3_icon"></i>
+                    </button>
+                     <div id="cert3_content" class="certification-content mt-2 p-2 rounded-md">
+                        <iframe src="software_testing_webinar.pdf" class="certification-pdf-iframe" frameborder="0" title="Software Testing Webinar Certificate"></iframe>
+                    </div>
+                </div>
+                 <div>
+                    <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert4_content', 'cert4_icon')">
+                        <i class="fab fa-php fa-fw mr-3 text-blue-400"></i>PHP Essential Training - LinkedIn Learning
+                        <i class="fas fa-chevron-down ml-auto" id="cert4_icon"></i>
+                    </button>
+                     <div id="cert4_content" class="certification-content mt-2 p-2 rounded-md">
+                        <iframe src="PHP-Linkedin.pdf" class="certification-pdf-iframe" frameborder="0" title="PHP Essential Training Certificate"></iframe>
+                    </div>
+                </div>
+                 <div>
+                    <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert5_content', 'cert5_icon')">
+                        <i class="fas fa-graduation-cap fa-fw mr-3 text-teal-400"></i>Introduction to Python - Sololearn
+                        <i class="fas fa-chevron-down ml-auto" id="cert5_icon"></i>
+                    </button>
+                     <div id="cert5_content" class="certification-content mt-2 p-2 rounded-md">
+                         <iframe src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 sm:py-20 px-4 bg-slate-800">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>GET IN </span><span class="text-indigo-500">TOUCH</span></h2>
+            
+            <div class="bg-slate-900 p-6 sm:p-8 rounded-lg shadow-xl mb-10">
+                 <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-center mb-8">
+                    <a href="tel:+917779095746" class="text-slate-300 hover:text-indigo-400 transition duration-300 flex items-center text-lg">
+                        <i class="fas fa-phone contact-icon mr-2"></i> +91 77790 95746
+                    </a>
+                    <a href="mailto:sohravchaudhary@gmail.com" class="text-slate-300 hover:text-indigo-400 transition duration-300 flex items-center text-lg">
+                        <i class="fas fa-envelope contact-icon mr-2"></i> sohravchaudhary@gmail.com
+                    </a>
+                    <span class="text-slate-300 flex items-center text-lg">
+                         <i class="fas fa-map-marker-alt contact-icon mr-2"></i> Mehsana, Gujarat, India
+                    </span>
+                </div>
+
+                <p class="text-lg text-slate-300 text-center mb-8">
+                    Have a project in mind, a question, or just want to say hi? Feel free to reach out!
+                </p>
+                <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST"> <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+
+                    <div>
+                        <label for="name" class="block text-slate-200 text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-slate-200 text-sm font-bold mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="your.email@example.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-slate-200 text-sm font-bold mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-slate-500" placeholder="Your message..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 py-8 px-4 text-center text-slate-400">
+        <div class="container mx-auto">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-500 transition duration-300 ease-in-out">
+                     <i class="fab fa-github fa-2x"></i>
+                </a>
+                </div>
+            <p>&copy; <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
+            <p class="text-sm mt-1">Inspired to create and innovate.</p>
+        </div>
+    </footer>
 
     <script>
-        // Script to set current year
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        // Removed current date setting as it wasn't in the original final HTML provided by user
-        // const today = new Date();
-        // const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        // document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        // Function to toggle PDF visibility
-        function togglePDF(certId) {
-            const pdfDiv = document.getElementById(certId);
-            if (pdfDiv) {
-                pdfDiv.classList.toggle('hidden');
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            // Optional: Toggle ARIA attribute for accessibility
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+        }
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a, header nav ul.hidden a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Typing animation for the home section
+        const typedOutput = document.getElementById('typed-output');
+        const phrases = ["Software Developer", "Java Developer", "Backend Engineer", "Python Enthusiast", "Problem Solver"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 120; 
+        const deletingSpeed = 60;
+        const pauseEnd = 2000;
+        const pauseStart = 500;
+
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            let currentTypingSpeed;
+
+            if (isDeleting) {
+                typedOutput.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                currentTypingSpeed = deletingSpeed;
+            } else {
+                typedOutput.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                currentTypingSpeed = typingSpeed;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                currentTypingSpeed = pauseEnd; 
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length; 
+                currentTypingSpeed = pauseStart; 
+            }
+            setTimeout(typeWriter, currentTypingSpeed);
+        }
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Toggle Certification Content
+        function toggleCertContent(contentId, iconId) {
+            const contentDiv = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+
+            if (contentDiv) {
+                // contentDiv.classList.toggle('hidden'); // Old way
+                if (contentDiv.classList.contains('open')) {
+                    contentDiv.classList.remove('open');
+                    contentDiv.style.maxHeight = '0px'; // Collapse
+                } else {
+                    contentDiv.classList.add('open');
+                    // Set max-height to scrollHeight for smooth transition
+                    // Add a little padding for the iframe container
+                    contentDiv.style.maxHeight = (contentDiv.scrollHeight + 16) + 'px'; // +16 for p-2 on content
+                }
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
             }
         }
+
+        // Start the typing animation when the window loads
+        window.onload = function() {
+            if (typedOutput) { 
+                 typeWriter();
+            }
+        };
     </script>
 </body>
 </html>
