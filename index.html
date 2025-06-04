@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         html { scroll-behavior: smooth; }
+        html, body { overscroll-behavior: none; } /* Prevent scroll chaining */
         body {
             font-family: 'Poppins', sans-serif; 
             background-color: #0A0F1E; 
@@ -93,7 +94,7 @@
         #resumePreviewContainer h3 { color: #82EEFD; font-size: 1.2rem; margin-top: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid #4A5568; padding-bottom: 0.25rem;}
         #resumePreviewContainer p { margin-bottom: 0.5rem; line-height: 1.6; }
         #resumePreviewContainer ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.5rem; }
-        .dynamic-field-group { border: 1px dashed #2D3A57; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; }
+        .dynamic-field-group, .custom-section-input-group { border: 1px dashed #2D3A57; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; }
         .add-more-btn { background-color: #3E4C6D; color: #F0F4F8; }
         .add-more-btn:hover { background-color: #52658C; }
         
@@ -102,7 +103,7 @@
             background-color: #ffffff !important;
             color: #000000 !important;
             padding: 20px !important; 
-            font-family: 'Poppins', sans-serif !important; /* Ensure font consistency in PDF */
+            font-family: 'Poppins', sans-serif !important; 
         }
         .resume-preview-for-pdf *,
         .resume-preview-for-pdf h2,
@@ -113,19 +114,28 @@
         .resume-preview-for-pdf span, 
         .resume-preview-for-pdf a {
             color: #000000 !important;
-            background-color: transparent !important; /* Ensure no dark backgrounds carry over */
+            background-color: transparent !important; 
+            box-shadow: none !important;
+            border-color: #333333 !important;
         }
         .resume-preview-for-pdf a {
             text-decoration: underline !important; 
-            color: #0000EE !important; /* Standard link blue for PDFs */
+            color: #0000EE !important; 
         }
         .resume-preview-for-pdf .text-sm, 
         .resume-preview-for-pdf .text-\[\#A6B0C3\] { 
              color: #333333 !important; 
         }
-         .resume-preview-for-pdf h2 { color: #000000 !important; font-size: 1.4rem !important; } /* Adjusted font size for PDF */
-         .resume-preview-for-pdf h3 { color: #111111 !important; font-size: 1.1rem !important; } /* Adjusted font size for PDF */
-         .resume-preview-for-pdf p, .resume-preview-for-pdf li { font-size: 0.9rem !important; line-height: 1.4 !important; }
+         .resume-preview-for-pdf h2 { color: #000000 !important; font-size: 18pt !important; font-weight: bold !important; } 
+         .resume-preview-for-pdf h3 { color: #111111 !important; font-size: 14pt !important; font-weight: bold !important; margin-top: 12pt !important; margin-bottom: 6pt !important; border-bottom: 1px solid #555555 !important; padding-bottom: 3pt !important;}
+         .resume-preview-for-pdf p, .resume-preview-for-pdf li { font-size: 10pt !important; line-height: 1.4 !important; margin-bottom: 4pt !important; }
+         .resume-preview-for-pdf ul { margin-left: 20pt !important; }
+         .resume-preview-for-pdf .mb-3 { margin-bottom: 8pt !important; }
+         .resume-preview-for-pdf .font-semibold { font-weight: bold !important; }
+         .resume-preview-for-pdf .text-center { text-align: center !important; }
+         .resume-preview-for-pdf .mb-4 { margin-bottom: 12pt !important; }
+         .resume-preview-for-pdf .text-\[\#82EEFD\] { color: #000000 !important; } /* Ensure links are black if not specifically an <a> tag */
+
 
     </style>
 </head>
@@ -401,7 +411,7 @@
                         <i class="fas fa-chevron-down ml-auto" id="cert1_icon"></i>
                     </button>
                     <div id="cert1_content" class="certification-content mt-1 rounded-md">
-                        <iframe src="DBMS.pdf" class="certification-pdf-iframe" frameborder="0" title="DBMS Certificate"></iframe>
+                        <iframe data-src="DBMS.pdf" class="certification-pdf-iframe" frameborder="0" title="DBMS Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
                 <div>
@@ -410,7 +420,7 @@
                         <i class="fas fa-chevron-down ml-auto" id="cert2_icon"></i>
                     </button>
                     <div id="cert2_content" class="certification-content mt-1 rounded-md">
-                        <iframe src="python_workshop.pdf" class="certification-pdf-iframe" frameborder="0" title="Python Workshop Certificate"></iframe>
+                        <iframe data-src="python_workshop.pdf" class="certification-pdf-iframe" frameborder="0" title="Python Workshop Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
                 <div>
@@ -419,7 +429,7 @@
                         <i class="fas fa-chevron-down ml-auto" id="cert3_icon"></i>
                     </button>
                      <div id="cert3_content" class="certification-content mt-1 rounded-md">
-                        <iframe src="software_testing_webinar.pdf" class="certification-pdf-iframe" frameborder="0" title="Software Testing Webinar Certificate"></iframe>
+                        <iframe data-src="software_testing_webinar.pdf" class="certification-pdf-iframe" frameborder="0" title="Software Testing Webinar Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
                  <div>
@@ -428,7 +438,7 @@
                         <i class="fas fa-chevron-down ml-auto" id="cert4_icon"></i>
                     </button>
                      <div id="cert4_content" class="certification-content mt-1 rounded-md">
-                        <iframe src="PHP-Linkedin.pdf" class="certification-pdf-iframe" frameborder="0" title="PHP Essential Training Certificate"></iframe>
+                        <iframe data-src="PHP-Linkedin.pdf" class="certification-pdf-iframe" frameborder="0" title="PHP Essential Training Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
                  <div>
@@ -437,7 +447,7 @@
                         <i class="fas fa-chevron-down ml-auto" id="cert5_icon"></i>
                     </button>
                      <div id="cert5_content" class="certification-content mt-1 rounded-md">
-                         <iframe src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate"></iframe>
+                         <iframe data-src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -525,6 +535,18 @@
                             </div>
                             <button type="button" id="addProjectBtn" class="add-more-btn text-sm py-2 px-4 rounded-md mt-2"><i class="fas fa-plus mr-1"></i> Add Project</button>
                         </div>
+
+                        <!-- Custom Sections for Resume Builder -->
+                        <div class="resume-section">
+                            <h4><i class="fas fa-puzzle-piece mr-2"></i>Custom Sections</h4>
+                            <div id="customSectionsContainer" class="space-y-6 mt-4">
+                                <!-- Dynamically added custom sections will go here -->
+                            </div>
+                            <button type="button" id="addCustomSectionBtn" class="add-more-btn text-sm py-2 px-3 rounded-md mt-4 w-full">
+                                <i class="fas fa-plus mr-2"></i>Add Custom Section
+                            </button>
+                        </div>
+
                     </div>
 
                     <!-- Live Preview Column -->
@@ -532,7 +554,6 @@
                         <h4 class="text-xl font-semibold text-[#82EEFD] mb-3 text-center">Live Resume Preview</h4>
                         <div id="resumePreviewContainer">
                             <div id="resumePreviewContent">
-                                <!-- Preview will be rendered here by JS -->
                                 <div class="text-center p-10 text-gray-500">Fill the form to see your resume preview.</div>
                             </div>
                         </div>
@@ -633,7 +654,7 @@
 </div>
 
 <button id="chatToggleBtn" title="Chat with AI Assistant">
-    <i class="fas fa-hand-sparkles"></i> <!-- Updated Chatbot Icon -->
+    <i class="fas fa-hand-sparkles"></i> 
 </button>
 <div id="chatWindow" class="">
     <div id="chatHeader">
@@ -715,6 +736,7 @@
             const icon = document.getElementById(iconId);
 
             if (contentDiv) {
+                const iframe = contentDiv.querySelector('iframe');
                 if (contentDiv.classList.contains('open')) {
                     contentDiv.classList.remove('open');
                     contentDiv.style.maxHeight = '0px'; 
@@ -734,6 +756,11 @@
                         }
                     });
                     
+                    // Load iframe src if not already loaded
+                    if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
+                        iframe.setAttribute('src', iframe.dataset.src);
+                    }
+
                     contentDiv.classList.add('open');
                     setTimeout(() => {
                         contentDiv.style.maxHeight = (contentDiv.scrollHeight + 10) + 'px'; 
@@ -982,47 +1009,123 @@
         const educationFieldsContainer = document.getElementById('educationFieldsContainer');
         const experienceFieldsContainer = document.getElementById('experienceFieldsContainer');
         const projectFieldsContainer = document.getElementById('projectFieldsContainer');
+        const customSectionsContainer = document.getElementById('customSectionsContainer'); // New
         const addEducationBtn = document.getElementById('addEducationBtn');
         const addExperienceBtn = document.getElementById('addExperienceBtn');
         const addProjectBtn = document.getElementById('addProjectBtn');
+        const addCustomSectionBtn = document.getElementById('addCustomSectionBtn'); // New
         const resumePreviewContent = document.getElementById('resumePreviewContent');
         const downloadResumePdfBtn = document.getElementById('downloadResumePdfBtn');
+        let userCustomSections = []; // To store custom sections data
 
-        function addDynamicFields(type, container) {
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') return '';
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        function addDynamicFields(type, container, sectionData = null) {
             const group = document.createElement('div');
             group.classList.add('dynamic-field-group', 'space-y-2');
             let fieldsHtml = '';
+            let sectionId = sectionData ? sectionData.id : `${type}_${Date.now()}`;
+            group.id = `group_${sectionId}`;
+
             if (type === 'education') {
                 fieldsHtml = `
-                    <input type="text" class="resume-input w-full" placeholder="Degree/Certificate" data-key="degree">
-                    <input type="text" class="resume-input w-full" placeholder="Institution/University" data-key="institution">
-                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., 2020-2023)" data-key="dates">
-                    <input type="text" class="resume-input w-full" placeholder="CGPA/Percentage" data-key="grade">
+                    <input type="text" class="resume-input w-full" placeholder="Degree/Certificate" data-key="degree" value="${escapeHtml(sectionData?.degree || '')}">
+                    <input type="text" class="resume-input w-full" placeholder="Institution/University" data-key="institution" value="${escapeHtml(sectionData?.institution || '')}">
+                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., 2020-2023)" data-key="dates" value="${escapeHtml(sectionData?.dates || '')}">
+                    <input type="text" class="resume-input w-full" placeholder="CGPA/Percentage" data-key="grade" value="${escapeHtml(sectionData?.grade || '')}">
                 `;
             } else if (type === 'experience') {
                 fieldsHtml = `
-                    <input type="text" class="resume-input w-full" placeholder="Job Title" data-key="title">
-                    <input type="text" class="resume-input w-full" placeholder="Company Name" data-key="company">
-                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., May 2024 - Dec 2024)" data-key="dates">
-                    <textarea class="resume-textarea resume-input w-full" placeholder="Responsibilities (one per line)" data-key="responsibilities"></textarea>
+                    <input type="text" class="resume-input w-full" placeholder="Job Title" data-key="title" value="${escapeHtml(sectionData?.title || '')}">
+                    <input type="text" class="resume-input w-full" placeholder="Company Name" data-key="company" value="${escapeHtml(sectionData?.company || '')}">
+                    <input type="text" class="resume-input w-full" placeholder="Dates (e.g., May 2024 - Dec 2024)" data-key="dates" value="${escapeHtml(sectionData?.dates || '')}">
+                    <textarea class="resume-textarea resume-input w-full" placeholder="Responsibilities (one per line)" data-key="responsibilities">${escapeHtml(sectionData?.responsibilities || '')}</textarea>
                 `;
             } else if (type === 'project') {
                  fieldsHtml = `
-                    <input type="text" class="resume-input w-full" placeholder="Project Title" data-key="title">
-                    <textarea class="resume-textarea resume-input w-full" placeholder="Description" data-key="description"></textarea>
-                    <input type="text" class="resume-input w-full" placeholder="Tech Stack (comma-separated)" data-key="tech">
+                    <input type="text" class="resume-input w-full" placeholder="Project Title" data-key="title" value="${escapeHtml(sectionData?.title || '')}">
+                    <textarea class="resume-textarea resume-input w-full" placeholder="Description" data-key="description">${escapeHtml(sectionData?.description || '')}</textarea>
+                    <input type="text" class="resume-input w-full" placeholder="Tech Stack (comma-separated)" data-key="tech" value="${escapeHtml(sectionData?.tech || '')}">
                 `;
+            }
+             if (type !== 'custom') { // Add remove button for predefined dynamic sections
+                fieldsHtml += `<button type="button" class="remove-dynamic-field-btn text-red-400 hover:text-red-600 text-xs py-1 px-2 border border-red-400 rounded hover:bg-red-100" data-groupid="group_${sectionId}"><i class="fas fa-trash-alt mr-1"></i>Remove Entry</button>`;
             }
             group.innerHTML = fieldsHtml;
             container.appendChild(group);
+
             group.querySelectorAll('.resume-input, .resume-textarea').forEach(input => {
                 input.addEventListener('input', updateResumePreview);
+            });
+            const removeBtn = group.querySelector('.remove-dynamic-field-btn');
+            if(removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    if(confirm('Are you sure you want to remove this entry?')) {
+                        group.remove();
+                        updateResumePreview();
+                    }
+                });
+            }
+        }
+        
+        function renderCustomSectionInput(sectionData) {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.classList.add('custom-section-input-group', 'border', 'border-dashed', 'border-slate-600', 'p-4', 'rounded-md', 'relative', 'space-y-2');
+            sectionDiv.id = `group_${sectionData.id}`;
+
+            sectionDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <h5 class="text-lg font-semibold text-[#A6B0C3]">${escapeHtml(sectionData.title)}</h5>
+                    <button type="button" class="remove-custom-section-btn text-red-400 hover:text-red-600 text-xs py-1 px-2 border border-red-400 rounded hover:bg-red-100" data-id="${sectionData.id}" title="Remove Section">
+                        <i class="fas fa-trash-alt mr-1"></i>Remove Section
+                    </button>
+                </div>
+                <textarea id="${sectionData.id}" class="resume-textarea resume-input w-full" placeholder="Enter content for ${escapeHtml(sectionData.title)}..." data-title="${escapeHtml(sectionData.title)}">${escapeHtml(sectionData.content)}</textarea>
+            `;
+            customSectionsContainer.appendChild(sectionDiv);
+
+            const textarea = sectionDiv.querySelector('textarea');
+            textarea.addEventListener('input', () => {
+                const currentSection = userCustomSections.find(sec => sec.id === sectionData.id);
+                if (currentSection) {
+                    currentSection.content = textarea.value;
+                }
+                updateResumePreview();
+            });
+
+            const removeBtn = sectionDiv.querySelector('.remove-custom-section-btn');
+            removeBtn.addEventListener('click', () => {
+                if (confirm(`Are you sure you want to remove the "${escapeHtml(sectionData.title)}" section?`)) {
+                    userCustomSections = userCustomSections.filter(sec => sec.id !== sectionData.id);
+                    sectionDiv.remove();
+                    updateResumePreview();
+                }
             });
         }
 
         if(addEducationBtn) addEducationBtn.addEventListener('click', () => addDynamicFields('education', educationFieldsContainer));
         if(addExperienceBtn) addExperienceBtn.addEventListener('click', () => addDynamicFields('experience', experienceFieldsContainer));
         if(addProjectBtn) addProjectBtn.addEventListener('click', () => addDynamicFields('project', projectFieldsContainer));
+        if (addCustomSectionBtn) {
+            addCustomSectionBtn.addEventListener('click', () => {
+                const sectionTitle = prompt("Enter title for your new custom section (e.g., Certificates, Hobbies):");
+                if (sectionTitle && sectionTitle.trim() !== "") {
+                    const sectionId = `customSec_${Date.now()}`;
+                    const newSectionData = { id: sectionId, title: sectionTitle.trim(), content: "" };
+                    userCustomSections.push(newSectionData);
+                    renderCustomSectionInput(newSectionData);
+                    updateResumePreview(); 
+                }
+            });
+        }
 
         if(educationFieldsContainer) addDynamicFields('education', educationFieldsContainer);
         if(experienceFieldsContainer) addDynamicFields('experience', experienceFieldsContainer);
@@ -1033,13 +1136,17 @@
             const items = [];
             document.querySelectorAll(`${containerSelector} .dynamic-field-group`).forEach(group => {
                 const item = {};
+                let hasValue = false;
                 keys.forEach(key => {
                     const inputElement = group.querySelector(`[data-key="${key}"]`);
-                    if (inputElement) {
+                    if (inputElement && inputElement.value.trim() !== '') {
                          item[key] = inputElement.value;
+                         hasValue = true;
+                    } else if (inputElement) {
+                        item[key] = ''; // Store empty string if input exists but is empty
                     }
                 });
-                if (Object.values(item).some(val => val && val.trim() !== '')) { 
+                if (hasValue) { 
                     items.push(item);
                 }
             });
@@ -1048,24 +1155,24 @@
 
 
         function updateResumePreview() {
-            let previewHTML = `<h2 class="text-center text-2xl font-bold mb-4">${resumeFormInputs.name.value || 'Your Name'}</h2>`;
+            let previewHTML = `<h2 class="text-center text-2xl font-bold mb-4">${escapeHtml(resumeFormInputs.name.value) || 'Your Name'}</h2>`;
             previewHTML += `<div class="text-center mb-4">`;
-            if(resumeFormInputs.email.value) previewHTML += `<p><i class="fas fa-envelope mr-2"></i>${resumeFormInputs.email.value}</p>`;
-            if(resumeFormInputs.phone.value) previewHTML += `<p><i class="fas fa-phone mr-2"></i>${resumeFormInputs.phone.value}</p>`;
-            if(resumeFormInputs.address.value) previewHTML += `<p><i class="fas fa-map-marker-alt mr-2"></i>${resumeFormInputs.address.value}</p>`;
-            if(resumeFormInputs.linkedin.value) previewHTML += `<p><i class="fab fa-linkedin mr-2"></i><a href="${resumeFormInputs.linkedin.value}" target="_blank" class="text-[#82EEFD] hover:underline">${resumeFormInputs.linkedin.value}</a></p>`;
-            if(resumeFormInputs.github.value) previewHTML += `<p><i class="fab fa-github mr-2"></i><a href="${resumeFormInputs.github.value}" target="_blank" class="text-[#82EEFD] hover:underline">${resumeFormInputs.github.value}</a></p>`;
+            if(resumeFormInputs.email.value) previewHTML += `<p><i class="fas fa-envelope mr-2"></i>${escapeHtml(resumeFormInputs.email.value)}</p>`;
+            if(resumeFormInputs.phone.value) previewHTML += `<p><i class="fas fa-phone mr-2"></i>${escapeHtml(resumeFormInputs.phone.value)}</p>`;
+            if(resumeFormInputs.address.value) previewHTML += `<p><i class="fas fa-map-marker-alt mr-2"></i>${escapeHtml(resumeFormInputs.address.value)}</p>`;
+            if(resumeFormInputs.linkedin.value) previewHTML += `<p><i class="fab fa-linkedin mr-2"></i><a href="${escapeHtml(resumeFormInputs.linkedin.value)}" target="_blank" class="text-[#82EEFD] hover:underline">${escapeHtml(resumeFormInputs.linkedin.value)}</a></p>`;
+            if(resumeFormInputs.github.value) previewHTML += `<p><i class="fab fa-github mr-2"></i><a href="${escapeHtml(resumeFormInputs.github.value)}" target="_blank" class="text-[#82EEFD] hover:underline">${escapeHtml(resumeFormInputs.github.value)}</a></p>`;
             previewHTML += `</div>`;
 
             if(resumeFormInputs.summary.value) {
-                previewHTML += `<h3><i class="fas fa-user-tie mr-2"></i>Summary</h3><p>${resumeFormInputs.summary.value.replace(/\n/g, '<br>')}</p>`;
+                previewHTML += `<h3><i class="fas fa-user-tie mr-2"></i>Summary</h3><p>${escapeHtml(resumeFormInputs.summary.value).replace(/\n/g, '<br>')}</p>`;
             }
 
             const educationData = getDynamicSectionData('#educationFieldsContainer', ['degree', 'institution', 'dates', 'grade']);
             if(educationData.length > 0) {
                 previewHTML += `<h3><i class="fas fa-graduation-cap mr-2"></i>Education</h3>`;
                 educationData.forEach(edu => {
-                    previewHTML += `<div class="mb-3"><p class="font-semibold">${edu.degree || ''}</p><p>${edu.institution || ''}</p><p class="text-sm text-[#A6B0C3]">${edu.dates || ''} ${edu.grade ? '| ' + edu.grade : ''}</p></div>`;
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${escapeHtml(edu.degree || '')}</p><p>${escapeHtml(edu.institution || '')}</p><p class="text-sm text-[#A6B0C3]">${escapeHtml(edu.dates || '')} ${edu.grade ? '| ' + escapeHtml(edu.grade) : ''}</p></div>`;
                 });
             }
             
@@ -1073,32 +1180,42 @@
             if(experienceData.length > 0) {
                 previewHTML += `<h3><i class="fas fa-briefcase mr-2"></i>Experience</h3>`;
                 experienceData.forEach(exp => {
-                    previewHTML += `<div class="mb-3"><p class="font-semibold">${exp.title || ''} at ${exp.company || ''}</p><p class="text-sm text-[#A6B0C3]">${exp.dates || ''}</p>`;
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${escapeHtml(exp.title || '')} at ${escapeHtml(exp.company || '')}</p><p class="text-sm text-[#A6B0C3]">${escapeHtml(exp.dates || '')}</p>`;
                     if (exp.responsibilities) {
-                        previewHTML += `<ul>${exp.responsibilities.split('\n').map(r => r.trim() ? `<li>${r}</li>` : '').join('')}</ul>`;
+                        previewHTML += `<ul>${exp.responsibilities.split('\n').map(r => r.trim() ? `<li>${escapeHtml(r)}</li>` : '').join('')}</ul>`;
                     }
                     previewHTML += `</div>`;
                 });
             }
 
             if(resumeFormInputs.skills.value) {
-                previewHTML += `<h3><i class="fas fa-cogs mr-2"></i>Skills</h3><p>${resumeFormInputs.skills.value.split(',').map(s => s.trim()).join(', ')}</p>`;
+                previewHTML += `<h3><i class="fas fa-cogs mr-2"></i>Skills</h3><p>${escapeHtml(resumeFormInputs.skills.value).split(',').map(s => s.trim()).join(', ')}</p>`;
             }
 
             const projectData = getDynamicSectionData('#projectFieldsContainer', ['title', 'description', 'tech']);
              if(projectData.length > 0) {
                 previewHTML += `<h3><i class="fas fa-project-diagram mr-2"></i>Projects</h3>`;
                 projectData.forEach(proj => {
-                    previewHTML += `<div class="mb-3"><p class="font-semibold">${proj.title || ''}</p>`;
-                    if(proj.description) previewHTML += `<p>${proj.description.replace(/\n/g, '<br>')}</p>`;
-                    if(proj.tech) previewHTML += `<p class="text-sm text-[#A6B0C3]"><em>Tech: ${proj.tech}</em></p>`;
+                    previewHTML += `<div class="mb-3"><p class="font-semibold">${escapeHtml(proj.title || '')}</p>`;
+                    if(proj.description) previewHTML += `<p>${escapeHtml(proj.description).replace(/\n/g, '<br>')}</p>`;
+                    if(proj.tech) previewHTML += `<p class="text-sm text-[#A6B0C3]"><em>Tech: ${escapeHtml(proj.tech)}</em></p>`;
                     previewHTML += `</div>`;
                 });
             }
+            // Add custom sections to preview
+            if (userCustomSections.length > 0) {
+                userCustomSections.forEach(customSec => {
+                    if (customSec.title && customSec.content && customSec.content.trim() !== '') {
+                        previewHTML += `<h3 class="custom-section-title-preview"><i class="fas fa-stream mr-2"></i>${escapeHtml(customSec.title)}</h3>`;
+                        previewHTML += `<p class="custom-section-content-preview">${escapeHtml(customSec.content).replace(/\n/g, '<br>')}</p>`;
+                    }
+                });
+            }
+
 
             resumePreviewContent.innerHTML = previewHTML;
-             if (previewHTML.length < 200 && !document.querySelector('#resumePreviewContent .text-gray-500')) { 
-                resumePreviewContent.innerHTML = `<div class="text-center p-10 text-gray-500">Fill the form to see your resume preview.</div>` + previewHTML; 
+             if (resumePreviewContent.textContent.trim() === 'Your Name' || resumePreviewContent.textContent.trim() === '') { 
+                resumePreviewContent.innerHTML = `<div class="text-center p-10 text-gray-500">Fill the form to see your resume preview.</div>`;
             }
         }
 
@@ -1109,12 +1226,24 @@
         if(downloadResumePdfBtn) {
             downloadResumePdfBtn.addEventListener('click', () => {
                 const elementToPrint = document.getElementById('resumePreviewContent');
-                
-                // Temporarily remove placeholder if it exists
                 const placeholder = elementToPrint.querySelector('.text-gray-500');
-                if(placeholder) placeholder.style.display = 'none';
+                let placeholderWasVisible = false;
+                
+                if (placeholder && getComputedStyle(placeholder).display !== 'none') {
+                    placeholderWasVisible = true;
+                    placeholder.style.display = 'none';
+                }
+                
+                if (elementToPrint.textContent.trim() === (placeholder ? placeholder.textContent.trim() : "") || elementToPrint.textContent.trim() === "") {
+                     alert("Please add some content to your resume before downloading.");
+                     if(placeholder && placeholderWasVisible) placeholder.style.display = 'block';
+                     return;
+                }
 
                 elementToPrint.classList.add('resume-preview-for-pdf');
+                // Temporarily hide chat button for PDF generation
+                if(chatToggleBtn) chatToggleBtn.style.display = 'none';
+
 
                 const opt = {
                   margin:       [0.5, 0.5, 0.5, 0.5], 
@@ -1123,19 +1252,28 @@
                   html2canvas:  { 
                       scale: 2, 
                       useCORS: true, 
-                      logging: true, // Keep logging true for debugging PDF issues
-                      backgroundColor: '#ffffff' // Ensure canvas background is white
+                      logging: true, 
+                      backgroundColor: '#ffffff',
+                      width: elementToPrint.scrollWidth, 
+                      height: elementToPrint.scrollHeight,
+                      windowWidth: elementToPrint.scrollWidth,
+                      windowHeight: elementToPrint.scrollHeight,
+                      scrollX: 0, 
+                      scrollY: 0
                   },
                   jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
                 };
 
                 html2pdf().from(elementToPrint).set(opt).save().then(() => {
                     elementToPrint.classList.remove('resume-preview-for-pdf');
-                    if(placeholder) placeholder.style.display = 'block'; // Restore placeholder
+                    if(placeholder && placeholderWasVisible) placeholder.style.display = 'block';
+                    if(chatToggleBtn) chatToggleBtn.style.display = 'flex'; // Restore chat button
                 }).catch(err => {
                     console.error("Error generating PDF:", err);
                     elementToPrint.classList.remove('resume-preview-for-pdf');
-                    if(placeholder) placeholder.style.display = 'block'; // Restore placeholder
+                    if(placeholder && placeholderWasVisible) placeholder.style.display = 'block';
+                    if(chatToggleBtn) chatToggleBtn.style.display = 'flex'; // Restore chat button
+                    alert("Error generating PDF. Check console for details.");
                 });
             });
         }
@@ -1193,6 +1331,10 @@
                 htmlElement.style.scrollBehavior = 'auto'; 
 
                 document.querySelectorAll('#certifications .certification-content').forEach(content => {
+                    const iframe = content.querySelector('iframe');
+                    if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
+                        // Don't load iframes on initial page load to prevent scroll issues
+                    }
                     content.style.maxHeight = '0px'; 
                     content.classList.remove('open');
                 });
@@ -1202,16 +1344,16 @@
 
                 if (window.location.hash === '' && window.scrollY !== 0) { 
                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                   document.body.focus(); // Attempt to shift focus to body
+                   document.body.focus({preventScroll:true}); 
                 }
                 
                 setTimeout(function() {
                     htmlElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
                 }, 50);
 
-            }, 250); // Increased main delay for initialization and scroll reset
+            }, 250); 
             
-            updateResumePreview(); // Initialize resume preview on load
+            updateResumePreview(); 
         };
     </script>
 </body>
