@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <!-- html2pdf.js script ko yahan se hata diya gaya hai kyunki resume builder ke liye istemal ho raha tha -->
     <style>
         html { scroll-behavior: smooth; }
         html, body { overscroll-behavior: none; } /* Scroll chaining ko rokein */
@@ -25,11 +24,11 @@
         .section-title { font-weight: 700; color: #00CFE8; padding-bottom: 0.75rem; margin-bottom: 1.5rem; position: relative; text-align: center; }
         .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background-color: #00CFE8; border-radius: 2px; }
         .section-title span { color: #F0F4F8; }
-        .content-card { background-color: #1F2942; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #2D3A57; }
-        .content-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.25); }
-        .content-card h3 { color: #82EEFD; }
-        .content-card p, .content-card ul li { color: #C5D0E0; }
-        .content-card .text-sm { color: #A6B0C3; }
+        .content-card, .blog-post-card { background-color: #1F2942; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #2D3A57; }
+        .content-card:hover, .blog-post-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.25); }
+        .content-card h3, .blog-post-card h3 { color: #82EEFD; }
+        .content-card p, .content-card ul li, .blog-post-card p { color: #C5D0E0; }
+        .content-card .text-sm, .blog-post-card .text-sm { color: #A6B0C3; }
         .content-card .tech-stack-text { color: #82EEFD; font-weight: 500; }
         .skill-badge { background-color: #2D3A57; color: #A6B0C3; padding: 0.6rem 1.2rem; border-radius: 9999px; font-size: 0.9rem; font-weight: 500; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; border: 1px solid #4A5568; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
         .skill-badge i { font-size: 1.1em; }
@@ -41,7 +40,7 @@
         .certification-button i.fa-chevron-down.rotate-180 { transform: rotate(180deg); }
         .certification-button i { color: #FACC15; }
         .certification-content { background-color: #1F2942; border-width: 0; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; padding: 0; }
-        .certification-content.open { max-height: 500px; /* Ya fir content ke anusaar adjust karein */ padding: 0.5rem; }
+        .certification-content.open { max-height: 500px; /* JS se dynamic height set hogi */ padding: 0.5rem; }
         .certification-pdf-iframe { border-width: 0; width: 100%; height: 450px; border-radius: 0.25rem; }
         .form-input { background-color: #1F2942; border-color: #2D3A57; color: #F0F4F8; }
         .form-input::placeholder { color: #7B89A1; }
@@ -58,12 +57,91 @@
         .secondary-button { background-color: #2D3A57; color: white; }
         .secondary-button:hover { background-color: #3E4C6D; }
 
-        /* Chatbot Styles */
-        #chatToggleBtn { position: fixed; bottom: 2rem; right: 2rem; background-color: #00CFE8; color: #0A0F1E; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; box-shadow: 0 4px 12px rgba(0, 207, 232, 0.4); cursor: pointer; z-index: 1001; transition: transform 0.3s ease; }
+        /* Header Nav Scrollbar ke liye styles */
+        .header-nav-scrollable::-webkit-scrollbar {
+            height: 4px; /* Scrollbar ki height */
+        }
+        .header-nav-scrollable::-webkit-scrollbar-track {
+            background: #10182B; /* Track ka background header jaisa */
+        }
+        .header-nav-scrollable::-webkit-scrollbar-thumb {
+            background: #00CFE8; /* Thumb ka color primary */
+            border-radius: 2px; /* Thumb ke corners rounded */
+        }
+        .header-nav-scrollable::-webkit-scrollbar-thumb:hover {
+            background: #31E0E0; /* Hover par thumb ka color */
+        }
+        /* Firefox ke liye (optional, agar default theek na lage) */
+        .header-nav-scrollable {
+            scrollbar-width: thin;
+            scrollbar-color: #00CFE8 #10182B;
+        }
+
+
+        /* Chatbot Styles - UI Sudhar */
+        #chatToggleBtn { 
+            position: fixed; 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 1.5rem; 
+            box-shadow: 0 4px 12px rgba(0, 207, 232, 0.4); 
+            cursor: pointer; 
+            z-index: 1001; 
+            transition: transform 0.3s ease;
+            background-color: #00CFE8; 
+            color: #0A0F1E;
+            bottom: 1rem;
+            right: 1rem;
+        }
+        @media (min-width: 640px) { 
+            #chatToggleBtn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+                bottom: 2rem;
+                right: 2rem;
+            }
+        }
         #chatToggleBtn:hover { transform: scale(1.1); }
         #chatToggleBtn .fa-hand-sparkles { animation: wave-animation 2.5s infinite; }
         @keyframes wave-animation { 0% { transform: rotate(0deg); } 15% { transform: rotate(14deg); } 30% { transform: rotate(-8deg); } 40% { transform: rotate(14deg); } 50% { transform: rotate(-4deg); } 60% { transform: rotate(10deg); } 70% { transform: rotate(0deg); } 100% { transform: rotate(0deg); } }
-        #chatWindow { position: fixed; bottom: 6.5rem; right: 2rem; width: 90%; max-width: 380px; height: 70vh; max-height: 500px; background-color: #161D33; border-radius: 0.75rem; box-shadow: 0 8px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; }
+        
+        #chatWindow { 
+            position: fixed; 
+            background-color: #161D33; 
+            border-radius: 0.75rem; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            z-index: 1000; 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            bottom: 4.5rem; 
+            right: 1rem;
+            left: 1rem;
+            width: auto; 
+            max-width: none; 
+            height: 60vh; 
+            max-height: 450px; 
+        }
+        @media (min-width: 640px) { 
+            #chatWindow {
+                bottom: 6.5rem;
+                right: 2rem;
+                left: auto; 
+                width: 90%;
+                max-width: 380px;
+                height: 70vh;
+                max-height: 500px;
+            }
+        }
         #chatWindow.active { opacity: 1; visibility: visible; transform: translateY(0); }
         #chatHeader { background-color: #1F2942; color: #F0F4F8; padding: 0.75rem 1rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2D3A57; }
         #closeChatBtn { background: none; border: none; color: #A6B0C3; font-size: 1.2rem; cursor: pointer; }
@@ -72,30 +150,45 @@
         .chat-message { padding: 0.6rem 0.9rem; border-radius: 0.5rem; max-width: 80%; word-wrap: break-word; line-height: 1.5; }
         .user-message { background-color: #00CFE8; color: #0A0F1E; align-self: flex-end; margin-left: 20%; }
         .ai-message { background-color: #2D3A57; color: #C5D0E0; align-self: flex-start; margin-right: 20%; }
-        #chatInputContainer { display: flex; padding: 0.75rem; border-top: 1px solid #2D3A57; background-color: #1F2942; }
-        #chatInput { flex-grow: 1; padding: 0.6rem 0.9rem; border: 1px solid #3E4C6D; background-color: #161D33; color: #F0F4F8; border-radius: 0.375rem; margin-right: 0.5rem; outline: none; }
+        
+        #chatInputContainer { 
+            display: flex; 
+            align-items: center; 
+            padding: 0.75rem; 
+            border-top: 1px solid #2D3A57; 
+            background-color: #1F2942; 
+        }
+        #chatInput { 
+            flex-grow: 1; 
+            min-width: 0; 
+            padding: 0.6rem 0.9rem; 
+            border: 1px solid #3E4C6D; 
+            background-color: #161D33; 
+            color: #F0F4F8; 
+            border-radius: 0.375rem; 
+            margin-right: 0.5rem; 
+            outline: none; 
+        }
         #chatInput:focus { border-color: #00CFE8; box-shadow: 0 0 0 2px rgba(0, 207, 232, 0.3); }
-        #chatSendBtn { background-color: #00CFE8; color: #0A0F1E; border: none; padding: 0.6rem 1rem; border-radius: 0.375rem; cursor: pointer; font-weight: 600; }
+        #chatSendBtn { 
+            flex-shrink: 0; 
+            background-color: #00CFE8; 
+            color: #0A0F1E; 
+            border: none; 
+            padding: 0.6rem 1rem; 
+            border-radius: 0.375rem; 
+            cursor: pointer; 
+            font-weight: 600; 
+        }
         #chatSendBtn:hover { background-color: #00A9C0; }
         .typing-indicator span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #A6B0C3; animation: typing-blink 1.4s infinite both; margin: 0 1px; }
         .typing-indicator span:nth-child(2) { animation-delay: .2s; }
         .typing-indicator span:nth-child(3) { animation-delay: .4s; }
         @keyframes typing-blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
-
-        /* Resume Builder Styles - YEH SABHI STYLES HATA DIYE GAYE HAIN */
-        /* .resume-section { ... } */
-        /* .resume-input-group { ... } */
-        /* .resume-input, .resume-textarea { ... } */
-        /* #resumePreviewContainer { ... } */
-        /* .dynamic-field-group, .custom-section-input-group { ... } */
-        /* .add-more-btn { ... } */
-        /* .resume-preview-for-pdf { ... } */
     </style>
 </head>
 <body class="antialiased">
-
     <div id="tsparticles"></div>
-
     <header class="bg-[#10182B] shadow-lg fixed w-full z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold text-[#00CFE8] hover:text-[#31E0E0] transition duration-300 ease-in-out rounded-md p-2">
@@ -108,17 +201,20 @@
                     </svg>
                 </button>
             </div>
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#home" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Home</a></li>
-                <li><a href="#about" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">About</a></li>
-                <li><a href="#education" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Education</a></li>
-                <li><a href="#experience" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Experience</a></li>
-                <li><a href="#skills" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
-                <li><a href="#projects" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
-                <li><a href="#certifications" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
-                <!-- Resume Builder link yahan se hata diya gaya hai -->
-                <li><a href="#contact" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
-            </ul>
+            <!-- Desktop Navigation: Horizontal scroll add kiya gaya hai md screens par agar overflow ho -->
+            <div class="hidden md:flex md:items-center md:overflow-x-auto header-nav-scrollable">
+                <ul class="flex items-center space-x-6 whitespace-nowrap py-1"> 
+                    <li><a href="#home" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Home</a></li>
+                    <li><a href="#about" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">About</a></li>
+                    <li><a href="#education" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Education</a></li>
+                    <li><a href="#experience" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Experience</a></li>
+                    <li><a href="#skills" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Skills</a></li>
+                    <li><a href="#projects" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Projects</a></li>
+                    <li><a href="#certifications" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Certifications</a></li>
+                    <li><a href="#blog" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Blog</a></li>
+                    <li><a href="#contact" class="text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md">Contact</a></li>
+                </ul>
+            </div>
         </nav>
         <div id="mobile-menu" class="md:hidden hidden bg-[#161D33] pb-4">
             <ul class="flex flex-col items-center space-y-4">
@@ -129,12 +225,11 @@
                 <li><a href="#skills" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Skills</a></li>
                 <li><a href="#projects" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Projects</a></li>
                 <li><a href="#certifications" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Certifications</a></li>
-                <!-- Resume Builder link yahan se hata diya gaya hai -->
+                <li><a href="#blog" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Blog</a></li>
                 <li><a href="#contact" class="block text-[#F0F4F8] hover:text-[#00CFE8] transition duration-300 ease-in-out font-medium py-2 px-3 rounded-md w-full text-center" onclick="toggleMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </header>
-
     <section id="home" class="min-h-screen flex items-center justify-center text-center p-4 pt-24 md:pt-20">
         <div class="max-w-4xl mx-auto">
             <img src="myphoto.jpg" alt="Sauravkumar Chaudhary" onerror="this.onerror=null; this.src='https://placehold.co/150x150/00CFE8/0A0F1E?text=SC';" class="rounded-full w-36 h-36 mx-auto mb-6 border-4 border-[#00CFE8] shadow-lg object-cover">
@@ -157,7 +252,6 @@
             </div>
         </div>
     </section>
-
     <section id="about" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>ABOUT </span><span class="text-[#00CFE8]">ME</span></h2>
@@ -175,65 +269,63 @@
             </div>
         </div>
     </section>
-
-<section id="education" class="py-16 sm:py-20 px-4 bg-[#10182B] text-[#F0F4F8]">
-  <div class="container mx-auto max-w-4xl">
-    <h2 class="text-3xl sm:text-4xl section-title mb-12 font-bold text-center">
-      <span>MY </span><span class="text-[#00CFE8]">EDUCATION</span>
-    </h2>
-    <div class="space-y-8">
-      <div class="content-card p-5">
-        <h3 class="text-xl font-semibold mb-1">Master of Computer Applications (MCA)</h3>
-        <p class="text-md flex items-center gap-2">
-          <a href="https://www.ganpatuniversity.ac.in/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
-            Ganpat University
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </p>
-        <p class="text-sm mb-2 text-[#A6B0C3]">2023 - 2025 | CGPA: 8.22/10</p>
-      </div>
-      <div class="content-card p-5">
-        <h3 class="text-xl font-semibold mb-1">Bachelor of Computer Applications (BCA)</h3>
-        <p class="text-md flex items-center gap-2">
-          <a href="https://www.ngu.ac.in/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
-            Hemchandracharya North Gujarat University
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </p>
-        <p class="text-sm mb-2 text-[#A6B0C3]">2020 - 2023 | CGPA: 8.78/10</p>
-      </div>
-      <div class="content-card p-5">
-        <h3 class="text-lg font-semibold mb-1">Higher Secondary (12th Grade)</h3>
-        <p class="text-md flex items-center gap-2">
-          <a href="https://www.gseb.org/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
-            Gujarat Secondary and Higher Secondary Education Board
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </p>
-        <p class="text-sm mb-2 text-[#A6B0C3]">2020 | Percentage: 54.66%</p>
-      </div>
-      <div class="content-card p-5">
-        <h3 class="text-lg font-semibold mb-1">Secondary (10th Grade)</h3>
-        <p class="text-md flex items-center gap-2">
-          <a href="https://www.gseb.org/" target="_blank" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
-            Gujarat Secondary and Higher Secondary Education Board
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </p>
-        <p class="text-sm mb-2 text-[#A6B0C3]">2018 | Percentage: 62.66%</p>
-      </div>
-    </div>
-  </div>
-</section>
-
+    <section id="education" class="py-16 sm:py-20 px-4 bg-[#10182B] text-[#F0F4F8]">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12 font-bold text-center">
+                <span>MY </span><span class="text-[#00CFE8]">EDUCATION</span>
+            </h2>
+            <div class="space-y-8">
+                <div class="content-card p-5">
+                    <h3 class="text-xl font-semibold mb-1">Master of Computer Applications (MCA)</h3>
+                    <p class="text-md flex items-center gap-2">
+                        <a href="https://www.ganpatuniversity.ac.in/" target="_blank" rel="noopener noreferrer" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
+                        Ganpat University
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        </a>
+                    </p>
+                    <p class="text-sm mb-2 text-[#A6B0C3]">2023 - 2025 | CGPA: 8.22/10</p>
+                </div>
+                <div class="content-card p-5">
+                    <h3 class="text-xl font-semibold mb-1">Bachelor of Computer Applications (BCA)</h3>
+                    <p class="text-md flex items-center gap-2">
+                        <a href="https://www.ngu.ac.in/" target="_blank" rel="noopener noreferrer" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
+                        Hemchandracharya North Gujarat University
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        </a>
+                    </p>
+                    <p class="text-sm mb-2 text-[#A6B0C3]">2020 - 2023 | CGPA: 8.78/10</p>
+                </div>
+                <div class="content-card p-5">
+                    <h3 class="text-lg font-semibold mb-1">Higher Secondary (12th Grade)</h3>
+                    <p class="text-md flex items-center gap-2">
+                        <a href="https://www.gseb.org/" target="_blank" rel="noopener noreferrer" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
+                        Gujarat Secondary and Higher Secondary Education Board
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        </a>
+                    </p>
+                    <p class="text-sm mb-2 text-[#A6B0C3]">2020 | Percentage: 54.66%</p>
+                </div>
+                <div class="content-card p-5">
+                    <h3 class="text-lg font-semibold mb-1">Secondary (10th Grade)</h3>
+                    <p class="text-md flex items-center gap-2">
+                        <a href="https://www.gseb.org/" target="_blank" rel="noopener noreferrer" class="text-[#82EEFD] font-medium inline-flex items-center group hover:text-[#00CFE8] transition">
+                        Gujarat Secondary and Higher Secondary Education Board
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        </a>
+                    </p>
+                    <p class="text-sm mb-2 text-[#A6B0C3]">2018 | Percentage: 62.66%</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="experience" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>WORK </span><span class="text-[#00CFE8]">EXPERIENCE</span></h2>
@@ -263,9 +355,9 @@
             </div>
         </div>
     </section>
-
     <section id="skills" class="py-16 sm:py-20 px-4 bg-[#10182B]">
-        <div class="container mx-auto max-w-5xl"> <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>TECHNICAL </span><span class="text-[#00CFE8]">ARSENAL</span></h2>
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>TECHNICAL </span><span class="text-[#00CFE8]">ARSENAL</span></h2>
             <div class="mb-10">
                 <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Programming Languages</h4>
                 <div class="flex flex-wrap justify-center gap-4">
@@ -306,7 +398,7 @@
                     <span class="skill-badge" data-skill="Microsoft Office Suite"><i class="fab fa-microsoft text-sky-600"></i> MS Office</span>
                 </div>
             </div>
-             <div class="mb-10">
+            <div class="mb-10">
                 <h4 class="text-2xl font-semibold text-[#82EEFD] mb-6 text-center">Key Competencies & Soft Skills</h4>
                 <div class="flex flex-wrap justify-center gap-4">
                     <span class="skill-badge" data-skill="Object-Oriented Programming (OOP)">OOP</span>
@@ -325,10 +417,9 @@
             </div>
         </div>
     </section>
-
     <section id="projects" class="py-16 sm:py-20 px-4 bg-[#161D33]">
         <div class="container mx-auto max-w-4xl">
-             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>PROJECT </span><span class="text-[#00CFE8]">SHOWCASE</span></h2>
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>PROJECT </span><span class="text-[#00CFE8]">SHOWCASE</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="content-card">
                     <h3 class="text-xl font-semibold mb-1">Online Shopping Site</h3>
@@ -353,15 +444,14 @@
             </div>
         </div>
     </section>
-
     <section id="certifications" class="py-16 sm:py-20 px-4 bg-[#10182B]">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>CERTIFICATIONS & </span><span class="text-[#00CFE8]">ACTIVITIES</span></h2>
             <div class="space-y-4">
-                 <div>
+                <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert1_content', 'cert1_icon')">
-                        <i class="fas fa-database fa-fw mr-3"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
-                        <i class="fas fa-chevron-down ml-auto" id="cert1_icon"></i>
+                    <i class="fas fa-database fa-fw mr-3"></i>DBMS Course - Master the Fundamentals and Advanced Concepts
+                    <i class="fas fa-chevron-down ml-auto" id="cert1_icon"></i>
                     </button>
                     <div id="cert1_content" class="certification-content mt-1 rounded-md">
                         <iframe data-src="DBMS.pdf" class="certification-pdf-iframe" frameborder="0" title="DBMS Certificate" loading="lazy"></iframe>
@@ -369,8 +459,8 @@
                 </div>
                 <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert2_content', 'cert2_icon')">
-                        <i class="fab fa-python fa-fw mr-3 text-green-400"></i>Python Workshop - Ganpat University
-                        <i class="fas fa-chevron-down ml-auto" id="cert2_icon"></i>
+                    <i class="fab fa-python fa-fw mr-3 text-green-400"></i>Python Workshop - Ganpat University
+                    <i class="fas fa-chevron-down ml-auto" id="cert2_icon"></i>
                     </button>
                     <div id="cert2_content" class="certification-content mt-1 rounded-md">
                         <iframe data-src="python_workshop.pdf" class="certification-pdf-iframe" frameborder="0" title="Python Workshop Certificate" loading="lazy"></iframe>
@@ -378,56 +468,87 @@
                 </div>
                 <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert3_content', 'cert3_icon')">
-                        <i class="fas fa-vial fa-fw mr-3 text-purple-400"></i>Software Testing Webinar - TOPS Technologies
-                        <i class="fas fa-chevron-down ml-auto" id="cert3_icon"></i>
+                    <i class="fas fa-vial fa-fw mr-3 text-purple-400"></i>Software Testing Webinar - TOPS Technologies
+                    <i class="fas fa-chevron-down ml-auto" id="cert3_icon"></i>
                     </button>
-                     <div id="cert3_content" class="certification-content mt-1 rounded-md">
+                    <div id="cert3_content" class="certification-content mt-1 rounded-md">
                         <iframe data-src="software_testing_webinar.pdf" class="certification-pdf-iframe" frameborder="0" title="Software Testing Webinar Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
-                 <div>
+                <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert4_content', 'cert4_icon')">
-                        <i class="fab fa-php fa-fw mr-3 text-blue-400"></i>PHP Essential Training - LinkedIn Learning
-                        <i class="fas fa-chevron-down ml-auto" id="cert4_icon"></i>
+                    <i class="fab fa-php fa-fw mr-3 text-blue-400"></i>PHP Essential Training - LinkedIn Learning
+                    <i class="fas fa-chevron-down ml-auto" id="cert4_icon"></i>
                     </button>
-                     <div id="cert4_content" class="certification-content mt-1 rounded-md">
+                    <div id="cert4_content" class="certification-content mt-1 rounded-md">
                         <iframe data-src="PHP-Linkedin.pdf" class="certification-pdf-iframe" frameborder="0" title="PHP Essential Training Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
-                 <div>
+                <div>
                     <button class="w-full text-left certification-button px-4 py-3 rounded-md font-semibold focus:outline-none flex items-center" onclick="toggleCertContent('cert5_content', 'cert5_icon')">
-                        <i class="fas fa-graduation-cap fa-fw mr-3 text-teal-400"></i>Introduction to Python - Sololearn
-                        <i class="fas fa-chevron-down ml-auto" id="cert5_icon"></i>
+                    <i class="fas fa-graduation-cap fa-fw mr-3 text-teal-400"></i>Introduction to Python - Sololearn
+                    <i class="fas fa-chevron-down ml-auto" id="cert5_icon"></i>
                     </button>
-                     <div id="cert5_content" class="certification-content mt-1 rounded-md">
-                         <iframe data-src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate" loading="lazy"></iframe>
+                    <div id="cert5_content" class="certification-content mt-1 rounded-md">
+                        <iframe data-src="my_python_certificate.pdf" class="certification-pdf-iframe" frameborder="0" title="Introduction to Python Certificate" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- AI Resume Builder Section - YEH SECTION POORA HATA DIYA GAYA HAI -->
-    <!-- <section id="resumeBuilder" class="py-16 sm:py-20 px-4 bg-[#161D33]"> ... </section> -->
-
-
-    <section id="contact" class="py-16 sm:py-20 px-4 bg-[#10182B]"> 
+    <!-- Naya Blog Section -->
+    <section id="blog" class="py-16 sm:py-20 px-4 bg-[#161D33]">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>MY </span><span class="text-[#00CFE8]">BLOG</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Blog Post Card 1 (Placeholder) -->
+                <div class="blog-post-card">
+                    <img src="https://placehold.co/600x400/10182B/C5D0E0?text=Blog+Post+Image+1" alt="Blog Post 1 Thumbnail" class="rounded-md mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold mb-2">My Journey into Web Development</h3>
+                    <p class="text-sm text-[#A6B0C3] mb-2">Published on: June 05, 2025</p>
+                    <p class="text-base leading-relaxed mb-4">
+                        Ek chhota sa summary mere web development ke safar ke baare mein, shuruaati chunautiyon se lekar meri pehli live website tak...
+                    </p>
+                    <a href="#" class="text-[#82EEFD] hover:text-[#00CFE8] font-medium inline-flex items-center">
+                    Read More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <!-- Blog Post Card 2 (Placeholder) -->
+                <div class="blog-post-card">
+                    <img src="https://placehold.co/600x400/10182B/C5D0E0?text=Blog+Post+Image+2" alt="Blog Post 2 Thumbnail" class="rounded-md mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold mb-2">Understanding Backend Technologies</h3>
+                    <p class="text-sm text-[#A6B0C3] mb-2">Published on: May 28, 2025</p>
+                    <p class="text-base leading-relaxed mb-4">
+                        Backend kya hai aur yeh web applications ke liye kyun zaroori hai? Java Spring Boot aur Python Django jaise popular frameworks par ek nazar.
+                    </p>
+                    <a href="#" class="text-[#82EEFD] hover:text-[#00CFE8] font-medium inline-flex items-center">
+                    Read More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <!-- Aap yahan aur blog post cards add kar sakte hain -->
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="primary-button font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                View All Posts
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="py-16 sm:py-20 px-4 bg-[#10182B]">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl sm:text-4xl section-title mb-12"><span>GET IN </span><span class="text-[#00CFE8]">TOUCH</span></h2>
-            
-            <div class="bg-[#1F2942] p-6 sm:p-8 rounded-lg shadow-xl mb-10"> 
-                 <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-center mb-8">
+            <div class="bg-[#1F2942] p-6 sm:p-8 rounded-lg shadow-xl mb-10">
+                <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-center mb-8">
                     <a href="tel:+917779095746" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 flex items-center text-lg">
-                        <i class="fas fa-phone contact-icon mr-2"></i> +91 77790 95746
+                    <i class="fas fa-phone contact-icon mr-2"></i> +91 77790 95746
                     </a>
                     <a href="mailto:sohravchaudhary@gmail.com" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 flex items-center text-lg">
-                        <i class="fas fa-envelope contact-icon mr-2"></i> sohravchaudhary@gmail.com
+                    <i class="fas fa-envelope contact-icon mr-2"></i> sohravchaudhary@gmail.com
                     </a>
                     <span class="text-[#A6B0C3] flex items-center text-lg">
-                         <i class="fas fa-map-marker-alt contact-icon mr-2"></i> Mehsana, Gujarat, India
+                    <i class="fas fa-map-marker-alt contact-icon mr-2"></i> Mehsana, Gujarat, India
                     </span>
                 </div>
-
                 <p class="text-lg text-[#C5D0E0] text-center mb-8">
                     Have a project in mind, a question, or just want to say hi? Feel free to reach out!
                 </p>
@@ -435,7 +556,6 @@
                     <input type="hidden" name="apikey" value="843a9dc3-2991-428d-beb8-f8ee5bd394e6"> 
                     <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
                     <div>
                         <label for="name" class="block text-[#A6B0C3] text-sm font-bold mb-2">Full Name</label>
                         <input type="text" id="name" name="name" required class="form-input shadow appearance-none border rounded-md w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 placeholder-[#7B89A1]" placeholder="Your Name">
@@ -450,7 +570,7 @@
                     </div>
                     <div class="text-right mt-2 mb-4">
                         <button type="button" id="refineMessageBtn" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out text-sm">
-                            ✨ Refine My Message
+                        ✨ Refine My Message
                         </button>
                     </div>
                     <div id="refineLoader" class="hidden text-center my-2">
@@ -459,83 +579,109 @@
                     <div id="refineError" class="hidden text-center my-2 text-red-400"></div>
                     <div class="text-center">
                         <button type="submit" class="primary-button font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#00CFE8] focus:ring-offset-2 focus:ring-offset-[#10182B]"> 
-                            Send Message
+                        Send Message
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-
     <footer class="bg-[#10182B] py-8 px-4 text-center text-[#A6B0C3]"> 
-    <div class="container mx-auto">
-        <div class="flex justify-center space-x-6 mb-4">
-            <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
+        <div class="container mx-auto">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://linkedin.com/in/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
                 <i class="fab fa-linkedin fa-2x"></i>
-            </a>
-            <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
-                 <i class="fab fa-github fa-2x"></i>
-            </a>
-            <a href="https://www.youtube.com/@sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-red-500 transition duration-300 ease-in-out"> <i class="fab fa-youtube fa-2x"></i>
-           </a>
-           <a href="https://t.me/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-sky-400 transition duration-300 ease-in-out"> <i class="fab fa-telegram-plane fa-2x"></i> </a>
+                </a>
+                <a href="https://github.com/sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-[#00CFE8] transition duration-300 ease-in-out">
+                <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="https://www.youtube.com/@sohravchaudhary" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-red-500 transition duration-300 ease-in-out"> <i class="fab fa-youtube fa-2x"></i>
+                </a>
+                <a href="https://t.me/sohrav" target="_blank" rel="noopener noreferrer" class="text-[#A6B0C3] hover:text-sky-400 transition duration-300 ease-in-out"> <i class="fab fa-telegram-plane fa-2x"></i> </a>
+            </div>
+            <p>© <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
+            <p class="text-sm mt-1">Inspired to create and innovate.</p>
         </div>
-        <p>© <span id="currentYear"></span> Sauravkumar V. Chaudhary. All rights reserved.</p>
-        <p class="text-sm mt-1">Inspired to create and innovate.</p>
+    </footer>
+    <div id="skillModal" class="modal-backdrop">
+        <div class="modal-content">
+            <button id="closeSkillModalBtn" class="modal-close-btn">×</button>
+            <h3 id="skillModalTitle" class="text-2xl font-semibold mb-4 text-[#00CFE8]"></h3>
+            <div id="skillModalLoader" class="text-center my-3 text-[#A6B0C3] hidden">Loading explanation... <i class="fas fa-spinner fa-spin"></i></div>
+            <p id="skillModalExplanation" class="text-[#C5D0E0] leading-relaxed whitespace-pre-line"></p>
+            <div id="skillModalError" class="text-red-400 mt-3 hidden"></div>
+        </div>
     </div>
-</footer>
-
-<div id="skillModal" class="modal-backdrop">
-    <div class="modal-content">
-        <button id="closeSkillModalBtn" class="modal-close-btn">×</button>
-        <h3 id="skillModalTitle" class="text-2xl font-semibold mb-4 text-[#00CFE8]"></h3>
-        <div id="skillModalLoader" class="text-center my-3 text-[#A6B0C3] hidden">Loading explanation... <i class="fas fa-spinner fa-spin"></i></div>
-        <p id="skillModalExplanation" class="text-[#C5D0E0] leading-relaxed whitespace-pre-line"></p>
-        <div id="skillModalError" class="text-red-400 mt-3 hidden"></div>
-    </div>
-</div>
-
-<button id="chatToggleBtn" title="Chat with AI Assistant">
+    <button id="chatToggleBtn" title="Chat with AI Assistant">
     <i class="fas fa-hand-sparkles"></i> 
-</button>
-<div id="chatWindow" class="">
-    <div id="chatHeader">
-        <span>Saurav's Ai Assistant</span>
-        <button id="closeChatBtn" title="Close Chat">×</button>
-    </div>
-    <div id="chatMessages">
+    </button>
+    <div id="chatWindow">
+        <div id="chatHeader">
+            <span>Saurav's Ai Assistant</span>
+            <button id="closeChatBtn" title="Close Chat">×</button>
         </div>
-    <div id="chatInputContainer">
-        <input type="text" id="chatInput" placeholder="Ask about skills, projects...">
-        <button id="chatSendBtn">Send</button>
+        <div id="chatMessages">
+        </div>
+        <div id="chatInputContainer">
+            <input type="text" id="chatInput" placeholder="Ask about skills, projects...">
+            <button id="chatSendBtn">Send</button>
+        </div>
     </div>
-</div>
-
-
     <script>
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-
         // Mobile menu toggle functionality
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('hidden');
             const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
             mobileMenuButton.setAttribute('aria-expanded', !expanded);
         }
         mobileMenuButton.addEventListener('click', toggleMobileMenu);
-
-        document.querySelectorAll('#mobile-menu a, header nav ul.hidden a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
+        document.querySelectorAll('#mobile-menu a, header nav ul li a').forEach(link => { // Changed selector for desktop nav links
+            link.addEventListener('click', (e) => { 
+                if (link.closest('#mobile-menu') && !mobileMenu.classList.contains('hidden')) { // Only toggle if it's a mobile menu link
                     toggleMobileMenu();
+                }
+                const targetId = link.getAttribute('href');
+                if(targetId && targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        e.preventDefault(); 
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
                 }
             });
         });
-
+        
+        // The general smooth scroll handler below might be redundant if the above handles all cases.
+        // However, it can act as a fallback. Consider if one consolidated handler is better.
+        document.querySelectorAll('header nav > div > ul a[href^="#"]').forEach(anchor => { // More specific selector for desktop nav
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.length > 1 && document.querySelector(href)) {
+                    if (!e.defaultPrevented) { 
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
         const typedOutput = document.getElementById('typed-output');
         const phrases = ["Software Developer", "Java Developer", "Backend Engineer", "Python Enthusiast", "Problem Solver"];
         let phraseIndex = 0;
@@ -545,11 +691,10 @@
         const deletingSpeed = 60;
         const pauseEnd = 2000;
         const pauseStart = 500;
-
         function typeWriter() {
+            if (!typedOutput) return; 
             const currentPhrase = phrases[phraseIndex];
             let currentTypingSpeed;
-
             if (isDeleting) {
                 typedOutput.textContent = currentPhrase.substring(0, charIndex - 1);
                 charIndex--;
@@ -559,7 +704,6 @@
                 charIndex++;
                 currentTypingSpeed = typingSpeed;
             }
-
             if (!isDeleting && charIndex === currentPhrase.length) {
                 currentTypingSpeed = pauseEnd; 
                 isDeleting = true;
@@ -570,69 +714,56 @@
             }
             setTimeout(typeWriter, currentTypingSpeed);
         }
-
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-
         function toggleCertContent(contentId, iconId) {
             const contentDiv = document.getElementById(contentId);
             const icon = document.getElementById(iconId);
-
             if (contentDiv) {
                 const iframe = contentDiv.querySelector('iframe');
-                if (contentDiv.classList.contains('open')) {
+                const isOpen = contentDiv.classList.contains('open');
+                document.querySelectorAll('#certifications .certification-content.open').forEach(openContent => {
+                    if (openContent.id !== contentId) {
+                        openContent.classList.remove('open');
+                        openContent.style.maxHeight = '0px';
+                        const otherIconId = openContent.id.replace('_content', '_icon');
+                        const otherIcon = document.getElementById(otherIconId);
+                        if (otherIcon) otherIcon.classList.remove('rotate-180');
+                    }
+                });
+                if (isOpen) {
                     contentDiv.classList.remove('open');
                     contentDiv.style.maxHeight = '0px'; 
+                    if (icon) icon.classList.remove('rotate-180');
                 } else {
-                    const allCertContents = document.querySelectorAll('#certifications .certification-content');
-                    const allCertIcons = document.querySelectorAll('#certifications .certification-button i.fa-chevron-down');
-                    
-                    allCertContents.forEach(item => {
-                        if(item.id !== contentId && item.classList.contains('open')) {
-                            item.classList.remove('open');
-                            item.style.maxHeight = '0px';
-                        }
-                    });
-                    allCertIcons.forEach(item_icon => {
-                        if(item_icon.id !== iconId && item_icon.classList.contains('rotate-180')) {
-                           item_icon.classList.remove('rotate-180');
-                        }
-                    });
-                    
-                    // iframe src ko load karein agar pehle se load nahi hua hai
                     if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
                         iframe.setAttribute('src', iframe.dataset.src);
                     }
-
                     contentDiv.classList.add('open');
                     setTimeout(() => {
-                        // scrollHeight ko use karein max-height set karne ke liye jab content visible ho
-                        contentDiv.style.maxHeight = (contentDiv.scrollHeight + 10) + 'px'; 
-                    }, 50); // Chhota sa delay, transition ke liye
-                }
-                if (icon) {
-                    icon.classList.toggle('rotate-180');
+                        contentDiv.style.maxHeight = (contentDiv.scrollHeight + 20) + 'px'; 
+                    }, 50);
+                    if (icon) icon.classList.add('rotate-180');
                 }
             }
         }
-
-        const GEMINI_API_KEY = "AIzaSyBq4SooArRNYx7lgTqxGNLscTGXG6fFMeY"; // API key ko yahan rakhein
-
+        const GEMINI_API_KEY = "AIzaSyBq4SooArRNYx7lgTqxGNLscTGXG6fFMeY"; 
         const refineMessageBtn = document.getElementById('refineMessageBtn');
         const messageTextarea = document.getElementById('message');
         const refineLoader = document.getElementById('refineLoader');
         const refineError = document.getElementById('refineError');
-
-        if (refineMessageBtn) {
+        if (refineMessageBtn && messageTextarea) { 
             refineMessageBtn.addEventListener('click', async () => {
                 const originalMessage = messageTextarea.value;
                 if (!originalMessage.trim()) {
-                    refineError.textContent = 'Message khaali hai. Refine karne ke liye kuch likhein.';
-                    refineError.classList.remove('hidden');
-                    setTimeout(() => refineError.classList.add('hidden'), 3000);
+                    if(refineError) {
+                        refineError.textContent = 'Message khaali hai. Refine karne ke liye kuch likhein.';
+                        refineError.classList.remove('hidden');
+                        setTimeout(() => refineError.classList.add('hidden'), 3000);
+                    }
                     return;
                 }
-                refineLoader.classList.remove('hidden');
-                refineError.classList.add('hidden');
+                if(refineLoader) refineLoader.classList.remove('hidden');
+                if(refineError) refineError.classList.add('hidden');
                 refineMessageBtn.disabled = true;
                 try {
                     const prompt = `Please refine the following message to make it more professional, concise, and impactful for a portfolio contact form. Maintain the original intent and key information. Here is the message: \n\n"${originalMessage}"\n\nReturn only the refined message text.`;
@@ -656,15 +787,16 @@
                     }
                 } catch (error) {
                     console.error('Message refine karne mein error:', error);
-                    refineError.textContent = `Error: ${error.message}`;
-                    refineError.classList.remove('hidden');
+                    if(refineError) {
+                        refineError.textContent = `Error: ${error.message}`;
+                        refineError.classList.remove('hidden');
+                    }
                 } finally {
-                    refineLoader.classList.add('hidden');
+                    if(refineLoader) refineLoader.classList.add('hidden');
                     refineMessageBtn.disabled = false;
                 }
             });
         }
-
         const skillBadges = document.querySelectorAll('.skill-badge');
         const skillModal = document.getElementById('skillModal');
         const skillModalTitle = document.getElementById('skillModalTitle');
@@ -672,16 +804,14 @@
         const skillModalLoader = document.getElementById('skillModalLoader');
         const skillModalError = document.getElementById('skillModalError');
         const closeSkillModalBtn = document.getElementById('closeSkillModalBtn');
-
         skillBadges.forEach(badge => {
             badge.addEventListener('click', async () => {
                 const skillName = badge.dataset.skill || badge.querySelector('span:last-child')?.textContent.trim() || badge.textContent.replace(/<i.*<\/i>/g, '').trim();
-                
-                skillModalTitle.textContent = `About: ${skillName}`;
-                skillModalExplanation.textContent = ''; // Pehle ki explanation clear karein
-                skillModalLoader.classList.remove('hidden');
-                skillModalError.classList.add('hidden');
-                skillModal.classList.add('active'); // Modal dikhayein
+                if(skillModalTitle) skillModalTitle.textContent = `About: ${skillName}`;
+                if(skillModalExplanation) skillModalExplanation.textContent = ''; 
+                if(skillModalLoader) skillModalLoader.classList.remove('hidden');
+                if(skillModalError) skillModalError.classList.add('hidden');
+                if(skillModal) skillModal.classList.add('active'); 
                 try {
                     const prompt = `Explain the technical skill "${skillName}" in 2-3 simple sentences for a portfolio. Briefly describe what it is and its common use or importance.`;
                     let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
@@ -698,57 +828,52 @@
                     }
                     const result = await response.json();
                     if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
-                        skillModalExplanation.innerHTML = result.candidates[0].content.parts[0].text.trim().replace(/\n/g, '<br>');
+                        if(skillModalExplanation) skillModalExplanation.innerHTML = result.candidates[0].content.parts[0].text.trim().replace(/\n/g, '<br>');
                     } else {
                         throw new Error('API se skill explanation nahi mila.');
                     }
                 } catch (error) {
                     console.error('Skill explain karne mein error:', error);
-                    skillModalError.textContent = `Error: ${error.message}`;
-                    skillModalError.classList.remove('hidden');
+                     if(skillModalError) {
+                        skillModalError.textContent = `Error: ${error.message}`;
+                        skillModalError.classList.remove('hidden');
+                    }
                 } finally {
-                    skillModalLoader.classList.add('hidden');
+                    if(skillModalLoader) skillModalLoader.classList.add('hidden');
                 }
             });
         });
-
-        if(closeSkillModalBtn) {
+        if(closeSkillModalBtn && skillModal) {
             closeSkillModalBtn.addEventListener('click', () => {
                 skillModal.classList.remove('active');
             });
         }
         if(skillModal){
-            // Modal ke bahar click karne par use band karein
             skillModal.addEventListener('click', (event) => {
                 if (event.target === skillModal) {
                     skillModal.classList.remove('active');
                 }
             });
         }
-        
-        // Chatbot Functionality
         const chatToggleBtn = document.getElementById('chatToggleBtn');
         const chatWindow = document.getElementById('chatWindow');
         const closeChatBtn = document.getElementById('closeChatBtn');
         const chatMessagesDiv = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const chatSendBtn = document.getElementById('chatSendBtn');
-        let chatbotConversationHistory = []; // Chat history store karein
-
-        // Portfolio context chatbot ke liye
+        let chatbotConversationHistory = []; 
         const chatbotPortfolioContext = `Sauravkumar Chaudhary is a passionate Software Developer with hands-on experience in Java, Spring Boot, Python, and PHP Laravel. He is adept at backend development, API integration, and database design. Education: MCA from Ganpat University (2023-2025, CGPA: 8.22/10), BCA from Hemchandracharya North Gujarat University (2020-2023, CGPA: 8.78/10). Experience: Java Development Intern at Cognifyz Technologies (May 2024 - Dec 2024) working on backend modules, debugging, API integration, JDBC, MySQL. Software Developer Intern at Premier Infotech (Jan 2025 - May 2025) building RESTful APIs with Spring Boot, authentication, CRUD. Key Skills: Java, Python, PHP, C, C#, HTML, CSS, JavaScript, Spring Boot, Laravel, Django, ASP.NET, MySQL, Oracle SQL, MS SQL Server, OOP, MVC, REST APIs, Software Testing. Projects: Online Shopping Site (Python, Django, MySQL), Food Finder (PHP, Laravel, MySQL, Google Maps API).
         You are Saurav's portfolio AI assistant. Your role is to answer questions based ONLY on the provided profile information about Saurav. If a question is outside this scope, politely state that you can only provide information related to Saurav's professional profile. Keep your answers concise, friendly, and professional.`;
-
         function addMessageToChat(text, sender) {
+            if (!chatMessagesDiv) return;
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'ai-message');
-            // HTML ko render karein (jaise <br> new lines ke liye)
             messageDiv.innerHTML = text.replace(/\n/g, '<br>'); 
             chatMessagesDiv.appendChild(messageDiv);
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; // Naye message tak scroll karein
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; 
         }
-
         function showTypingIndicator(show) {
+            if (!chatMessagesDiv) return;
             let typingIndicator = document.getElementById('typingIndicator');
             if (show) {
                 if (!typingIndicator) {
@@ -765,38 +890,33 @@
                 }
             }
         }
-        
         async function handleChatSend() {
+            if (!chatInput || !chatMessagesDiv) return;
             const userInput = chatInput.value.trim();
             if (!userInput) return;
-
             addMessageToChat(userInput, 'user');
             chatbotConversationHistory.push({ role: "user", parts: [{ text: userInput }] });
             chatInput.value = '';
             showTypingIndicator(true);
-            
-            // Context aur current conversation history ko combine karein
             const apiPayloadContents = [
-                { role: "user", parts: [{ text: chatbotPortfolioContext }] }, // Pehla message context
-                ...chatbotConversationHistory // Baaki conversation
+                { role: "user", parts: [{ text: chatbotPortfolioContext }] }, 
+                ...chatbotConversationHistory 
             ];
-
             try {
                 const payload = { contents: apiPayloadContents };
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
                 showTypingIndicator(false);
-
                 if (!response.ok) {
                     const errorData = await response.json();
                     addMessageToChat(`Sorry, I encountered an error: ${errorData?.error?.message || response.statusText}`, 'ai');
-                    chatbotConversationHistory.pop(); // Agar error aaye toh user ka last message history se hata dein
+                    if (chatbotConversationHistory.length > 0 && chatbotConversationHistory[chatbotConversationHistory.length -1].role === "user") {
+                        chatbotConversationHistory.pop(); 
+                    }
                     return;
                 }
                 const result = await response.json();
@@ -806,30 +926,32 @@
                     chatbotConversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
                 } else {
                     addMessageToChat("Sorry, I couldn't get a proper response. Please try again.", 'ai');
-                    chatbotConversationHistory.pop(); // Agar response ajeeb ho toh user ka last message history se hata dein
+                     if (chatbotConversationHistory.length > 0 && chatbotConversationHistory[chatbotConversationHistory.length -1].role === "user") {
+                        chatbotConversationHistory.pop(); 
+                    }
                 }
             } catch (error) {
                 showTypingIndicator(false);
                 console.error('Chatbot API Error:', error);
                 addMessageToChat(`Sorry, an error occurred: ${error.message}`, 'ai');
-                chatbotConversationHistory.pop(); // Error par user ka last message history se hata dein
+                 if (chatbotConversationHistory.length > 0 && chatbotConversationHistory[chatbotConversationHistory.length -1].role === "user") {
+                    chatbotConversationHistory.pop();
+                }
             }
         }
-
-        if (chatToggleBtn) {
+        if (chatToggleBtn && chatWindow) {
             chatToggleBtn.addEventListener('click', () => {
                 chatWindow.classList.toggle('active');
-                // Jab chat window khule aur messages khaali hon, tab welcome message dikhayein
-                if (chatWindow.classList.contains('active') && chatMessagesDiv.children.length === 0) {
-                    chatbotConversationHistory = []; // Nayi conversation ke liye history reset karein
-                    setTimeout(() => { // Thoda delay taaki transition smooth lage
+                if (chatWindow.classList.contains('active') && chatMessagesDiv && chatMessagesDiv.children.length === 0) {
+                    chatbotConversationHistory = []; 
+                    setTimeout(() => { 
                          addMessageToChat("Hello! I'm Saurav's AI assistant. Ask me anything about his skills, projects, or experience!", 'ai');
                          chatbotConversationHistory.push({ role: "model", parts: [{ text: "Hello! I'm Saurav's AI assistant. Ask me anything about his skills, projects, or experience!" }] });
                     }, 300);
                 }
             });
         }
-        if (closeChatBtn) {
+        if (closeChatBtn && chatWindow) {
             closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
         }
         if (chatSendBtn) {
@@ -842,14 +964,12 @@
                 }
             });
         }
-
-        // Resume Builder se related JavaScript code yahan se hata diya gaya hai.
-        // Jaise ki: resumeFormInputs, educationFieldsContainer, experienceFieldsContainer, etc.
-        // Functions: addDynamicFields, renderCustomSectionInput, getDynamicSectionData, updateResumePreview, aur unke event listeners.
-        // downloadResumePdfBtn ka event listener bhi hata diya gaya hai.
-        
         async function loadParticles(options) {
-            await tsParticles.load("tsparticles", options);
+            try {
+                await tsParticles.load("tsparticles", options);
+            } catch (error) {
+                console.error("Error loading tsParticles:", error);
+            }
         }
         const particlesOptions = { 
             background: { color: { value: 'transparent' } },
@@ -881,61 +1001,38 @@
             },
             detectRetina: true
         };
-
-
         window.onload = function() {
-            // Page load par scroll restoration ko manual karein
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
-
-            // Typewriter effect shuru karein agar element maujood hai
             if (typedOutput) { 
                  typeWriter();
             }
-            
-            // Particles load karein
-            loadParticles(particlesOptions); 
-
-            // Initial scroll position ko handle karein
+            if (typeof tsParticles !== 'undefined' && document.getElementById('tsparticles')) { 
+                loadParticles(particlesOptions);
+            } else {
+                if (typeof tsParticles === 'undefined') console.error("tsParticles not loaded.");
+                if (!document.getElementById('tsparticles')) console.error("#tsparticles element not found.");
+            }
             const htmlElement = document.documentElement;
-            const originalScrollBehavior = htmlElement.style.scrollBehavior; // Original scroll behavior save karein
-            
-            // Ek short delay ke baad, scroll behavior ko 'auto' set karein
-            // taaki initial scroll adjustments smooth na hon (page jump se bachne ke liye)
+            const originalScrollBehavior = htmlElement.style.scrollBehavior; 
             setTimeout(function() {
-                htmlElement.style.scrollBehavior = 'auto'; // Temporarily scroll behavior ko 'auto' karein
-
-                // Sabhi certification content ko band karein aur icons ko reset karein
+                htmlElement.style.scrollBehavior = 'auto'; 
                 document.querySelectorAll('#certifications .certification-content').forEach(content => {
-                    const iframe = content.querySelector('iframe');
-                    if (iframe && iframe.dataset.src && !iframe.getAttribute('src')) {
-                        // Iframes ko initial page load par load na karein scroll issues se bachne ke liye
-                    }
-                    content.style.maxHeight = '0px'; // Max height 0 set karein
+                    content.style.maxHeight = '0px'; 
                     content.classList.remove('open');
                 });
                 document.querySelectorAll('#certifications .certification-button i.fa-chevron-down').forEach(icon => {
-                    icon.classList.remove('rotate-180'); // Icon ko default state mein reset karein
+                    icon.classList.remove('rotate-180'); 
                 });
-
-                // Agar koi hash nahi hai aur page scroll hua hai, toh top par scroll karein
-                // Yeh khaas taur par tab zaroori hai jab iframe ke andar page reload ho
                 if (window.location.hash === '' && window.scrollY !== 0) { 
-                   // console.log("No hash, scrolling to top instantly.");
-                   window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // 'instant' behavior use karein
-                   document.body.focus({preventScroll:true}); // Focus body par shift karein taaki scroll lock ho
+                   window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
+                   if(document.body) document.body.focus({preventScroll:true}); 
                 }
-                
-                // Original scroll behavior ko restore karein ek aur short delay ke baad
                 setTimeout(function() {
                     htmlElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
                 }, 50);
-
-            }, 250); // Delay ko adjust kiya gaya hai, zaroorat ke anusaar aur badha sakte hain
-            
-            // Resume preview update function ko yahan se hata diya gaya hai.
-            // updateResumePreview(); 
+            }, 250); 
         };
     </script>
 </body>
